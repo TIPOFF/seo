@@ -1,7 +1,7 @@
 # SEO
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tipoff/seo.svg?style=flat-square)](https://packagist.org/packages/tipoff/seo)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/tipoff/seo/run-tests?label=tests)](https://github.com/tipoff/seo/actions?query=workflow%3ATests+branch%3Amaster)
+![Tests](https://github.com/tipoff/seo/workflows/Tests/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/tipoff/seo.svg?style=flat-square)](https://packagist.org/packages/tipoff/seo)
 
 This is where your description should go.

@@ -6,7 +6,6 @@ namespace Tipoff\Seo;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Tipoff\Seo\Commands\SeoCommand;
 
 class SeoServiceProvider extends PackageServiceProvider
 {

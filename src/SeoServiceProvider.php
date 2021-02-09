@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tipoff\Seo;
 
 use Spatie\LaravelPackageTools\Package;
@@ -8,6 +10,12 @@ use Tipoff\Seo\Commands\SeoCommand;
 
 class SeoServiceProvider extends PackageServiceProvider
 {
+    public function boot()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        parent::boot();
+    }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -17,9 +25,6 @@ class SeoServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('seo')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_seo_table')
-            ->hasCommand(SeoCommand::class);
+            ->hasConfigFile();
     }
 }

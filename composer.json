@@ -44,10 +44,7 @@
         "laravel": {
             "providers": [
                 "Tipoff\\Seo\\SeoServiceProvider"
-            ],
-            "aliases": {
-                "Seo": "Tipoff\\Seo\\SeoFacade"
-            }
+            ]
         }
     },
     "repositories": [

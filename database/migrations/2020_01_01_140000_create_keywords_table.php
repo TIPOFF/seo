@@ -16,6 +16,7 @@ class CreateKeywordsTable extends Migration
             $table->id();
             $table->string('phrase')->index()->unique();
 
+            // Add nullable keyword_type_id
             $table->foreignIdFor(Keyword::class, 'parent_id')->nullable();
             $table->foreignIdFor(app('user'), 'creator_id');
             $table->foreignIdFor(app('user'), 'updater_id');

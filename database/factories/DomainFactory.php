@@ -10,7 +10,7 @@ use Tipoff\Seo\Models\Domain;
 
 class DomainFactory extends Factory
 {
-    protected $model = Keyword::class;
+    protected $model = Domain::class;
 
     public function definition()
     {

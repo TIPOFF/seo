@@ -15,6 +15,9 @@ class DomainFactory extends Factory
     public function definition()
     {
         return [
+            'name'          => $this->faker->name,
+            'tld'           => $this->faker->name,
+            'https'         => $this->faker->boolean,
             'creator_id'    => randomOrCreate(app('user')),
             'updater_id'    => randomOrCreate(app('user')),
         ];

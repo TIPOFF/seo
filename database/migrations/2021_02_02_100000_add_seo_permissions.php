@@ -14,10 +14,31 @@ class AddSeoPermissions extends Migration
             app(PermissionRegistrar::class)->forgetCachedPermissions();
 
             foreach ([
-                         'view keywords',
-                         'create keywords',
-                         'update keywords',
-                     ] as $name) {
+                'view companies',
+                'create companies',
+                'update companies',
+                'view domains',
+                'create domains',
+                'update domains',
+                'view webpages',
+                'create webpages',
+                'update webpages',
+                'view places',
+                'create places',
+                'update places',
+                'view keyword types',
+                'create keyword types',
+                'update keyword types',
+                'view keywords',
+                'create keywords',
+                'update keywords',
+                'view rankings',
+                'create rankings',
+                'update rankings',
+                'view search volumes',
+                'create search volumes',
+                'update search volumes',
+            ] as $name) {
                 app(Permission::class)::findOrCreate($name, null);
             };
         }

@@ -25,8 +25,14 @@ class PermissionsMigrationTest extends TestCase
             'view location companies',
             'create location companies',
             'update location companies',
+            'view keywords',
+            'create keywords',
+            'update keywords',
+            'view location keywords',
+            'create location keywords',
+            'update location keywords',
         ])->pluck('name');
 
-        $this->assertCount(6, $seededPermissions);
+        $this->assertCount(12, $seededPermissions);
     }
 }

@@ -15,7 +15,7 @@ class SeoServiceProvider extends TipoffServiceProvider
     {
         $package
             ->hasPolicies([
-                Company::class => CompanyPolicy::class
+                Company::class => CompanyPolicy::class,
             ])
             ->name('seo')
             ->hasConfigFile();

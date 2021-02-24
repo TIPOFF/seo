@@ -21,7 +21,7 @@ class SeoServiceProvider extends TipoffServiceProvider
             ->hasPolicies([
                 Company::class => CompanyPolicy::class,
                 Keyword::class => KeywordPolicy::class,
-                Domain::class => DomainPolicy::class
+                Domain::class => DomainPolicy::class,
             ])
             ->name('seo')
             ->hasConfigFile();

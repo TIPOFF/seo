@@ -18,7 +18,7 @@ class TestCase extends BaseTestCase
             SupportServiceProvider::class,
             AuthorizationServiceProvider::class,
             PermissionServiceProvider::class,
-            SeoServiceProvider::class
+            SeoServiceProvider::class,
         ];
     }
 }

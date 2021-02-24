@@ -9,3 +9,7 @@ All notable changes to `seo` will be documented in this file.
 - basic models
 - add policies
 - register policies
+
+## 1.0.1 - 2021-02-24
+
+- require tipoff/laravel-google-api

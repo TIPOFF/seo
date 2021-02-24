@@ -13,8 +13,8 @@ class CreateKeywordsTable extends Migration
     {
         Schema::create('rankings', function (Blueprint $table) {
             $table->id();
-            $table->string('source'); // Example: 'google', 'bing' (haha)
-            $table->string('provider'); // Example: 'serpapi', 'moz', 'ahrefs'
+            $table->string('engine')->index(); // Example: 'google', 'bing' (haha)
+            $table->string('provider')->index(); // Example: 'serpapi', 'moz', 'ahrefs'
             $table->foreignIdFor(Keyword::class)->index();
             $table->date('date')->index();
 
@@ -29,6 +29,6 @@ class CreateKeywordsTable extends Migration
             $table->timestamps();
         });
 
-        // Add a unique combination of source, provider, keyword_id & date
+        // Add a unique combination of engine, provider, keyword_id & date
     }
 }

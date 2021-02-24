@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Tipoff\Seo\Models\Keyword;
-use Tipoff\Support\Enums\AppliesTo;
 
 class CreateKeywordsTable extends Migration
 {

@@ -7,7 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Tipoff\Seo\Models\Domain;
 
-class CreateDomainsTable extends Migration
+class CreateWebpagesTable extends Migration
 {
     public function up()
     {

@@ -7,7 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Tipoff\Seo\Models\Keyword;
 
-class CreateKeywordsTable extends Migration
+class CreateRankingsTable extends Migration
 {
     public function up()
     {

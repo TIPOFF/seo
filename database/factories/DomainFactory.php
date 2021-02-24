@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tipoff\Discounts\Database\Factories;
+namespace Tipoff\Seo\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tipoff\Support\Enums\AppliesTo;

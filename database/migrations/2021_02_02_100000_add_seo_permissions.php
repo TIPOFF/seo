@@ -17,6 +17,7 @@ class AddSeoPermissions extends Migration
                 'view companies',
                 'create companies',
                 'update companies',
+                'delete companies',
                 'view domains',
                 'create domains',
                 'update domains',
@@ -32,12 +33,15 @@ class AddSeoPermissions extends Migration
                 'view keywords',
                 'create keywords',
                 'update keywords',
+                'delete keywords',
                 'view rankings',
                 'create rankings',
                 'update rankings',
+                'delete rankings',
                 'view search volumes',
                 'create search volumes',
                 'update search volumes',
+                'delete search volumes',
             ] as $name) {
                 app(Permission::class)::findOrCreate($name, null);
             };

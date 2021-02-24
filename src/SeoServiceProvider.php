@@ -7,9 +7,11 @@ namespace Tipoff\Seo;
 use Tipoff\Seo\Models\Company;
 use Tipoff\Seo\Models\Domain;
 use Tipoff\Seo\Models\Keyword;
+use Tipoff\Seo\Models\Place;
 use Tipoff\Seo\Policies\CompanyPolicy;
 use Tipoff\Seo\Policies\DomainPolicy;
 use Tipoff\Seo\Policies\KeywordPolicy;
+use Tipoff\Seo\Policies\PlacePolicy;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 
@@ -21,7 +23,8 @@ class SeoServiceProvider extends TipoffServiceProvider
             ->hasPolicies([
                 Company::class => CompanyPolicy::class,
                 Keyword::class => KeywordPolicy::class,
-                Domain::class => DomainPolicy::class
+                Domain::class => DomainPolicy::class,
+                Place::class => PlacePolicy::class
             ])
             ->name('seo')
             ->hasConfigFile();

@@ -17,6 +17,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "tipoff/authorization": "^1.0.1",
+        "tipoff/laravel-google-api": "^1.0",
         "tipoff/support": "^1.4.3"
     },
     "require-dev": {

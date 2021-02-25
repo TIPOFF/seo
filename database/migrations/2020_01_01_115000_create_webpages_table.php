@@ -15,12 +15,13 @@ class CreateWebpagesTable extends Migration
             $table->id();
             $table->foreignIdFor(Domain::class)->nullable();
             $table->string('path'); // Example: slug, folder/slug, folder/file.html, img/image-name.jpg
+            $table->string('subdomain')->nullable(); // Example: www
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable();
             $table->foreignIdFor(app('user'), 'updater_id')->nullable();
             $table->timestamps();
-        });
 
-        // Add a unique combination of domain_id & path
+            $table->unique(['domain_id', 'path']);
+        });
     }
 }

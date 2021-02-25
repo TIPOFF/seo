@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Tipoff\Seo\Models\Place;
+use Tipoff\Seo\Models\Webpage;
 
 class CreatePlaceDetailsTable extends Migration
 {
@@ -25,6 +26,7 @@ class CreatePlaceDetailsTable extends Migration
             $table->string('maps_url')->nullable(); // URL for place's Google Maps page.
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+            $table->foreignIdFor(Webpage::class)->nullable();
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable(); // User that requested the place data to be updated
             $table->timestamp('created_at');

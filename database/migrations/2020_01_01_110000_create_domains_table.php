@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Tipoff\Seo\Models\Webpage;
 
 class CreateDomainsTable extends Migration
 {
@@ -16,7 +17,7 @@ class CreateDomainsTable extends Migration
             $table->string('tld'); // Example: com, org, net, co, dev
             $table->boolean('https')->default(true);
 
-            // Add nullable company_id
+            $table->foreignIdFor(Company::class)->nullable();
             $table->foreignIdFor(app('user'), 'creator_id')->nullable();
             $table->foreignIdFor(app('user'), 'updater_id')->nullable();
             $table->timestamps();

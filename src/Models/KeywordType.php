@@ -14,4 +14,21 @@ class KeywordType extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($keyword_type) {
+        });
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function keywords()
+    {
+        return $this->hasMany(app('keywords'));
+    }
+
 }

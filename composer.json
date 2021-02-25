@@ -19,7 +19,7 @@
         "tipoff/authorization": "^1.0.1",
         "tipoff/laravel-google-api": "^1.0",
         "tipoff/laravel-serpapi": "^1.0",
-        "tipoff/support": "^1.4.3"
+        "tipoff/support": "^1.4.6"
     },
     "require-dev": {
         "tipoff/test-support": "^1.0.5"

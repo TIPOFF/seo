@@ -14,4 +14,23 @@ class Keyword extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($keyword) {
+            $keyword->phrase = strtolower($keyword->phrase);
+
+            if (empty($keyword->keyword_type_id)) {
+                throw new \Exception('A keyword must be belong to a keyword type.');
+            }
+        });
+    }
+
+    public function keyword_types()
+    {
+        return $this->belongsTo(app('keyword_types'));
+    }
+
 }

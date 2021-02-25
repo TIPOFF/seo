@@ -14,4 +14,13 @@ class Keyword extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($keyword) {
+            $keyword->phrase = strtolower($keyword->phrase);
+        });
+    }
 }

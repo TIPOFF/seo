@@ -32,9 +32,6 @@ class PermissionsMigrationTest extends TestCase
             'view places',
             'create places',
             'update places',
-            'view keyword types',
-            'create keyword types',
-            'update keyword types',
             'view keywords',
             'create keywords',
             'update keywords',
@@ -49,6 +46,6 @@ class PermissionsMigrationTest extends TestCase
             'delete search volumes',
         ])->pluck('name');
 
-        $this->assertCount(28, $seededPermissions);
+        $this->assertCount(25, $seededPermissions);
     }
 }

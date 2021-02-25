@@ -16,6 +16,7 @@ class CreateDomainsTable extends Migration
             $table->string('name'); // Eample: tipoff, drewroberts, google, amazon, wikipedia
             $table->string('tld'); // Example: com, org, net, co, dev
             $table->boolean('https')->default(true);
+            $table->string('subdomain')->nullable(); // Default subdomain. Example: www
 
             $table->foreignIdFor(Company::class)->nullable();
             $table->foreignIdFor(app('user'), 'creator_id')->nullable();

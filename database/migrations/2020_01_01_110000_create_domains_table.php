@@ -22,8 +22,8 @@ class CreateDomainsTable extends Migration
             $table->foreignIdFor(app('user'), 'creator_id')->nullable();
             $table->foreignIdFor(app('user'), 'updater_id')->nullable();
             $table->timestamps();
-        });
 
-        // Add a unique combination of name & tld
+            $table->unique(['name', 'tld']);
+        });
     }
 }

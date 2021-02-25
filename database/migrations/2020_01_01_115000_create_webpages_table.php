@@ -20,8 +20,8 @@ class CreateWebpagesTable extends Migration
             $table->foreignIdFor(app('user'), 'creator_id')->nullable();
             $table->foreignIdFor(app('user'), 'updater_id')->nullable();
             $table->timestamps();
-        });
 
-        // Add a unique combination of domain_id & path
+            $table->unique(['domain_id', 'path']);
+        });
     }
 }

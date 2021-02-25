@@ -30,5 +30,4 @@ class KeywordType extends BaseModel
     {
         return $this->hasMany(app('keywords'));
     }
-
 }

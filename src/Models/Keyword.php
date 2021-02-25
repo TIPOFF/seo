@@ -32,5 +32,4 @@ class Keyword extends BaseModel
     {
         return $this->belongsTo(app('keyword_types'));
     }
-
 }

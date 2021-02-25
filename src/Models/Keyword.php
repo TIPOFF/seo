@@ -28,17 +28,17 @@ class Keyword extends BaseModel
         });
     }
 
-    public function isBranded()
+    public function isBranded(): bool
     {
         return $this->type == Keyword::TYPE_BRANDED;
     }
 
-    public function isGeneric()
+    public function isGeneric(): bool
     {
         return $this->type == Keyword::TYPE_GENERIC;
     }
 
-    public function isLocal()
+    public function isLocal(): bool
     {
         return $this->type == Keyword::TYPE_LOCAL;
     }

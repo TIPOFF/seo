@@ -15,6 +15,10 @@ class Keyword extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    const TYPE_BRANDED = 'Branded';
+    const TYPE_GENERIC = 'Generic';
+    const TYPE_LOCAL = 'Local';
+
     protected static function boot()
     {
         parent::boot();
@@ -22,5 +26,20 @@ class Keyword extends BaseModel
         static::saving(function ($keyword) {
             $keyword->phrase = strtolower($keyword->phrase);
         });
+    }
+
+    public function isBranded(): bool
+    {
+        return $this->type == Keyword::TYPE_BRANDED;
+    }
+
+    public function isGeneric(): bool
+    {
+        return $this->type == Keyword::TYPE_GENERIC;
+    }
+
+    public function isLocal(): bool
+    {
+        return $this->type == Keyword::TYPE_LOCAL;
     }
 }

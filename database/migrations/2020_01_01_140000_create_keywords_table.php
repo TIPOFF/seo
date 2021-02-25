@@ -14,8 +14,8 @@ class CreateKeywordsTable extends Migration
         Schema::create('keywords', function (Blueprint $table) {
             $table->id();
             $table->string('phrase')->index()->unique();
-            $table->string('type')->index();
-            
+            $table->string('type')->index(); // Example: 'Branded', 'Generic', 'Local'
+
             $table->foreignIdFor(Keyword::class, 'parent_id')->nullable();
             $table->foreignIdFor(app('user'), 'creator_id');
             $table->foreignIdFor(app('user'), 'updater_id');

@@ -21,3 +21,7 @@ All notable changes to `seo` will be documented in this file.
 ## 1.0.3 - 2021-02-27
 
 - bump dependencies
+
+## 1.0.4 - 2021-02-27
+
+- profile links migration

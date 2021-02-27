@@ -16,6 +16,8 @@ class CreateWebpagesTable extends Migration
             $table->foreignIdFor(Domain::class)->nullable();
             $table->string('path'); // Example: slug, folder/slug, folder/file.html, img/image-name.jpg
             $table->string('subdomain')->nullable(); // Example: www
+            
+            $table->foreignIdFor(app('video'))->nullable(); // Optional reference to company YouTube video
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable();
             $table->foreignIdFor(app('user'), 'updater_id')->nullable();

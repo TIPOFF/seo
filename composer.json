@@ -18,9 +18,9 @@
         "php": "^7.3|^8.0",
         "drewroberts/media": "^3.2.2",
         "tipoff/authorization": "^2.0.1",
-        "tipoff/laravel-google-api": "^1.0.1",
+        "tipoff/laravel-google-api": "^1.1.0",
         "tipoff/laravel-serpapi": "^1.0.2",
-        "tipoff/support": "^1.4.10"
+        "tipoff/support": "^1.4.11"
     },
     "require-dev": {
         "tipoff/test-support": "^1.0.9"

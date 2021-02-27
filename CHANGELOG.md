@@ -13,3 +13,7 @@ All notable changes to `seo` will be documented in this file.
 ## 1.0.1 - 2021-02-24
 
 - require tipoff/laravel-google-api
+
+## 1.0.2 - 2021-02-27
+
+- update migrations

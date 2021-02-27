@@ -25,3 +25,7 @@ All notable changes to `seo` will be documented in this file.
 ## 1.0.4 - 2021-02-27
 
 - profile links migration
+
+## 1.0.5 - 2021-02-27
+
+- new release of tipoff/laravel-google-api

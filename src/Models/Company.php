@@ -8,6 +8,7 @@ use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
 use Tipoff\Support\Traits\HasUpdater;
+use Tipoff\Seo\Models\CompanyUser;
 
 class Company extends BaseModel
 {
@@ -17,6 +18,6 @@ class Company extends BaseModel
 
     public function users()
     {
-    	return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator','updater','primary_contact'])->wherePivot('primary_contact',1);
+    	return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator_id','updater_id','primary_contact'])->using(CompanyUser::class);
     }
 }

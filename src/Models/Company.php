@@ -14,4 +14,9 @@ class Company extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    public function users()
+    {
+    	return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator','updater','primary_contact'])->wherePivot('primary_contact',1);
+    }
 }

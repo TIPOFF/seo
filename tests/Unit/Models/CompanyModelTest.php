@@ -7,6 +7,7 @@ namespace Tipoff\Seo\Tests\Unit\Models;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Seo\Models\Company;
 use Tipoff\Seo\Tests\TestCase;
+use Tipoff\Authorization\Models\User;
 
 class CompanyModelTest extends TestCase
 {
@@ -17,5 +18,21 @@ class CompanyModelTest extends TestCase
     {
         $model = Company::factory()->create();
         $this->assertNotNull($model);
+    }
+
+    /** @test */
+    public function after_save_other_user_company_are_false()
+    {
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+        $company = Company::factory()->create();
+
+        $company->users()->attach($user->id, ['creator_id'=>$user->id, 'updater_id'=>$user->id, 'primary_contact'=>true]);
+
+        $company->users()->attach($user2->id, ['creator_id'=>$user2->id, 'updater_id'=>$user2->id, 'primary_contact'=>true]);
+
+        $option = $company->users->take(2);
+
+        $this->assertSame(!(bool)$option[0]->pivot->primary_contact,(bool)$option[1]->pivot->primary_contact);
     }
 }

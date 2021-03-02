@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tipoff\Seo\Tests\Unit\Models;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tipoff\Authorization\Models\User;
 use Tipoff\Seo\Models\Company;
 use Tipoff\Seo\Tests\TestCase;
-use Tipoff\Authorization\Models\User;
 
 class CompanyModelTest extends TestCase
 {
@@ -28,11 +28,11 @@ class CompanyModelTest extends TestCase
         $company = Company::factory()->create();
 
         foreach ($users as $user) {
-        	$company->users()->attach($user->id, ['creator_id'=>$user->id, 'updater_id'=>$user->id, 'primary_contact'=>true]);
-       	}
+            $company->users()->attach($user->id, ['creator_id' => $user->id, 'updater_id' => $user->id, 'primary_contact' => true]);
+        }
         
         $option = $company->users->take(2);
 
-        $this->assertSame(!(bool)$option[0]->pivot->primary_contact,(bool)$option[1]->pivot->primary_contact);
+        $this->assertSame(! (bool)$option[0]->pivot->primary_contact, (bool)$option[1]->pivot->primary_contact);
     }
 }

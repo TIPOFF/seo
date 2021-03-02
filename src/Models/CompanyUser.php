@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Models;
 
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
 use Tipoff\Support\Traits\HasUpdater;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class CompanyUser extends Pivot
 {
@@ -21,8 +21,8 @@ class CompanyUser extends Pivot
 
         static::creating(function ($model) {
             foreach ($model->pivotParent->users()->allRelatedIds() as $id) {
-            	$model->pivotParent->users()->sync([$id => [ 'primary_contact' => false] ], false);
-            }  
+                $model->pivotParent->users()->sync([$id => [ 'primary_contact' => false] ], false);
+            }
         });
     }
 }

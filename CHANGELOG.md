@@ -33,3 +33,7 @@ All notable changes to `seo` will be documented in this file.
 ## 1.0.6 - 2021-03-01
 
 - update dependency packages
+
+## 1.0.7 - 2021-03-01
+
+- remove policy for deleted model

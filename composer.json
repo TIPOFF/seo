@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "drewroberts/media": "^3.2.2",
-        "tipoff/authorization": "^2.0.1",
+        "tipoff/authorization": "^2.1.1",
         "tipoff/laravel-google-api": "^1.2.0",
         "tipoff/laravel-serpapi": "^1.0.3",
         "tipoff/support": "^1.5.2"

@@ -13,9 +13,12 @@ class KeywordFactory extends Factory
 
     public function definition()
     {
+        $array_type = ['Branded', 'Generic', 'Local'];
+        $random_type = array_rand($array_type,2);
+
         return [
             'phrase'        => $this->faker->name,
-            'type'          => $this->faker->name,
+            'type'          => $random_type[0],
             'creator_id'    => randomOrCreate(app('user')),
             'updater_id'    => randomOrCreate(app('user')),
         ];

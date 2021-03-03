@@ -17,13 +17,13 @@
     "require": {
         "php": "^7.3|^8.0",
         "drewroberts/media": "^3.2.2",
-        "tipoff/authorization": "^2.1.1",
+        "tipoff/authorization": "^2.2.2",
         "tipoff/laravel-google-api": "^1.2.0",
-        "tipoff/laravel-serpapi": "^1.0.3",
-        "tipoff/support": "^1.5.2"
+        "tipoff/laravel-serpapi": "^1.0.4",
+        "tipoff/support": "^1.5.3"
     },
     "require-dev": {
-        "tipoff/test-support": "^1.1.1"
+        "tipoff/test-support": "^1.1.2"
     },
     "autoload": {
         "psr-4": {

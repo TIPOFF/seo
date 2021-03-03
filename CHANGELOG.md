@@ -37,3 +37,7 @@ All notable changes to `seo` will be documented in this file.
 ## 1.0.7 - 2021-03-01
 
 - remove policy for deleted model
+
+## 1.0.8 - 2021-03-02
+
+- company users

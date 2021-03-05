@@ -14,4 +14,9 @@ class Result extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    public function ranking()
+    {
+        return $this->belongsTo(Ranking::class);
+    }
 }

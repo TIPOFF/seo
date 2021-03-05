@@ -14,4 +14,9 @@ class Domain extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

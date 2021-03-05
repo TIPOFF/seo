@@ -15,13 +15,8 @@ class Ranking extends BaseModel
     use HasCreator;
     use HasUpdater;
 
-    public function webpage()
+    public function results()
     {
-        return $this->belongsTo(app('webpage'));
-    }
-
-    public function places()
-    {
-        return $this->belongsTo(app('place'));
+        return $this->hasMany(Result::class);
     }
 }

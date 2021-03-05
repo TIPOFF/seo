@@ -28,5 +28,6 @@ class CreateSearchVolumesTable extends Migration
         });
 
         // Add a unique combination of engine, provider, keyword_id & month
+        $table->unique(['engine', 'provider', 'keyword_id', 'month']);
     }
 }

@@ -19,4 +19,28 @@ class Company extends BaseModel
     {
         return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator_id','updater_id','primary_contact'])->using(CompanyUser::class);
     }
+
+    public function domain()
+    {
+        return $this->hasOne(app('domain'));
+    }
+
+    public function place()
+    {
+        return $this->hasOne(app('place'));
+    }
+
+    /**
+     * optional market
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function market()
+    {
+        return $this->belongsTo(app('market'));
+    }
+
+    public function address()
+    {
+        return $this->morphOne(app('address'), 'addressable');
+    }
 }

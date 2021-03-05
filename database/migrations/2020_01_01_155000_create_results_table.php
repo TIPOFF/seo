@@ -19,9 +19,8 @@ class CreateResultsTable extends Migration
             $table->string('type')->index(); // Example: 'Organic', 'Local', 'Ads', 'Inline Video'
             $table->unsignedTinyInteger('position')->index();
 
-            // Result (one or the other)
-            $table->foreignIdFor(Webpage::class)->nullable();
-            $table->foreignIdFor(Place::class)->nullable();
+            // resultable_id, resultable_type either Tipoff\Seo\Models\Webpage or Place
+            $table->morphs('resultable');
 
             // Don't need timestamps since can use created_at timestamp of the ranking class
 

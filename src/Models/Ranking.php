@@ -14,4 +14,14 @@ class Ranking extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    public function webpage()
+    {
+        return $this->belongsTo(app('webpage'));
+    }
+
+    public function places()
+    {
+        return $this->belongsTo(app('place'));
+    }
 }

@@ -14,4 +14,14 @@ class Webpage extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    public function domain()
+    {
+        return $this->belongsTo(app('domain'));
+    }
+
+    public function rankings()
+    {
+        return $this->hasMany(app('ranking'));
+    }
 }

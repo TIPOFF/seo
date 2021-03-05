@@ -14,4 +14,9 @@ class Ranking extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
 }

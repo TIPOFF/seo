@@ -41,6 +41,6 @@ class Company extends BaseModel
 
     public function address()
     {
-        return $this->morphOne(Address::class, 'addressable');
+        return $this->morphOne(app('address'), 'addressable');
     }
 }

@@ -14,4 +14,9 @@ class Place extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    public function results()
+    {
+        return $this->morphMany(Result::class, 'resultable');
+    }
 }

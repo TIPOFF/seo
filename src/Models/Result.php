@@ -19,4 +19,9 @@ class Result extends BaseModel
     {
         return $this->belongsTo(Ranking::class);
     }
+
+    public function resultable()
+    {
+        return $this->morphTo();
+    }
 }

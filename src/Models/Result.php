@@ -9,19 +9,19 @@ use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
 use Tipoff\Support\Traits\HasUpdater;
 
-class Webpage extends BaseModel
+class Result extends BaseModel
 {
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
 
-    public function results()
+    public function ranking()
     {
-        return $this->morphMany(Result::class, 'resultable');
+        return $this->belongsTo(Ranking::class);
     }
 
-    public function domain()
+    public function resultable()
     {
-        return $this->belongsTo(app('domain'));
+        return $this->morphTo();
     }
 }

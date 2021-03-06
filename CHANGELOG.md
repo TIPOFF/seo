@@ -41,3 +41,12 @@ All notable changes to `seo` will be documented in this file.
 ## 1.0.8 - 2021-03-02
 
 - company users
+
+## 2.0.0 - 2021-03-06
+
+- add models
+- add factories
+- add policies
+- register policies
+- add nova resources
+- register nova resources

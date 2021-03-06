@@ -15,8 +15,8 @@ class CreateProfileLinksTable extends Migration
             $table->id();
             $table->string('type')->index(); // Example: 'Website', 'Facebook', 'Twitter', 'Instagram'
             $table->foreignIdFor(Webpage::class)->index();
-            $table->morphs('profileable'); // Allows relations to User, Company, Location and other profiles
-          
+            $table->morphs('profileable'); // Allows relations to User, Company, Location and other profiles that need links
+
             $table->unsignedTinyInteger('priority')->default(100); // For cases where want to list links in an order (by priority sorted ASC from low to high)
 
             $table->foreignIdFor(app('user'), 'creator_id');

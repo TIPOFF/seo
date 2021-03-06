@@ -22,12 +22,11 @@ class CreateSearchVolumesTable extends Migration
             $table->integer('queries');
             $table->integer('clicks')->nullable(); // For search console only
 
-            // Add a unique combination of engine, provider, keyword_id & month
-            $table->unique(['engine', 'provider', 'keyword_id', 'month']);
-
             $table->foreignIdFor(app('user'), 'creator_id')->nullable(); // Probably not ever used here, but just in case it is a requested run
             $table->foreignIdFor(app('user'), 'updater_id')->nullable(); // There may later be a few fields that are updatable, but most will be locked to not be editable
             $table->timestamps();
+            
+            $table->unique(['engine', 'provider', 'keyword_id', 'month']);
         });
     }
 }

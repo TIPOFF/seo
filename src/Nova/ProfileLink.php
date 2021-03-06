@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tipoff\Locations\Nova;
+namespace Tipoff\Seo\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -14,7 +14,7 @@ use Tipoff\Support\Nova\BaseResource;
 
 class ProfileLink extends BaseResource
 {
-    public static $model = \Tipoff\Locations\Models\ProfileLink::class;
+    public static $model = \Tipoff\Seo\Models\ProfileLink::class;
 
     public static $orderBy = ['id' => 'asc'];
 

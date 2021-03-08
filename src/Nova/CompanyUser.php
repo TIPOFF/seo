@@ -36,11 +36,18 @@ class CompanyUser extends BaseResource
             nova('company') ? BelongsTo::make('Company', 'company', nova('company'))->searchable() : null,
             nova('user') ? BelongsTo::make('User', 'user', nova('user'))->searchable() : null,
 
-            new Panel('Data Fields', [
-                $this->dataFields(),
-                $this->creatorDataFields(),
-                $this->updaterDataFields()
-            ]),
+            new Panel('Data Fields', $this->dataFields()),
         ]);
+    }
+
+    public function dataFields(): array
+    {
+        return array_merge(
+            parent::dataFields(),
+            [
+                $this->creatorDataFields(),
+                $this->updaterDataFields(),
+            ]
+        );
     }
 }

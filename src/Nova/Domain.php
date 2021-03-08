@@ -38,7 +38,7 @@ class Domain extends BaseResource
             Boolean::make('Https')->required()->default(true),
             Text::make('Subdomain')->nullable(),
 
-            nova('company') ? BelongsTo::make('Company', 'company', nova('company'))->searchable() : null,
+            nova('company') ? BelongsTo::make('Company', 'company', nova('company'))->nullable() : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

@@ -32,7 +32,7 @@ class Company extends BaseResource
     {
         return array_filter([
             Text::make('Name')->required(),
-            Text::make('Slug')->required()->creationRules('unique:companies,slug'),
+            Text::make('Slug')->required()->creationRules('unique:companies,slug')->sortable(),
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

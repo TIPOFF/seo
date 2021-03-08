@@ -6,8 +6,6 @@ namespace Tipoff\Seo\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
@@ -35,16 +33,11 @@ class CompanyUser extends BaseResource
         return array_filter([
             Boolean::make('primary contact')->required(),
 
-            new Panel('Data Fields', $this->dataFields()),
-        ]);
-    }
-
-    protected function dataFields(): array
-    {
-        return array_filter([
-            ID::make(),
-            Date::make('Created At')->exceptOnForms(),
-            Date::make('Updated At')->exceptOnForms(),
+            new Panel('Data Fields', [
+                $this->dataFields(),
+                $this->creatorDataFields(),
+                $this->updaterDataFields()
+            ]),
         ]);
     }
 }

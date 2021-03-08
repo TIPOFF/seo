@@ -12,7 +12,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Tipoff\Support\Nova\BaseResource;
 
-class ProfileLink extends BaseResource
+class Company extends BaseResource
 {
     public static $model = \Tipoff\Seo\Models\Company::class;
 

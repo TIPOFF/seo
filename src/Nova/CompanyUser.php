@@ -7,6 +7,7 @@ namespace Tipoff\Seo\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Tipoff\Support\Nova\BaseResource;
@@ -32,6 +33,8 @@ class CompanyUser extends BaseResource
     {
         return array_filter([
             Boolean::make('Primary contact')->required(),
+            nova('company') ? BelongsTo::make('Company', 'company', nova('company'))->searchable() : null,
+            nova('user') ? BelongsTo::make('User', 'user', nova('user'))->searchable() : null,
 
             new Panel('Data Fields', [
                 $this->dataFields(),

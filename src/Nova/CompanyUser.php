@@ -31,7 +31,7 @@ class CompanyUser extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Boolean::make('primary contact')->required(),
+            Boolean::make('Primary contact')->required(),
 
             new Panel('Data Fields', [
                 $this->dataFields(),

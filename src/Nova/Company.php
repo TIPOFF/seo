@@ -7,7 +7,6 @@ namespace Tipoff\Seo\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Tipoff\Support\Nova\BaseResource;
@@ -35,16 +34,11 @@ class Company extends BaseResource
             Text::make('name')->required(),
             Text::make('slug')->required()->creationRules('unique:companies,slug'),
 
-            new Panel('Data Fields', $this->dataFields()),
-        ]);
-    }
-
-    protected function dataFields(): array
-    {
-        return array_filter([
-            ID::make(),
-            Date::make('Created At')->exceptOnForms(),
-            Date::make('Updated At')->exceptOnForms(),
+            new Panel('Data Fields', [
+                $this->dataFields(),
+                $this->creatorDataFields(),
+                $this->updaterDataFields()
+            ]),
         ]);
     }
 }

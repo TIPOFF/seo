@@ -31,8 +31,8 @@ class Company extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('name')->required(),
-            Text::make('slug')->required()->creationRules('unique:companies,slug'),
+            Text::make('Name')->required(),
+            Text::make('Slug')->required()->creationRules('unique:companies,slug'),
 
             new Panel('Data Fields', [
                 $this->dataFields(),

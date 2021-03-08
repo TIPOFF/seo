@@ -34,11 +34,18 @@ class Company extends BaseResource
             Text::make('Name')->required(),
             Text::make('Slug')->required()->creationRules('unique:companies,slug'),
 
-            new Panel('Data Fields', [
-                $this->dataFields(),
-                $this->creatorDataFields(),
-                $this->updaterDataFields()
-            ]),
+            new Panel('Data Fields', $this->dataFields()),
         ]);
+    }
+
+    public function dataFields(): array
+    {
+        return array_merge(
+            parent::dataFields(),
+            [
+                $this->creatorDataFields(),
+                $this->updaterDataFields(),
+            ]
+        );
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Tipoff\Support\Nova\BaseResource;
@@ -37,6 +38,7 @@ class Place extends BaseResource
 
             nova('webpage') ? BelongsTo::make('Webpage', 'webpage', nova('webpage'))->nullable() : null,
             nova('company') ? BelongsTo::make('Company', 'company', nova('company'))->nullable() : null,
+            MorphMany::make('Results'),
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

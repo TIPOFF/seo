@@ -38,6 +38,20 @@ class SeoServiceProvider extends TipoffServiceProvider
                 SearchVolume::class => SearchVolumePolicy::class,
                 Webpage::class => WebpagePolicy::class,
             ])
+            ->hasNovaResources([
+                \Tipoff\Seo\Nova\Company::class,
+                \Tipoff\Seo\Nova\CompanyUser::class,
+                \Tipoff\Seo\Nova\Domain::class,
+                \Tipoff\Seo\Nova\Keyword::class,
+                \Tipoff\Seo\Nova\Place::class,
+                \Tipoff\Seo\Nova\PlaceDetails::class,
+                \Tipoff\Seo\Nova\PlaceHours::class,
+                \Tipoff\Seo\Nova\ProfileLink::class,
+                \Tipoff\Seo\Nova\Ranking::class,
+                \Tipoff\Seo\Nova\Result::class,
+                \Tipoff\Seo\Nova\SearchVolume::class,
+                \Tipoff\Seo\Nova\Webpage::class,
+            ])
             ->name('seo')
             ->hasConfigFile();
     }

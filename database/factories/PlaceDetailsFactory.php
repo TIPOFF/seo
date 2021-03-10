@@ -15,7 +15,7 @@ class PlaceDetailsFactory extends Factory
     {
         return [
             'name'              => $this->faker->name,
-            'phone'             => $this->faker->phone_number,
+            'phone'             => $this->faker->phoneNumber,
             'opened_at'         => $this->faker->date,
             'latitude'          => $this->faker->latitude,
             'longitude'         => $this->faker->longitude,

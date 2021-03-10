@@ -28,6 +28,7 @@ class PlaceHoursFactory extends Factory
             'saturday_close'           => $this->faker->text,
             'sunday_open'              => $this->faker->text,
             'sunday_close'             => $this->faker->text,
+            'place_id'                 => randomOrCreate(app('place')),
             'creator_id'               => randomOrCreate(app('user')),
         ];
     }

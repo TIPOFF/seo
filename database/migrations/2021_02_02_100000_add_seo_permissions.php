@@ -2,50 +2,40 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
-use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\PermissionRegistrar;
+use Tipoff\Authorization\Permissions\BasePermissionsMigration;
 
-class AddSeoPermissions extends Migration
+class AddSeoPermissions extends BasePermissionsMigration
 {
     public function up()
     {
-        if (app()->has(Permission::class)) {
-            app(PermissionRegistrar::class)->forgetCachedPermissions();
+        $permissions = [
+            'view companies' => ['Owner', 'Staff'],
+            'create companies' => ['Owner'],
+            'update companies' => ['Owner'],
+            'view domains' => ['Owner', 'Staff'],
+            'create domains' => ['Owner'],
+            'update domains' => ['Owner'],
+            'view webpages' => ['Owner', 'Staff'],
+            'create webpages' => ['Owner'],
+            'update webpages' => ['Owner', 'Staff'],
+            'view places' => ['Owner', 'Staff'],
+            'create places' => ['Owner'],
+            'update places' => ['Owner'],
+            'view profile links' => ['Owner', 'Staff'],
+            'create profile links' => ['Owner'],
+            'update profile links' => ['Owner'],
+            'delete profile links'=> [],
+            'view keywords' => ['Owner', 'Staff'],
+            'create keywords' => ['Owner'],
+            'update keywords' => ['Owner'],
+            'view rankings' => ['Owner', 'Staff'],
+            'create rankings' => ['Owner'],
+            'update rankings' => ['Owner'],
+            'view search volumes' => ['Owner', 'Staff'],
+            'create search volumes' => ['Owner'],
+            'update search volumes' => ['Owner'],
+        ];
 
-            foreach ([
-                'view companies',
-                'create companies',
-                'update companies',
-                'delete companies',
-                'view domains',
-                'create domains',
-                'update domains',
-                'view webpages',
-                'create webpages',
-                'update webpages',
-                'view places',
-                'create places',
-                'update places',
-                'view profile links',
-                'create profile links',
-                'update profile links',
-                'delete profile links',
-                'view keywords',
-                'create keywords',
-                'update keywords',
-                'delete keywords',
-                'view rankings',
-                'create rankings',
-                'update rankings',
-                'delete rankings',
-                'view search volumes',
-                'create search volumes',
-                'update search volumes',
-                'delete search volumes',
-            ] as $name) {
-                app(Permission::class)::findOrCreate($name, null);
-            };
-        }
+        $this->createPermissions($permissions);
     }
 }

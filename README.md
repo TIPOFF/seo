@@ -14,13 +14,6 @@ You can install the package via composer:
 composer require tipoff/seo
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="Tipoff\Seo\SeoServiceProvider" --tag="migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 ```bash
 php artisan vendor:publish --provider="Tipoff\Seo\SeoServiceProvider" --tag="config"
@@ -33,12 +26,29 @@ return [
 ];
 ```
 
-## Usage
+## Models
 
-```php
-$skeleton = new Tipoff\Seo();
-echo $skeleton->echoPhrase('Hello, Tipoff!');
-```
+We include the following models:
+
+**List of Models**
+
+- Company
+- Company User
+- Domain
+- Keyword
+- Place
+- Place Details
+- Place Hours
+- Profile Link
+- Ranking
+- Result
+- Search Volume
+- Webpage
+
+For each of these models, this package implements an [authorization policy](https://laravel.com/docs/8.x/authorization) that extends the roles and permissions approach of the [tipoff/authorization](https://github.com/tipoff/authorization) package. The policies for each model in this package are registered through the package and do not need to be registered manually.
+
+The models also have [Laravel Nova resources](https://nova.laravel.com/docs/3.0/resources/) in this package and they are also registered through the package and do not need to be registered manually.
+
 
 ## Testing
 

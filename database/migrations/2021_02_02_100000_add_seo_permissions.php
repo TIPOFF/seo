@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
-use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\PermissionRegistrar;
+use Tipoff\Authorization\Permissions\BasePermissionsMigration;
 
-class AddSeoPermissions extends Migration
+class AddSeoPermissions extends BasePermissionsMigration
 {
     public function up()
     {

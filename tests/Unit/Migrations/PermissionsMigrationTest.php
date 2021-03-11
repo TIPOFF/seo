@@ -22,7 +22,6 @@ class PermissionsMigrationTest extends TestCase
             'view companies',
             'create companies',
             'update companies',
-            'delete companies',
             'view domains',
             'create domains',
             'update domains',
@@ -32,24 +31,17 @@ class PermissionsMigrationTest extends TestCase
             'view places',
             'create places',
             'update places',
-            'view profile links',
-            'create profile links',
-            'update profile links',
-            'delete profile links',
             'view keywords',
             'create keywords',
             'update keywords',
-            'delete keywords',
             'view rankings',
             'create rankings',
             'update rankings',
-            'delete rankings',
             'view search volumes',
             'create search volumes',
             'update search volumes',
-            'delete search volumes',
         ])->pluck('name');
 
-        $this->assertCount(29, $seededPermissions);
+        $this->assertCount(21, $seededPermissions);
     }
 }

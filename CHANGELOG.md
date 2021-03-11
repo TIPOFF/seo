@@ -50,3 +50,11 @@ All notable changes to `seo` will be documented in this file.
 - register policies
 - add nova resources
 - register nova resources
+
+## 2.1.0 - 2021-03-10
+
+- modified migrations
+- updated models
+- new nova resources
+- migrate permissions
+- grant permissions to roles

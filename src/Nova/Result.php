@@ -23,6 +23,8 @@ class Result extends BaseResource
     public static $search = [
         'id',
     ];
+    
+    public static $group = 'SEO';
 
     public function fieldsForIndex(NovaRequest $request)
     {

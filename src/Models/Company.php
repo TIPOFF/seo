@@ -17,7 +17,7 @@ class Company extends BaseModel
 
     public function users()
     {
-        return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator_id','updater_id','primary_contact'])->using(CompanyUser::class);
+        return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator_id', 'updater_id', 'primary_contact'])->using(CompanyUser::class);
     }
 
     public function domain()
@@ -30,15 +30,12 @@ class Company extends BaseModel
         return $this->hasOne(app('place'));
     }
 
-    /**
-     * optional market
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function market()
+    public function location()
     {
-        return $this->belongsTo(app('market'));
+        return $this->belongsTo(app('location'));
     }
 
+    // @todo use new addresable trait
     public function address()
     {
         return $this->morphOne(app('address'), 'addressable');

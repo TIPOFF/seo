@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tipoff\Seo\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tipoff\Seo\Models\SearchLocale;
 
 class SearchLocaleFactory extends Factory
 {

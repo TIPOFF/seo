@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Tipoff\Seo\Models\Keyword;
+use Tipoff\Seo\Models\SearchLocale;
 
 class CreateRankingsTable extends Migration
 {
@@ -16,6 +17,8 @@ class CreateRankingsTable extends Migration
             $table->string('engine')->index(); // Example: 'google', 'youtube', 'bing' (haha)
             $table->string('provider')->index(); // Example: 'serpapi', 'moz', 'ahrefs'
             $table->foreignIdFor(Keyword::class)->index();
+            $table->foreignIdFor(SearchLocale::class)->index();
+            
             $table->date('date')->index();
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable(); // Probably not ever used here, but just in case it is a requested run

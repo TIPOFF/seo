@@ -9,19 +9,14 @@ use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
 use Tipoff\Support\Traits\HasUpdater;
 
-class Ranking extends BaseModel
+class SearchLocale extends BaseModel
 {
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
 
-    public function results()
+    public function rankings()
     {
-        return $this->hasMany(Result::class);
-    }
-
-    public function searchLocale()
-    {
-        return $this->belongsTo(SearchLocale::class);
+        return $this->hasMany(Ranking::class);
     }
 }

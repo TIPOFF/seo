@@ -17,7 +17,7 @@ class Company extends BaseModel
 
     public function users()
     {
-        return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator_id','updater_id','primary_contact'])->using(CompanyUser::class);
+        return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator_id', 'updater_id', 'primary_contact'])->using(CompanyUser::class);
     }
 
     public function domain()

@@ -35,6 +35,7 @@ class Company extends BaseModel
         return $this->belongsTo(app('location'));
     }
 
+    // @todo use new addresable trait
     public function address()
     {
         return $this->morphOne(app('address'), 'addressable');

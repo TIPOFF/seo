@@ -19,4 +19,9 @@ class Ranking extends BaseModel
     {
         return $this->hasMany(Result::class);
     }
+
+    public function searchLocale()
+    {
+        return $this->belongsTo(SearchLocale::class);
+    }
 }

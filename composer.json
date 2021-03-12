@@ -16,12 +16,12 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "drewroberts/media": "^3.2.2",
-        "tipoff/addresses": "^2.4.0",
-        "tipoff/authorization": "^2.5.0",
-        "tipoff/laravel-google-api": "^1.3.1",
+        "drewroberts/media": "^3.3.0",
+        "tipoff/addresses": "^2.4.3",
+        "tipoff/authorization": "^2.5.2",
+        "tipoff/laravel-google-api": "^1.3.2",
         "tipoff/laravel-serpapi": "^1.0.4",
-        "tipoff/support": "^1.5.12"
+        "tipoff/support": "^1.6.0"
     },
     "require-dev": {
         "tipoff/test-support": "^1.2.0"

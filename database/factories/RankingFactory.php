@@ -7,6 +7,7 @@ namespace Tipoff\Seo\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tipoff\Seo\Models\Keyword;
 use Tipoff\Seo\Models\Ranking;
+use Tipoff\Seo\Models\SearchLocale;
 use Tipoff\Seo\Models\Webpage;
 
 class RankingFactory extends Factory
@@ -19,6 +20,7 @@ class RankingFactory extends Factory
             'engine'            => $this->faker->name,
             'provider'          => $this->faker->name,
             'keyword_id'        => Keyword::factory()->create()->id,
+            'search_locale_id'  => SearchLocale::factory()->create()->id,
             'date'              => $this->faker->date('Y-m-D'),
             'creator_id'        => randomOrCreate(app('user')),
             'updater_id'        => randomOrCreate(app('user')),

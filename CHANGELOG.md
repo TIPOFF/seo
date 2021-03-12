@@ -58,3 +58,7 @@ All notable changes to `seo` will be documented in this file.
 - new nova resources
 - migrate permissions
 - grant permissions to roles
+
+## 2.1.1 - 2021-03-12
+
+- nova resource group

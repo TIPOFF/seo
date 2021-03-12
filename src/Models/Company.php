@@ -30,13 +30,9 @@ class Company extends BaseModel
         return $this->hasOne(app('place'));
     }
 
-    /**
-     * optional market
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function market()
+    public function location()
     {
-        return $this->belongsTo(app('market'));
+        return $this->belongsTo(app('location'));
     }
 
     public function address()

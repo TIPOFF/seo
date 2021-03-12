@@ -25,7 +25,7 @@ class CreateRankingsTable extends Migration
             $table->foreignIdFor(app('user'), 'updater_id')->nullable(); // There may later be a few fields that are updatable, but most will be locked to not be editable
             $table->timestamps();
 
-            $table->unique(['engine', 'provider', 'keyword_id', 'date']);
+            $table->unique(['engine', 'provider', 'keyword_id', 'search_locale_id', 'date']);
         });
     }
 }

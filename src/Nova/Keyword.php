@@ -7,6 +7,7 @@ namespace Tipoff\Seo\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
@@ -35,7 +36,11 @@ class Keyword extends BaseResource
     {
         return array_filter([
             Text::make('Phrase')->required()->creationRules('unique:keywords,phrase')->sortable(),
-            Text::make('Type')->required()->sortable(),
+            Select::make('Type')->options([
+                'Branded' => 'Branded',
+                'Generic' => 'Generic',
+                'Local' => 'Local',
+            ])->required(),
 
             nova('keyword') ? BelongsTo::make('Parent phrase', 'parent phrase', nova('keyword'))->nullable() : null,
 

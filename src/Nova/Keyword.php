@@ -47,7 +47,10 @@ class Keyword extends BaseResource
                 'Branded' => 'Branded',
                 'Generic' => 'Generic',
                 'Local' => 'Local',
-            ])->required(),
+            ])
+                ->required()
+                ->rules('required')
+                ->sortable(),
 
             nova('keyword') ? BelongsTo::make('Parent phrase', 'parent phrase', nova('keyword'))->nullable() : null,
 

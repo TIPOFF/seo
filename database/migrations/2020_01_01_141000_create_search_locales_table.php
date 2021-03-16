@@ -13,8 +13,8 @@ class CreateSearchLocalesTable extends Migration
         Schema::create('search_locales', function (Blueprint $table) {
             $table->id();
             $table->string('serp_id')->index();
-            $table->unsignedInteger('google_id');
-            $table->unsignedInteger('google_parent_id');
+            $table->unsignedInteger('google_id'); // @todo rename so _id fields reserved for our database relationships
+            $table->unsignedInteger('google_parent_id'); // @todo rename so _id fields reserved for our database relationships
             $table->string('name')->unique();
             $table->string('canonical_name');
             $table->string('country_code');

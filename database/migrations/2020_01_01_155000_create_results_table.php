@@ -5,9 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Tipoff\Seo\Models\Place;
-use Tipoff\Seo\Models\Ranking;
-use Tipoff\Seo\Models\Webpage;
 
 class CreateResultsTable extends Migration
 {
@@ -15,7 +12,7 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Ranking::class)->index();
+            $table->foreignIdFor(app('ranking'))->index();
             $table->string('type')->index(); // Example: 'Organic', 'Local', 'Ads', 'Inline Video'
             $table->unsignedTinyInteger('position')->index();
 

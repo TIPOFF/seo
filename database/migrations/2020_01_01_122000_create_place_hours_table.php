@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Tipoff\Seo\Models\Place;
 
 class CreatePlaceHoursTable extends Migration
 {
@@ -13,7 +12,7 @@ class CreatePlaceHoursTable extends Migration
     {
         Schema::create('place_hours', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Place::class);
+            $table->foreignIdFor(app('place'));
             $table->string('monday_open')->nullable();
             $table->string('monday_close')->nullable();
             $table->string('tuesday_open')->nullable();

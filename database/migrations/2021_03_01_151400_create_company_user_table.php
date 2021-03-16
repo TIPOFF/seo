@@ -12,14 +12,15 @@ class CreateCompanyUserTable extends Migration
     {
         Schema::create('company_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->timestamps();
+            $table->foreignIdFor(app('company'))->index();
+            $table->foreignIdFor(app('user'))->index();
+            $table->boolean('primary_contact');
+            
             $table->foreignIdFor(app('user'), 'creator_id');
             $table->foreignIdFor(app('user'), 'updater_id');
-            $table->boolean('primary_contact');
+            $table->timestamps();
+            
             $table->unique(['company_id','user_id']);
-           
         });
     }
 }

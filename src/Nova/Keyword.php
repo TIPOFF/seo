@@ -17,7 +17,7 @@ class Keyword extends BaseResource
 {
     public static $model = \Tipoff\Seo\Models\Keyword::class;
 
-    public static $title = 'phrase';
+    public static $title = 'id';
 
     public static $search = [
         'id',

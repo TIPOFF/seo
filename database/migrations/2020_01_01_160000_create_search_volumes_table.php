@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Tipoff\Seo\Models\Keyword;
 
 class CreateSearchVolumesTable extends Migration
 {
@@ -15,7 +14,7 @@ class CreateSearchVolumesTable extends Migration
             $table->id();
             $table->string('engine')->index(); // Example: 'google', 'bing' (haha)
             $table->string('provider')->index(); // Example: 'google search console', 'serpapi', 'moz', 'ahrefs'
-            $table->foreignIdFor(Keyword::class)->index();
+            $table->foreignIdFor(app('keyword'))->index();
             $table->string('month')->index(); // Will probably use month integer for this. Will be first of the month through the last of the month.
             // May add other ranges for search volumes, like day and week if can get accurate data from google search console and if it is worth it
 

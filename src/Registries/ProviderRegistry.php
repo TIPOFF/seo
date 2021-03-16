@@ -14,7 +14,6 @@ class ProviderRegistry
      * @param TipoffServiceProvider $instance
      * return $this
      */
-
     public function registerProvider(TipoffServiceProvider $instance): self
     {
         $this->providers[$instance->name()] = $instance;
@@ -26,7 +25,6 @@ class ProviderRegistry
      * @param string $name
      * return TipoffServiceProvider $provider
      */
-
     public function getProvider(string $name)
     {
         $provider = $this->providers[$name];

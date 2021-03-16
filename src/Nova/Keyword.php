@@ -35,7 +35,14 @@ class Keyword extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Phrase')->required()->creationRules('unique:keywords,phrase')->sortable(),
+            Text::make('Phrase')
+                ->required()
+                ->rules('required', 'unique:keywords,phrase', function($attribute, $value, $fail) {
+                    if (strtolower($value) !== $value) {
+                        return $fail('The '.$attribute.' field must be lowercase.');
+                    }
+                })
+                ->sortable(),
             Select::make('Type')->options([
                 'Branded' => 'Branded',
                 'Generic' => 'Generic',

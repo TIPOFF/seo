@@ -29,6 +29,18 @@ class SeoServiceProvider extends TipoffServiceProvider
         $this->app->singleton(ProviderRegistry::class);
     }
 
+    public function bootingPackage()
+    {
+        parent::bootingPackage();
+
+        // example to register providers
+
+        // $this->app->make(ProviderRegistry::class)
+        //     ->register(new SerpApiProvider)
+        //     ->register(new AhrefsProvider)
+        //     ->register(new MozProvider);
+    }
+
     public function configureTipoffPackage(TipoffPackage $package): void
     {
         $package

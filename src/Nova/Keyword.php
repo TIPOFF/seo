@@ -6,6 +6,7 @@ namespace Tipoff\Seo\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
@@ -51,6 +52,8 @@ class Keyword extends BaseResource
                 ->required()
                 ->rules('required')
                 ->sortable(),
+            DateTime::make('Tracking Requested At')->nullable(),
+            DateTime::make('Tracking Stopped At')->nullable(),
 
             nova('keyword') ? BelongsTo::make('Parent phrase', 'parent phrase', nova('keyword'))->nullable() : null,
 

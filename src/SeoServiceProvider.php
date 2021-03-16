@@ -51,4 +51,9 @@ class SeoServiceProvider extends TipoffServiceProvider
             ->name('seo')
             ->hasConfigFile();
     }
+
+    public function name(): string
+    {
+        return 'seo';
+    }
 }

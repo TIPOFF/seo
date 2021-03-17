@@ -12,7 +12,7 @@ class CreateBusinessCategoryPlaceTable extends Migration
     {
         Schema::create('business_category_place', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(app('business_category'));
+            $table->foreignIdFor(\Tipoff\Seo\Models\BusinessCategory::class);
             $table->foreignIdFor(app('place'));
             $table->timestamps();
 

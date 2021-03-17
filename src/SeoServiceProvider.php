@@ -18,11 +18,29 @@ use Tipoff\Seo\Policies\PlacePolicy;
 use Tipoff\Seo\Policies\RankingPolicy;
 use Tipoff\Seo\Policies\SearchVolumePolicy;
 use Tipoff\Seo\Policies\WebpagePolicy;
+use Tipoff\Seo\Registries\ProviderRegistry;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 
 class SeoServiceProvider extends TipoffServiceProvider
 {
+    public function registeringPackage()
+    {
+        $this->app->singleton(ProviderRegistry::class);
+    }
+
+    public function bootingPackage()
+    {
+        parent::bootingPackage();
+
+        // example to register providers
+
+        // $this->app->make(ProviderRegistry::class)
+        //     ->register(new SerpApiProvider)
+        //     ->register(new AhrefsProvider)
+        //     ->register(new MozProvider);
+    }
+
     public function configureTipoffPackage(TipoffPackage $package): void
     {
         $package
@@ -50,5 +68,10 @@ class SeoServiceProvider extends TipoffServiceProvider
             ])
             ->name('seo')
             ->hasConfigFile();
+    }
+
+    public function name(): string
+    {
+        return 'seo';
     }
 }

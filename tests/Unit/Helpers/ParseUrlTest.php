@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Tests\Unit\Helpers;
 
+use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Seo\Tests\TestCase;
-use Exception;
 
 class ParseUrlTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /** 
+    /**
      * @test
     */
     public function parse_url_validate_https_is_true()
@@ -23,7 +23,7 @@ class ParseUrlTest extends TestCase
         $this->assertTrue($urlPieces['https']);
     }
 
-    /** 
+    /**
      * @test
     */
     public function parse_url_validate_https_is_false()
@@ -34,7 +34,7 @@ class ParseUrlTest extends TestCase
         $this->assertFalse($urlPieces['https']);
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider data_provider_for_parse_url_validate_all_parts_where_host_length_is_valid
     */
@@ -55,7 +55,7 @@ class ParseUrlTest extends TestCase
         ];
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider data_provider_for_parse_url_throws_error_where_host_length_is_invalid
     */

@@ -26,12 +26,11 @@ if (! function_exists('parseUrl')) {
         // length 4 will not work, e.g. www.some.example.com
         if (count($hostPieces) === 1) {
             throw new Exception('Hostname only 1 part.  e.g. (3 parts) www.example.com');
-        }
-        else if (count($hostPieces) === 2) {
+        } elseif (count($hostPieces) === 2) {
             // $subdomain is an empty string
             $name = $hostPieces[0];
             $tld = $hostPieces[1];
-        } else if (count($hostPieces) === 3) {
+        } elseif (count($hostPieces) === 3) {
             $subdomain = $hostPieces[0];
             $name = $hostPieces[1];
             $tld = $hostPieces[2];
@@ -39,7 +38,9 @@ if (! function_exists('parseUrl')) {
             throw new Exception('Hostname more than 3 parts.  e.g. (4 parts) www.another.example.com');
         }
 
-        if ($pieces['scheme'] !== 'https') $https = false;
+        if ($pieces['scheme'] !== 'https') {
+            $https = false;
+        }
 
         return [
             'https' => $https,

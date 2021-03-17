@@ -11,7 +11,7 @@ class GetFaviconUrlTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /** 
+    /**
      * @test
      * @dataProvider data_provider_for_validate_get_favicon_url
     */
@@ -32,7 +32,7 @@ class GetFaviconUrlTest extends TestCase
         ];
     }
 
-    /** 
+    /**
      * @test
      * @dataProvider data_provider_for_validate_get_favicon_url_without_size
     */

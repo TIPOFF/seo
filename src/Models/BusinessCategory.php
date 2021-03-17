@@ -9,19 +9,14 @@ use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
 use Tipoff\Support\Traits\HasUpdater;
 
-class Place extends BaseModel
+class BusinessCategory extends BaseModel
 {
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
 
-    public function results()
+    public function places()
     {
-        return $this->morphMany(Result::class, 'resultable');
-    }
-
-    public function business_categories()
-    {
-        return $this->belongsToMany(BusinessCategory::class, 'business_category_place');
+        return $this->belongsToMany(app('place'), 'business_category_place');
     }
 }

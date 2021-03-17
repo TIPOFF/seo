@@ -37,18 +37,22 @@ class Keyword extends BaseResource
     {
         return array_filter([
             Text::make('Phrase')
-                ->rules('required', 'unique:keywords,phrase', function ($attribute, $value, $fail) {
-                    if (strtolower($value) !== $value) {
-                        return $fail('The '.$attribute.' field must be lowercase.');
+                ->rules([
+                    'required', 
+                    'unique:keywords,phrase', 
+                    function ($attribute, $value, $fail) {
+                        if (strtolower($value) !== $value) {
+                            return $fail('The '.$attribute.' field must be lowercase.');
+                        }
                     }
-                })
+                ])
                 ->sortable(),
             Select::make('Type')->options([
                 'Branded' => 'Branded',
                 'Generic' => 'Generic',
                 'Local' => 'Local',
             ])
-                ->rules('required')
+                ->rules(['required'])
                 ->sortable(),
             DateTime::make('Tracking Requested At')->nullable(),
             DateTime::make('Tracking Stopped At')->nullable(),

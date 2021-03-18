@@ -30,7 +30,11 @@
         "psr-4": {
             "Tipoff\\Seo\\": "src",
             "Tipoff\\Seo\\Database\\Factories\\": "database/factories"
-        }
+        },
+        "files": [
+            "src/Helpers/GetFaviconUrl.php",
+            "src/Helpers/ParseUrl.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

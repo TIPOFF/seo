@@ -19,8 +19,8 @@ class SearchVolumeFactory extends Factory
             'provider'          => $this->faker->name,
             'keyword_id'        => Keyword::factory()->create()->id,
             'month'             => $this->faker->month,
-            'queries'           => $this->faker->randomNumber(),
-            'clicks'            => $this->faker->randomNumber(),
+            'queries'           => $this->faker->numberBetween(1, 1000),
+            'clicks'            => $this->faker->numberBetween(1, 1000),
             'creator_id'        => randomOrCreate(app('user')),
             'updater_id'        => randomOrCreate(app('user')),
         ];

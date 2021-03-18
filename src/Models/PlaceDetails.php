@@ -14,6 +14,8 @@ class PlaceDetails extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+    
+    const UPDATED_AT = null;
 
     protected static function boot()
     {

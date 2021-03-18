@@ -14,8 +14,6 @@ if (! function_exists('parseUrl')) {
     {
         $https = true;
         $subdomain = '';
-        $name = '';
-        $tld = '';
 
         $pieces = parse_url($url);
 

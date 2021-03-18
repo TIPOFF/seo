@@ -59,7 +59,7 @@ class ParseUrlTest extends TestCase
      * @test
      * @dataProvider data_provider_for_parse_url_throws_error_where_host_length_is_invalid
     */
-    public function parse_url_throws_error_where_host_length_is_invalid(string $url, string $exception, string $mesesage)
+    public function parse_url_throws_error_where_host_length_is_invalid(string $url, Exception $exception, string $mesesage)
     {
         $urlPieces = parseUrl($url);
         

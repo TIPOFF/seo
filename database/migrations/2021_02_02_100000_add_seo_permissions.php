@@ -22,7 +22,7 @@ class AddSeoPermissions extends BasePermissionsMigration
             'create places' => ['Owner', 'Executive'],
             'update places' => ['Owner', 'Executive'],
             'view keywords' => ['Owner', 'Executive', 'Staff'],
-            'create keywords' => ['Owner', 'Staff'],
+            'create keywords' => ['Owner', 'Executive'],
             'update keywords' => ['Owner', 'Executive'],
             'view rankings' => ['Owner', 'Executive', 'Staff'],
             'create rankings' => ['Owner', 'Executive'],

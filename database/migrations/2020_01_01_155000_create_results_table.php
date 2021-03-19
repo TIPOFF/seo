@@ -21,7 +21,7 @@ class CreateResultsTable extends Migration
 
             // Don't need timestamps since can use created_at timestamp of the ranking class
 
-            $table->unique(['ranking_id', 'type', 'position']);
+            $table->unique(['ranking_id', 'type', 'position'], 'result_unique');
         });
     }
 }

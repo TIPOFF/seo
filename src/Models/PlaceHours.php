@@ -33,6 +33,6 @@ class PlaceHours extends BaseModel
      */
     public function place()
     {
-        return $this->belongsTo(Place::class);
+        return $this->belongsTo(app('place'));
     }
 }

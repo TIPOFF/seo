@@ -17,11 +17,11 @@ class Ranking extends BaseModel
 
     public function results()
     {
-        return $this->hasMany(Result::class);
+        return $this->hasMany(app('result'));
     }
 
     public function searchLocale()
     {
-        return $this->belongsTo(SearchLocale::class);
+        return $this->belongsTo(app('search_locale'));
     }
 }

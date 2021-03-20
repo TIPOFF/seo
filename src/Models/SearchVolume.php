@@ -43,6 +43,6 @@ class SearchVolume extends BaseModel
 
     public function keyword()
     {
-        return $this->belongsTo(Keyword::class);
+        return $this->belongsTo(app('keyword'));
     }
 }

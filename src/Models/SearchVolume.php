@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Models;
 
+use Assert\Assert;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -20,24 +21,14 @@ class SearchVolume extends BaseModel
         parent::boot();
 
         static::saving(function ($search_volume) {
-            if (empty($search_volume->engine)) {
-                throw new \Exception('Search Volume must have an engine.');
-            }
-            if (empty($search_volume->provider)) {
-                throw new \Exception('Search Volume must have a provider.');
-            }
-            if (empty($search_volume->range)) {
-                throw new \Exception('Search Volume must have a range of month, week or day.');
-            }
-            if (empty($search_volume->range_value)) {
-                throw new \Exception('Search Volume must have a range value.');
-            }
-            if (empty($search_volume->queries)) {
-                throw new \Exception('Search Volume must have queries.');
-            }
-            if (empty($search_volume->keyword_id)) {
-                throw new \Exception('Search Volume must have a keyword.');
-            }
+            Assert::lazy()
+                ->that($search_volume->engine)->notEmpty('Search Volume must have an engine.')
+                ->that($search_volume->provider)->notEmpty('Search Volume must have a provider.')
+                ->that($search_volume->range)->notEmpty('Search Volume must have a range of month, week or day.')
+                ->that($search_volume->range_value)->notEmpty('Search Volume must have a range value.')
+                ->that($search_volume->queries)->notEmpty('Search Volume must have queries.')
+                ->that($search_volume->keyword_id)->notEmpty('Search Volume must have a keyword.')
+                ->verifyNow();
         });
     }
 

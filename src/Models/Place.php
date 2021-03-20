@@ -19,9 +19,4 @@ class Place extends BaseModel
     {
         return $this->morphMany(Result::class, 'resultable');
     }
-
-    public function business_categories()
-    {
-        return $this->belongsToMany(BusinessCategory::class, 'business_category_place');
-    }
 }

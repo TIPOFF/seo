@@ -29,7 +29,7 @@ class CreatePlaceHoursTable extends Migration
             $table->string('sunday_close')->nullable();
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable(); // User that requested the place data to be updated
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 }

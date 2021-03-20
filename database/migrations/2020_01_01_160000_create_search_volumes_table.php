@@ -15,8 +15,8 @@ class CreateSearchVolumesTable extends Migration
             $table->string('engine')->index(); // Example: 'google', 'bing' (haha)
             $table->string('provider')->index(); // Example: 'google search console', 'serpapi', 'moz', 'ahrefs'
             $table->foreignIdFor(app('keyword'))->index();
-            $table->string('month')->index(); // Will probably use month integer for this. Will be first of the month through the last of the month.
-            // May add other ranges for search volumes, like day and week if can get accurate data from google search console and if it is worth it
+            $table->string('range')->index(); // Ex: 'month', 'week', 'day'. Will just use month for now as the ranges for search volumes
+            $table->string('range_value')->index(); // Example: 2021-05 for month range or a date for day range. Undecided what to use for week range. May convert to date field later.
 
             $table->integer('queries');
             $table->integer('clicks')->nullable(); // For search console only
@@ -25,7 +25,7 @@ class CreateSearchVolumesTable extends Migration
             $table->foreignIdFor(app('user'), 'updater_id')->nullable(); // There may later be a few fields that are updatable, but most will be locked to not be editable
             $table->timestamps();
             
-            $table->unique(['engine', 'provider', 'keyword_id', 'month']);
+            $table->unique(['engine', 'provider', 'keyword_id', 'range', 'range_value'], 'search_volume_unique');
         });
     }
 }

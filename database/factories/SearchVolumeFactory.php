@@ -14,13 +14,16 @@ class SearchVolumeFactory extends Factory
 
     public function definition()
     {
+        $dt = $this->faker->dateTimeBetween('-3 months', 'now');
+        
         return [
             'engine'            => $this->faker->name,
             'provider'          => $this->faker->name,
             'keyword_id'        => Keyword::factory()->create()->id,
-            'month'             => $this->faker->month,
-            'queries'           => $this->faker->randomNumber(),
-            'clicks'            => $this->faker->randomNumber(),
+            'range'             => $this->faker->randomElement(['month', 'week', 'day']),
+            'range_value'       => $dt->format("Y-m-d"),
+            'queries'           => $this->faker->numberBetween(1, 1000),
+            'clicks'            => $this->faker->numberBetween(1, 1000),
             'creator_id'        => randomOrCreate(app('user')),
             'updater_id'        => randomOrCreate(app('user')),
         ];

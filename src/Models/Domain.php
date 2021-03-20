@@ -17,6 +17,6 @@ class Domain extends BaseModel
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(app('company'));
     }
 }

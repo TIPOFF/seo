@@ -22,7 +22,7 @@ class CreatePlaceDetailsTable extends Migration
             $table->string('longitude')->nullable();
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable(); // User that requested the place data to be updated
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Tipoff\Seo\Models\Domain;
 
 class CreateWebpagesTable extends Migration
 {
@@ -13,7 +12,7 @@ class CreateWebpagesTable extends Migration
     {
         Schema::create('webpages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Domain::class)->nullable();
+            $table->foreignIdFor(app('domain'))->nullable();
             $table->string('path'); // Example: slug, folder/slug, folder/file.html, img/image-name.jpg
             $table->string('subdomain')->nullable(); // Example: www
             

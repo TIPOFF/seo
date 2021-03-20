@@ -17,7 +17,7 @@ class Result extends BaseModel
 
     public function ranking()
     {
-        return $this->belongsTo(Ranking::class);
+        return $this->belongsTo(app('ranking'));
     }
 
     public function resultable()

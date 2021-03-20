@@ -26,8 +26,11 @@ class SearchVolume extends BaseModel
             if (empty($search_volume->provider)) {
                 throw new \Exception('Search Volume must have a provider.');
             }
-            if (empty($search_volume->month)) {
-                throw new \Exception('Search Volume must have a month.');
+            if (empty($search_volume->range)) {
+                throw new \Exception('Search Volume must have a range of month, week or day.');
+            }
+            if (empty($search_volume->range_value)) {
+                throw new \Exception('Search Volume must have a range value.');
             }
             if (empty($search_volume->queries)) {
                 throw new \Exception('Search Volume must have queries.');
@@ -38,9 +41,6 @@ class SearchVolume extends BaseModel
         });
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function keyword()
     {
         return $this->belongsTo(Keyword::class);

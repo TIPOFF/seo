@@ -12,10 +12,10 @@ class SearchVolumeFactory extends Factory
 {
     protected $model = SearchVolume::class;
 
-    $dt = $this->faker->dateTimeBetween('-3 months', 'now');
-
     public function definition()
     {
+        $dt = $this->faker->dateTimeBetween('-3 months', 'now');
+        
         return [
             'engine'            => $this->faker->name,
             'provider'          => $this->faker->name,

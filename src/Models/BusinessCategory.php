@@ -14,5 +14,4 @@ class BusinessCategory extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
-    
 }

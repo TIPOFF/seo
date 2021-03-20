@@ -14,9 +14,5 @@ class BusinessCategory extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
-
-    public function places()
-    {
-        return $this->belongsToMany(app('place'), 'business_category_place');
-    }
+    
 }

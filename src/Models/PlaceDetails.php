@@ -36,7 +36,7 @@ class PlaceDetails extends BaseModel
      */
     public function place()
     {
-        return $this->belongsTo(Place::class);
+        return $this->belongsTo(app('place'));
     }
 
     /**
@@ -44,6 +44,6 @@ class PlaceDetails extends BaseModel
      */
     public function webpage()
     {
-        return $this->belongsTo(Webpage::class);
+        return $this->belongsTo(app('webpage'));
     }
 }

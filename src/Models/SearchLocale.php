@@ -17,6 +17,6 @@ class SearchLocale extends BaseModel
 
     public function rankings()
     {
-        return $this->hasMany(Ranking::class);
+        return $this->hasMany(app('ranking'));
     }
 }

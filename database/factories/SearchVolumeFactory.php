@@ -18,7 +18,8 @@ class SearchVolumeFactory extends Factory
             'engine'            => $this->faker->name,
             'provider'          => $this->faker->name,
             'keyword_id'        => Keyword::factory()->create()->id,
-            'month'             => $this->faker->month,
+            'range'             => $this->faker->randomElement(['month', 'week', 'day']),
+            'range_value'       => $this->faker->dateBetween('-3 months', 'now');
             'queries'           => $this->faker->numberBetween(1, 1000),
             'clicks'            => $this->faker->numberBetween(1, 1000),
             'creator_id'        => randomOrCreate(app('user')),

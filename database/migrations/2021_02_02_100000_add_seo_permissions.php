@@ -30,6 +30,9 @@ class AddSeoPermissions extends BasePermissionsMigration
             'view search volumes' => ['Owner', 'Executive', 'Staff'],
             'create search volumes' => ['Owner', 'Executive'],
             'update search volumes' => ['Owner', 'Executive'],
+            'view business categories' => ['Owner', 'Executive', 'Staff'],
+            'create business categories' => ['Owner', 'Executive'],
+            'update business categories' => ['Owner', 'Executive'],
         ];
 
         $this->createPermissions($permissions);

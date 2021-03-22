@@ -11,6 +11,7 @@ use Tipoff\Seo\Models\Place;
 use Tipoff\Seo\Models\Ranking;
 use Tipoff\Seo\Models\SearchVolume;
 use Tipoff\Seo\Models\Webpage;
+use Tipoff\Seo\Models\BusinessCategory;
 use Tipoff\Seo\Policies\CompanyPolicy;
 use Tipoff\Seo\Policies\DomainPolicy;
 use Tipoff\Seo\Policies\KeywordPolicy;
@@ -18,6 +19,7 @@ use Tipoff\Seo\Policies\PlacePolicy;
 use Tipoff\Seo\Policies\RankingPolicy;
 use Tipoff\Seo\Policies\SearchVolumePolicy;
 use Tipoff\Seo\Policies\WebpagePolicy;
+use Tipoff\Seo\Policies\BusinessCategoryPolicy;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 
@@ -34,6 +36,7 @@ class SeoServiceProvider extends TipoffServiceProvider
                 Ranking::class => RankingPolicy::class,
                 SearchVolume::class => SearchVolumePolicy::class,
                 Webpage::class => WebpagePolicy::class,
+                BusinessCategory::class => BusinessCategoryPolicy::class,
             ])
             ->hasNovaResources([
                 \Tipoff\Seo\Nova\Company::class,
@@ -47,6 +50,7 @@ class SeoServiceProvider extends TipoffServiceProvider
                 \Tipoff\Seo\Nova\Result::class,
                 \Tipoff\Seo\Nova\SearchVolume::class,
                 \Tipoff\Seo\Nova\Webpage::class,
+                \Tipoff\Seo\Nova\BusinessCategory::class,
             ])
             ->name('seo')
             ->hasConfigFile();

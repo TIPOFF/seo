@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo;
 
+use Tipoff\Seo\Models\BusinessCategory;
 use Tipoff\Seo\Models\Company;
 use Tipoff\Seo\Models\Domain;
 use Tipoff\Seo\Models\Keyword;
@@ -11,7 +12,7 @@ use Tipoff\Seo\Models\Place;
 use Tipoff\Seo\Models\Ranking;
 use Tipoff\Seo\Models\SearchVolume;
 use Tipoff\Seo\Models\Webpage;
-use Tipoff\Seo\Models\BusinessCategory;
+use Tipoff\Seo\Policies\BusinessCategoryPolicy;
 use Tipoff\Seo\Policies\CompanyPolicy;
 use Tipoff\Seo\Policies\DomainPolicy;
 use Tipoff\Seo\Policies\KeywordPolicy;
@@ -19,7 +20,6 @@ use Tipoff\Seo\Policies\PlacePolicy;
 use Tipoff\Seo\Policies\RankingPolicy;
 use Tipoff\Seo\Policies\SearchVolumePolicy;
 use Tipoff\Seo\Policies\WebpagePolicy;
-use Tipoff\Seo\Policies\BusinessCategoryPolicy;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 

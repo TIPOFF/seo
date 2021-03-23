@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo;
 
+use Tipoff\Seo\Models\BusinessCategory;
 use Tipoff\Seo\Models\Company;
 use Tipoff\Seo\Models\Domain;
 use Tipoff\Seo\Models\Keyword;
@@ -11,6 +12,7 @@ use Tipoff\Seo\Models\Place;
 use Tipoff\Seo\Models\Ranking;
 use Tipoff\Seo\Models\SearchVolume;
 use Tipoff\Seo\Models\Webpage;
+use Tipoff\Seo\Policies\BusinessCategoryPolicy;
 use Tipoff\Seo\Policies\CompanyPolicy;
 use Tipoff\Seo\Policies\DomainPolicy;
 use Tipoff\Seo\Policies\KeywordPolicy;
@@ -34,6 +36,7 @@ class SeoServiceProvider extends TipoffServiceProvider
                 Ranking::class => RankingPolicy::class,
                 SearchVolume::class => SearchVolumePolicy::class,
                 Webpage::class => WebpagePolicy::class,
+                BusinessCategory::class => BusinessCategoryPolicy::class,
             ])
             ->hasNovaResources([
                 \Tipoff\Seo\Nova\Company::class,
@@ -47,6 +50,7 @@ class SeoServiceProvider extends TipoffServiceProvider
                 \Tipoff\Seo\Nova\Result::class,
                 \Tipoff\Seo\Nova\SearchVolume::class,
                 \Tipoff\Seo\Nova\Webpage::class,
+                \Tipoff\Seo\Nova\BusinessCategory::class,
             ])
             ->name('seo')
             ->hasConfigFile();

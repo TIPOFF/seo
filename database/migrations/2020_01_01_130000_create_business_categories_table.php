@@ -14,7 +14,8 @@ class CreateBusinessCategoriesTable extends Migration
             $table->id();
             $table->string('slug')->index()->unique();
             $table->string('name')->index()->unique();
-            $table->timestamp('created_at');
+            $table->foreignIdFor(app('user'), 'creator_id')->nullable();
+            $table->timestamps();
         });
     }
 }

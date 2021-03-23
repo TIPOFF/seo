@@ -40,8 +40,11 @@ class PermissionsMigrationTest extends TestCase
             'view search volumes',
             'create search volumes',
             'update search volumes',
+            'view business categories',
+            'create business categories',
+            'update business categories',
         ])->pluck('name');
 
-        $this->assertCount(21, $seededPermissions);
+        $this->assertCount(24, $seededPermissions);
     }
 }

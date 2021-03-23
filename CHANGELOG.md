@@ -71,3 +71,7 @@ All notable changes to `seo` will be documented in this file.
 ## 2.3.0 - 2021-03-20
 
 - change migrations
+
+## 2.4.0 - 2021-03-22
+
+- business categories

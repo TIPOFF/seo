@@ -10,7 +10,6 @@ use Tipoff\Authorization\AuthorizationServiceProvider;
 use Tipoff\Seo\SeoServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
-use Tipoff\TestSupport\Providers\NovaPackageServiceProvider;
 
 class TestCase extends BaseTestCase
 {

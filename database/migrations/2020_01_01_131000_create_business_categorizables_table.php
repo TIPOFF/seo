@@ -12,7 +12,7 @@ class CreateBusinessCategorizablesTable extends Migration
             $table->foreignIdFor(app('business_category'));
             $table->morphs('categorizable');
 
-            $table->unique(['business_category_id', 'categorizable_id', 'categorizable_type']);
+            $table->unique(['business_category_id', 'categorizable_id', 'categorizable_type'], 'categorizable_unique');
         });
     }
 }

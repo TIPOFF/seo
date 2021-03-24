@@ -18,4 +18,3 @@ class KeywordType extends Enum
     const GENERIC = 'generic';
     const LOCAL = 'local';
 }
-

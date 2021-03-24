@@ -32,6 +32,7 @@ We include the following models:
 
 **List of Models**
 
+- Business Category
 - Company
 - Company User
 - Domain

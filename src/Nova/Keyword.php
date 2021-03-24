@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Tipoff\Seo\Enum\KeywordType;
 use Tipoff\Support\Nova\BaseResource;
 
 class Keyword extends BaseResource
@@ -23,7 +24,7 @@ class Keyword extends BaseResource
     public static $search = [
         'id',
     ];
-    
+
     public static $group = 'SEO';
 
     public function fieldsForIndex(NovaRequest $request)
@@ -48,9 +49,9 @@ class Keyword extends BaseResource
                 ])
                 ->sortable(),
             Select::make('Type')->options([
-                'Branded' => 'Branded',
-                'Generic' => 'Generic',
-                'Local' => 'Local',
+                KeywordType::BRANDED => 'Branded',
+                KeywordType::GENERIC => 'Generic',
+                KeywordType::LOCAL => 'Local',
             ])
                 ->rules(['required'])
                 ->sortable(),

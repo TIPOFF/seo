@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tipoff\Reviews\Commands;
 
 use Carbon\Carbon;
-use SerpApiSearch;
 use Illuminate\Console\Command;
+use SerpApiSearch;
 use Tipoff\Addresses\Models\Region;
 use Tipoff\Seo\Models\SearchLocale;
 
@@ -54,7 +54,7 @@ class PullSearchLocales extends Command
                         'reach' => $location_data->reach,
                         'latitude' => $location_data->gps[0],
                         'longitude' => $location_data->gps[1],
-                        'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     ]);
                     $search_locale->save();
                 }

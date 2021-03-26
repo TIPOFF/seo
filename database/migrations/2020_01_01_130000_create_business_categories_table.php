@@ -12,7 +12,9 @@ class CreateBusinessCategoriesTable extends Migration
     {
         Schema::create('business_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->index()->unique();
             $table->string('name')->index()->unique();
+            $table->foreignIdFor(app('user'), 'creator_id')->nullable();
             $table->timestamps();
         });
     }

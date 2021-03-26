@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Models;
 
+use Tipoff\Seo\Enum\KeywordType;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -14,10 +15,6 @@ class Keyword extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
-
-    const TYPE_BRANDED = 'Branded';
-    const TYPE_GENERIC = 'Generic';
-    const TYPE_LOCAL = 'Local';
 
     protected static function boot()
     {
@@ -30,16 +27,16 @@ class Keyword extends BaseModel
 
     public function isBranded(): bool
     {
-        return $this->type == Keyword::TYPE_BRANDED;
+        return $this->type == KeywordType::BRANDED;
     }
 
     public function isGeneric(): bool
     {
-        return $this->type == Keyword::TYPE_GENERIC;
+        return $this->type == KeywordType::GENERIC;
     }
 
     public function isLocal(): bool
     {
-        return $this->type == Keyword::TYPE_LOCAL;
+        return $this->type == KeywordType::LOCAL;
     }
 }

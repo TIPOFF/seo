@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Models;
 
+use Assert\Assert;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -15,17 +16,17 @@ class PlaceDetails extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    const UPDATED_AT = null;
+
     protected static function boot()
     {
         parent::boot();
 
         static::saving(function ($place_details) {
-            if (empty($place_details->name)) {
-                throw new \Exception('Place details must have a name.');
-            }
-            if (empty($place_details->place_id)) {
-                throw new \Exception('Place details must belong to a place.');
-            }
+            Assert::lazy()
+                ->that($place_details->name)->notEmpty('Place details must have a name.')
+                ->that($place_details->place_id)->notEmpty('Place details must belong to a place.')
+                ->verifyNow();
         });
     }
 
@@ -34,7 +35,7 @@ class PlaceDetails extends BaseModel
      */
     public function place()
     {
-        return $this->belongsTo(Place::class);
+        return $this->belongsTo(app('place'));
     }
 
     /**
@@ -42,6 +43,6 @@ class PlaceDetails extends BaseModel
      */
     public function webpage()
     {
-        return $this->belongsTo(Webpage::class);
+        return $this->belongsTo(app('webpage'));
     }
 }

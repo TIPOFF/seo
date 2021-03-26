@@ -9,14 +9,9 @@ use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
 use Tipoff\Support\Traits\HasUpdater;
 
-class Domain extends BaseModel
+class BusinessCategory extends BaseModel
 {
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
-
-    public function company()
-    {
-        return $this->belongsTo(app('company'));
-    }
 }

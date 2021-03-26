@@ -6,10 +6,13 @@ namespace Tipoff\Seo\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Tipoff\Seo\Enum\KeywordType;
 use Tipoff\Support\Nova\BaseResource;
 
 class Keyword extends BaseResource
@@ -21,7 +24,7 @@ class Keyword extends BaseResource
     public static $search = [
         'id',
     ];
-    
+
     public static $group = 'SEO';
 
     public function fieldsForIndex(NovaRequest $request)
@@ -34,8 +37,26 @@ class Keyword extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Phrase')->required()->creationRules('unique:keywords,phrase')->sortable(),
-            Text::make('Type')->required()->sortable(),
+            Text::make('Phrase')
+                ->rules([
+                    'required',
+                    'unique:keywords,phrase',
+                    function ($attribute, $value, $fail) {
+                        if (strtolower($value) !== $value) {
+                            return $fail('The '.$attribute.' field must be lowercase.');
+                        }
+                    },
+                ])
+                ->sortable(),
+            Select::make('Type')->options([
+                KeywordType::BRANDED => 'Branded',
+                KeywordType::GENERIC => 'Generic',
+                KeywordType::LOCAL => 'Local',
+            ])
+                ->rules(['required'])
+                ->sortable(),
+            DateTime::make('Tracking Requested At')->nullable(),
+            DateTime::make('Tracking Stopped At')->nullable(),
 
             nova('keyword') ? BelongsTo::make('Parent phrase', 'parent phrase', nova('keyword'))->nullable() : null,
 

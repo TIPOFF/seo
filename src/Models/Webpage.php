@@ -17,7 +17,7 @@ class Webpage extends BaseModel
 
     public function results()
     {
-        return $this->morphMany(Result::class, 'resultable');
+        return $this->morphMany(app('result'), 'resultable');
     }
 
     public function domain()

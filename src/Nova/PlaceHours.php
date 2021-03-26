@@ -57,13 +57,11 @@ class PlaceHours extends BaseResource
         ]);
     }
 
-    public function dataFields(): array
+    protected function dataFields(): array
     {
         return array_merge(
             parent::dataFields(),
-            [
-                $this->creatorDataFields(),
-            ]
+            $this->creatorDataFields(),
         );
     }
 }

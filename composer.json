@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "drewroberts/media": "^3.3.0",
+        "drewroberts/media": "^3.4.0",
         "tipoff/addresses": "^2.6.0",
         "tipoff/authorization": "^2.7.0",
         "tipoff/laravel-google-api": "^1.3.3",
@@ -30,7 +30,11 @@
         "psr-4": {
             "Tipoff\\Seo\\": "src",
             "Tipoff\\Seo\\Database\\Factories\\": "database/factories"
-        }
+        },
+        "files": [
+            "src/Helpers/GetFaviconUrl.php",
+            "src/Helpers/ParseUrl.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

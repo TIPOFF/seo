@@ -8,7 +8,6 @@ use Assert\Assert;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
-use Tipoff\Support\Traits\HasUpdater;
 
 class PlaceDetails extends BaseModel
 {

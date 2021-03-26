@@ -17,7 +17,7 @@ class PlaceDetails extends BaseModel
     const UPDATED_AT = null;
 
     protected $casts = [
-        'opened_at' => 'date'
+        'opened_at' => 'date',
     ];
 
     protected static function boot()

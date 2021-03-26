@@ -58,7 +58,8 @@ class Keyword extends BaseResource
             DateTime::make('Tracking Requested At')->nullable(),
             DateTime::make('Tracking Stopped At')->nullable(),
 
-            nova('keyword') ? BelongsTo::make('Parent phrase', 'parent phrase', nova('keyword'))->nullable() : null,
+            /*@todo this relation does not exist*/
+            //nova('keyword') ? BelongsTo::make('Parent phrase', 'parent phrase', nova('keyword'))->nullable() : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

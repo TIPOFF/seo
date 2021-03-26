@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Tipoff\Seo\Tests\Feature\Nova;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tipoff\Authorization\Models\User;
 use Tipoff\Seo\Models\Domain;
 use Tipoff\Seo\Tests\TestCase;
-use Tipoff\Authorization\Models\User;
 
 class DomainResourceTest extends TestCase
 {
-    
     use DatabaseTransactions;
 
     private const NOVA_ROUTE = 'nova-api/domains';

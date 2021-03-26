@@ -38,8 +38,9 @@ class Place extends BaseResource
             Text::make('Place location')->required()->creationRules('unique:places,place_location'),
             Text::make('Name')->nullable(),
 
-            nova('webpage') ? BelongsTo::make('Webpage', 'webpage', nova('webpage'))->nullable() : null,
-            nova('company') ? BelongsTo::make('Company', 'company', nova('company'))->nullable() : null,
+            /*@todo the relation does not exist in the class*/
+            #nova('webpage') ? BelongsTo::make('Webpage', 'webpage', nova('webpage'))->nullable() : null,
+            #nova('company') ? BelongsTo::make('Company', 'company', nova('company'))->nullable() : null,
             MorphMany::make('Results'),
 
             new Panel('Data Fields', $this->dataFields()),

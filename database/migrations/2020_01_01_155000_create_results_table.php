@@ -15,6 +15,7 @@ class CreateResultsTable extends Migration
             $table->foreignIdFor(app('ranking'))->index();
             $table->string('type')->index(); // Example: 'Organic', 'Local', 'Ads', 'Inline Video'
             $table->unsignedTinyInteger('position')->index();
+            $table->foreignIdFor(app(‘result’), 'parent_id')->nullable(); // Parent Result
 
             // resultable_id, resultable_type either Tipoff\Seo\Models\Webpage or Place
             $table->morphs('resultable');

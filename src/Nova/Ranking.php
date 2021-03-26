@@ -49,10 +49,8 @@ class Ranking extends BaseResource
     {
         return array_merge(
             parent::dataFields(),
-            [
-                $this->creatorDataFields(),
-                $this->updaterDataFields(),
-            ]
+            $this->creatorDataFields(),
+            $this->updaterDataFields(),
         );
     }
 }

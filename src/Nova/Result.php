@@ -9,12 +9,11 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
-use Tipoff\Support\Nova\BaseResource;
 use Tipoff\Seo\Enum\ResultType;
+use Tipoff\Support\Nova\BaseResource;
 
 class Result extends BaseResource
 {

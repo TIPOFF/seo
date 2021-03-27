@@ -15,6 +15,7 @@ class CreateCompaniesTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->foreignIdFor(app('domestic_address'))->nullable();
+            $table->foreignIdFor(app('phone'))->nullable();
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable();
             $table->foreignIdFor(app('user'), 'updater_id')->nullable();

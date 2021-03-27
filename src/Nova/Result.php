@@ -9,9 +9,10 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Tipoff\Seo\Enum\ResultType;
 use Tipoff\Support\Nova\BaseResource;
 
 class Result extends BaseResource
@@ -23,8 +24,10 @@ class Result extends BaseResource
     public static $search = [
         'id',
     ];
-    
+
     public static $group = 'SEO';
+
+    public static $displayInNavigation = false; //don't show resource in navigation
 
     public function fieldsForIndex(NovaRequest $request)
     {
@@ -36,7 +39,13 @@ class Result extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Type')->required()->sortable(),
+            Select::make('Type')->options([
+                ResultType::ORGANIC_LISTING => 'Organic Listings',
+                ResultType::LOCAL_LISTING => 'Local Listings',
+                ResultType::FEATURED_SNIPPET => 'Featured Snippet',
+                ResultType::INLINE_VIDEO_LISTINGS => 'Inline Video Listings',
+                ResultType::ADS => 'Product',
+            ])->required(),
             Number::make('Position')->required()->min(0)->max(255)->sortable(),
 
             nova('ranking') ? BelongsTo::make('Ranking', 'ranking', nova('ranking'))->sortable() : null,

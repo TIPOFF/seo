@@ -19,4 +19,14 @@ class Place extends BaseModel
     {
         return $this->morphMany(app('result'), 'resultable');
     }
+    
+    public function webpage()
+    {
+        return $this->belongsTo(app('webpage'));
+    }
+    
+    public function company()
+    {
+        return $this->belongsTo(app('company'));
+    }
 }

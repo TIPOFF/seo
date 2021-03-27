@@ -80,3 +80,7 @@ All notable changes to `seo` will be documented in this file.
 
 - update migrations
 - improve nova resources
+
+## 2.5.1 - 2021-03-27
+
+- add phone to company

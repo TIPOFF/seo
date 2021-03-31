@@ -7,7 +7,6 @@ namespace Tipoff\Reviews\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use SerpApiSearch;
-use Tipoff\Addresses\Models\Region;
 use Tipoff\Seo\Models\SearchLocale;
 
 class PullSearchLocales extends Command
@@ -24,36 +23,36 @@ class PullSearchLocales extends Command
      *
      * @var string
      */
-    protected $description = 'Pull all supported locations of the US in each DMA region';
+    protected $description = 'Pull all supported DMA Regions in the US and create their search locales';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $regions = Region::all();
+        // Currently serpapi does not let you query by target type or get more than 10 records
+        //$serp_api = app()->make(SerpApiSearch::class);
 
-        $serp_api = app()->make(SerpApiSearch::class);
+        // this file contains all supported locations used by serpapi ~30mb
+        $supported_locations = json_decode(file_get_contents('https://serpapi.com/locations.json'), true);
 
-        foreach ($regions as $region) {
-            // @todo Needs Refactoring - how do we get more than 10 locations from serpapi?
-            $locations_data = $serp_api->get_location($region->name, 10); // returns json response
-
-            foreach ($locations_data as $location_data) {
-                $search_locale = SearchLocale::where('google_id', $location_data->google_id)->first();
+        foreach ($supported_locations as $supported_location) {
+            // United States will be the default Search Locale and then get all 210 of the DMA Regions in the US
+            if ($supported_location->name == 'United States' || $supported_location->target_type == 'DMA Region') {
+                $search_locale = SearchLocale::where('google_id', $supported_location->google_id)->first();
 
                 if ($search_locale === null) {
                     $search_locale = new SearchLocale([
-                        'serp_id' => $location_data->id,
-                        'google_id' => $location_data->google_id,
-                        'google_parent_id' => $location_data->google_parent_id,
-                        'name' => $location_data->name,
-                        'canonical_name' => $location_data->canonical_name,
-                        'country_code' => $location_data->country_code,
-                        'target_type' => $location_data->target_type,
-                        'reach' => $location_data->reach,
-                        'latitude' => $location_data->gps[0],
-                        'longitude' => $location_data->gps[1],
+                        'serp_id' => $supported_location->id,
+                        'google_id' => $supported_location->google_id,
+                        'google_parent_id' => $supported_location->google_parent_id,
+                        'name' => $supported_location->name,
+                        'canonical_name' => $supported_location->canonical_name,
+                        'country_code' => $supported_location->country_code,
+                        'target_type' => $supported_location->target_type,
+                        'reach' => $supported_location->reach,
+                        'latitude' => $supported_location->gps[0],
+                        'longitude' => $supported_location->gps[1],
                         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     ]);
                     $search_locale->save();

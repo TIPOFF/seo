@@ -9,6 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Str;
+use SerpApiSearch;
 use Tipoff\Addresses\Models\Country;
 use Tipoff\Addresses\Models\CountryCallingcode;
 use Tipoff\Addresses\Models\Phone;
@@ -18,7 +19,6 @@ use Tipoff\Seo\Models\PlaceDetails;
 use Tipoff\Seo\Models\PlaceHours;
 use Tipoff\Seo\Models\Result;
 use Tipoff\Seo\Models\Webpage;
-use SerpApiSearch;
 
 class GetLocalResults
 {
@@ -53,7 +53,7 @@ class GetLocalResults
                     $company = new Company([
                         'name' => $local_result->title,
                         'slug' => Str::slug($local_result->title),
-                        'domestic_address_id' => '' // TODO: some search results return address without city and zip e.g. 4553 Sherwood Way
+                        'domestic_address_id' => '', // TODO: some search results return address without city and zip e.g. 4553 Sherwood Way
                     ]);
                     $company->save();
                     $place = new Place([
@@ -72,25 +72,25 @@ class GetLocalResults
                         "hl" => "en",
                         "gl" => "us",
                         "ludocid" => $local_result->place_id,
-                        "tbm" => "lcl"
-					];
-				    $place_data = $serp_api->search('json', $query);
+                        "tbm" => "lcl",
+                    ];
+                    $place_data = $serp_api->search('json', $query);
 
-				    if (isset($place_data->local_results)){
-				        $searched_place = $place_data->local_results[0];
-				        if (isset($searched_place->links->website)) {
-				            $url = $searched_place->links->website;
+                    if (isset($place_data->local_results)) {
+                        $searched_place = $place_data->local_results[0];
+                        if (isset($searched_place->links->website)) {
+                            $url = $searched_place->links->website;
                             $webpage = new Webpage([
                                  'domain' => Webpage::getDomain($url),
                                  'path' => Webpage::getPath($url),
                                  'sub_domain' => Webpage::getSubDomains($url),
                                  'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                              ]);
-                             $webpage->save();
-				        }
+                            $webpage->save();
+                        }
 
-				        $country_id = Country::fromAbbreviation('US')->getId();
-				        $country_calling_code = CountryCallingcode::where('country_id', $country_id)->first();
+                        $country_id = Country::fromAbbreviation('US')->getId();
+                        $country_calling_code = CountryCallingcode::where('country_id', $country_id)->first();
                         $phone = new Phone([
                             'country_callingcode_id' => $country_calling_code,
                             'full_number' => $searched_place->phone,
@@ -111,15 +111,15 @@ class GetLocalResults
                         /*$place_hours = new PlaceHours([
 
                         ]);*/
-				    }
+                    }
                 }
 
                 $result = new Result([
-					 'ranking_id' => $this->ranking_id,
-					 'type' => 'Local',
-					 'position' => $local_result->position,
-					 'search_locale_id' => $this->search_locale_id
-				 ]);
+                     'ranking_id' => $this->ranking_id,
+                     'type' => 'Local',
+                     'position' => $local_result->position,
+                     'search_locale_id' => $this->search_locale_id,
+                 ]);
                 $result->resultable()->associate($place);
                 $result->save();
             }

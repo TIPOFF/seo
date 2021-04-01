@@ -27,22 +27,25 @@ class Webpage extends BaseModel
 
     public static function getDomain(string $url): ?string
     {
-    	$parsedUrl = parse_url($url);
-    	$host = explode('.', $parsedUrl['host']);
-		return $host[count($host) - 2];
+        $parsedUrl = parse_url($url);
+        $host = explode('.', $parsedUrl['host']);
+
+        return $host[count($host) - 2];
     }
 
     public static function getSubDomains(string $url): ?string
     {
-    	$parsedUrl = parse_url($url);
-    	$host = explode('.', $parsedUrl['host']);
-    	$subdomains = array_slice($host, 0, count($host) - 2 );
-    	return implode(".", $subdomains);
+        $parsedUrl = parse_url($url);
+        $host = explode('.', $parsedUrl['host']);
+        $subdomains = array_slice($host, 0, count($host) - 2);
+
+        return implode(".", $subdomains);
     }
 
     public static function getPath(string $url): ?string
     {
-    	$path = parse_url($url, PHP_URL_PATH);
-		return $path;
+        $path = parse_url($url, PHP_URL_PATH);
+
+        return $path;
     }
 }

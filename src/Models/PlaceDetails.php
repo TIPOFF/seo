@@ -8,15 +8,17 @@ use Assert\Assert;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
-use Tipoff\Support\Traits\HasUpdater;
 
 class PlaceDetails extends BaseModel
 {
     use HasPackageFactory;
     use HasCreator;
-    use HasUpdater;
 
     const UPDATED_AT = null;
+
+    protected $casts = [
+        'opened_at' => 'date',
+    ];
 
     protected static function boot()
     {

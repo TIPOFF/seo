@@ -19,6 +19,11 @@ class Result extends BaseModel
     {
         return $this->belongsTo(app('ranking'));
     }
+    
+    public function parent()
+    {
+        return $this->belongsTo(app('result'), 'parent_id');
+    }
 
     public function resultable()
     {

@@ -20,19 +20,24 @@ class Company extends BaseModel
         return $this->belongsToMany(app('user'))->withTimestamps()->withPivot(['creator_id', 'updater_id', 'primary_contact'])->using(CompanyUser::class);
     }
 
-    public function domain()
+    public function domains()
     {
-        return $this->hasOne(app('domain'));
+        return $this->hasMany(app('domain'));
     }
 
-    public function place()
+    public function places()
     {
-        return $this->hasOne(app('place'));
+        return $this->hasMany(app('place'));
     }
 
-    public function location()
+    public function locations()
     {
-        return $this->belongsTo(app('location'));
+        return $this->hasMany(app('location'));
+    }
+    
+    public function domestic_address()
+    {
+        return $this->belongsTo(app('domestic_address'));
     }
 
     // @todo use new addresable trait

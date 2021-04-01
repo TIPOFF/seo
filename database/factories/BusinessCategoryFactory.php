@@ -19,7 +19,6 @@ class BusinessCategoryFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'creator_id'    => randomOrCreate(app('user')),
         ];
     }
 }

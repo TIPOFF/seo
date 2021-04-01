@@ -59,7 +59,7 @@ class Keyword extends BaseResource
             DateTime::make('Tracking Requested At')->nullable(),
             DateTime::make('Tracking Stopped At')->nullable(),
 
-            nova('keyword') ? BelongsTo::make('Parent phrase', 'parent phrase', nova('keyword'))->nullable() : null,
+            nova('keyword') ? BelongsTo::make('Parent', 'parent', nova('keyword'))->nullable() : null,
 
             nova('search_locale') ? BelongsToMany::make('Search Locale', 'search_locale', nova('search_locale')) : null,
 
@@ -71,10 +71,8 @@ class Keyword extends BaseResource
     {
         return array_merge(
             parent::dataFields(),
-            [
-                $this->creatorDataFields(),
-                $this->updaterDataFields(),
-            ]
+            $this->creatorDataFields(),
+            $this->updaterDataFields(),
         );
     }
 }

@@ -14,10 +14,12 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => $this->faker->name,
-            'slug'          => $this->faker->slug,
-            'creator_id'    => randomOrCreate(app('user')),
-            'updater_id'    => randomOrCreate(app('user')),
+            'name'                  => $this->faker->name,
+            'slug'                  => $this->faker->slug,
+            'domestic_address_id'   => randomOrCreate(app('domestic_address')),
+            'phone_id'              => randomOrCreate(app('phone')),
+            'creator_id'            => randomOrCreate(app('user')),
+            'updater_id'            => randomOrCreate(app('user')),
         ];
     }
 }

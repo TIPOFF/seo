@@ -45,9 +45,14 @@ class Keyword extends BaseModel
     {
         return $this->type == KeywordType::LOCAL;
     }
-
+  
     public function searchLocales()
     {
         return $this->belongsToMany(app('search_locales'))->withTimestamps();
+    }
+      
+    public function parent()
+    {
+        return $this->belongsTo(app('keyword'), 'parent_id');
     }
 }

@@ -15,14 +15,19 @@ class Webpage extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    public function domain()
+    {
+        return $this->belongsTo(app('domain'));
+    }
+    
     public function results()
     {
         return $this->morphMany(app('result'), 'resultable');
     }
-
-    public function domain()
+    
+    public function places()
     {
-        return $this->belongsTo(app('domain'));
+        return $this->hasMany(app('place'));
     }
 
     public static function getDomain(string $url): ?string

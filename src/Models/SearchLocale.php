@@ -15,6 +15,11 @@ class SearchLocale extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    public function keywords()
+    {
+        return $this->belongsToMany(app('keywords'))->withTimestamps();
+    }
+
     public function rankings()
     {
         return $this->hasMany(app('ranking'));

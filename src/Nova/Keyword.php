@@ -6,6 +6,7 @@ namespace Tipoff\Seo\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
@@ -59,6 +60,8 @@ class Keyword extends BaseResource
             DateTime::make('Tracking Stopped At')->nullable(),
 
             nova('keyword') ? BelongsTo::make('Parent phrase', 'parent phrase', nova('keyword'))->nullable() : null,
+
+            nova('search_locale') ? BelongsToMany::make('Search Locale', 'search_locale', nova('search_locale')) : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

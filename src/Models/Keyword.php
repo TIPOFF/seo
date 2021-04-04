@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Tipoff\Seo\Enum\KeywordType;
 use Tipoff\Seo\Services\Keyword\CheckRanking;
 use Tipoff\Support\Models\BaseModel;

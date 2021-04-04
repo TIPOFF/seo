@@ -7,7 +7,7 @@ namespace Tipoff\Seo\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
-use SerpApiSearch;
+use Tipoff\LaravelSerpapi\Helpers\SerpApiSearch;
 use Tipoff\Seo\Jobs\GetLocalResults;
 use Tipoff\Seo\Jobs\GetOrganicResults;
 use Tipoff\Seo\Models\Keyword;
@@ -37,6 +37,7 @@ class CheckRankings extends Command
         $keywords = Keyword::all(); // gets only currently active keywords
 
         $serp_api = app()->make(SerpApiSearch::class);
+        $serp_api->set_serp_api_key(config('seo.serp_api_key'));
 
         foreach ($keywords as $keyword) {
             // each keyword could belong to multiple search locales

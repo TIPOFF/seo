@@ -9,10 +9,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Str;
-use SerpApiSearch;
 use Tipoff\Addresses\Models\Country;
 use Tipoff\Addresses\Models\CountryCallingcode;
 use Tipoff\Addresses\Models\Phone;
+use Tipoff\LaravelSerpapi\Helpers\SerpApiSearch;
 use Tipoff\Seo\Models\Company;
 use Tipoff\Seo\Models\Place;
 use Tipoff\Seo\Models\PlaceDetails;
@@ -65,6 +65,7 @@ class GetLocalResults
                     $place->save();
 
                     $serp_api = app()->make(SerpApiSearch::class);
+                    $serp_api->set_serp_api_key(config('seo.serp_api_key'));
 
                     // query to get place address and hours
                     $query = [

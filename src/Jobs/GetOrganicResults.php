@@ -53,6 +53,8 @@ class GetOrganicResults
                 $result->resultable()->associate($webpage);
                 $result->save();
             }
+        } else {
+            throw new \Exception("Didn't get organic results to parse.");
         }
     }
 }

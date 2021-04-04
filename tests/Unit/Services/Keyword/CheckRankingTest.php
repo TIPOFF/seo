@@ -10,11 +10,11 @@ class CheckRankingTest extends TestCase
 {
     public function check_local_results()
     {
-        return $this->assertTrue(true);
+        return $this->assertTrue(false);
     }
 
     public function check_global_results()
     {
-        return $this->assertTrue(true);
+        return $this->assertTrue(false);
     }
 }

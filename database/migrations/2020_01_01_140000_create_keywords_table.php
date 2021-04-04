@@ -14,6 +14,7 @@ class CreateKeywordsTable extends Migration
             $table->id();
             $table->string('phrase')->index()->unique();
             $table->string('type')->index(); // Example: 'Branded', 'Generic', 'Local'
+            $table->boolean('is_active')->index();
             $table->dateTime('tracking_requested_at')->nullable();
             $table->dateTime('tracking_stopped_at')->nullable();
 

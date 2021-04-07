@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Bus;
 use Tipoff\LaravelSerpapi\Helpers\SerpApiSearch;
 use Tipoff\Seo\Jobs\GetLocalResults;
 use Tipoff\Seo\Jobs\GetOrganicResults;
+use Tipoff\Seo\Jobs\GetVideoResults;
 use Tipoff\Seo\Models\Ranking;
 
 class CheckRanking
@@ -43,6 +44,7 @@ class CheckRanking
             Bus::chain([
                 new GetOrganicResults($response_data, $ranking->id, $search_locale->id),
                 new GetLocalResults($response_data, $ranking->id, $search_locale->id, $keyword->phrase),
+                new GetVideoResults($response_data, $ranking->id, $search_locale->id),
             ])->dispatch();
         }
     }

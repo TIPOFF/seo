@@ -14,6 +14,7 @@ use Tipoff\Addresses\Models\CountryCallingcode;
 use Tipoff\Addresses\Models\Phone;
 use Tipoff\LaravelSerpapi\Helpers\SerpApiSearch;
 use Tipoff\Seo\Models\Company;
+use Tipoff\Seo\Models\Domain;
 use Tipoff\Seo\Models\Place;
 use Tipoff\Seo\Models\PlaceDetails;
 use Tipoff\Seo\Models\PlaceHours;
@@ -81,10 +82,21 @@ class GetLocalResults
                         $searched_place = $place_data->local_results[0];
                         if (isset($searched_place->links->website)) {
                             $url = $searched_place->links->website;
+
+                            $subdomain = Webpage::getSubDomains($url);
+
+                            $domain = Domain::firstOrCreate([
+                                 'name' => Webpage::getDomain($url),
+                                 'tld' => Webpage::getTLD($url),
+                                 'https' => Webpage::isHttps($url),
+                                 'sub_domain' => $subdomain,
+                                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                             ]);
+
                             $webpage = new Webpage([
-                                 'domain' => Webpage::getDomain($url),
-                                 'path' => Webpage::getPath($url),
-                                 'sub_domain' => Webpage::getSubDomains($url),
+                                 'domain' => $domain->id,
+                                 'path' => Webpage::getUrlPath($url),
+                                 'sub_domain' => $subdomain,
                                  'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                              ]);
                             $webpage->save();

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Tipoff\Seo\Models\Domain;
 use Tipoff\Seo\Models\Result;
 use Tipoff\Seo\Models\Webpage;
 
@@ -37,10 +38,21 @@ class GetOrganicResults
     {
         if (isset($this->response_data->organic_results)) {
             foreach ($this->response_data->organic_results as $organic_result) {
+                $url = $organic_result->link;
+                $subdomain = Webpage::getSubDomains($url);
+
+                $domain = Domain::firstOrCreate([
+                     'name' => Webpage::getDomain($url),
+                     'tld' => Webpage::getTLD($url),
+                     'https' => Webpage::isHttps($url),
+                     'sub_domain' => $subdomain,
+                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                 ]);
+
                 $webpage = Webpage::firstOrCreate([
-                     'domain' => Webpage::getDomain($organic_result->link),
-                     'path' => Webpage::getPath($organic_result->link),
-                     'sub_domain' => Webpage::getSubDomains($organic_result->link),
+                     'domain' => $domain->id,
+                     'path' => Webpage::getUrlPath($organic_result->link),
+                     'sub_domain' => $subdomain,
                      'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                  ]);
 
@@ -52,6 +64,37 @@ class GetOrganicResults
                  ]);
                 $result->resultable()->associate($webpage);
                 $result->save();
+
+                 if (isset($organic_result->sitelinks)) {
+                    $sitelinks = null;
+                    // two types of sitelinks - inline or expanded
+                    if (isset($organic_result->sitelinks->inline)) {
+                        $sitelinks = $organic_result->sitelinks->inline;
+                    } else if (isset($organic_result->sitelinks->expanded)) {
+                        $sitelinks = $organic_result->sitelinks->expanded;
+                    }
+
+                    if ($sitelinks != null){
+                        foreach ($sitelinks as $sitelink) {
+                            $child_webpage = Webpage::firstOrCreate([
+                                 'domain' => $domain->id,
+                                 'path' => Webpage::getUrlPath($sitelink->link),
+                                 'sub_domain' => Webpage::getSubDomains($sitelink->link),
+                                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                             ]);
+
+                            $child_result = new Result([
+                                 'ranking_id' => $this->ranking_id,
+                                 'type' => 'Organic',
+                                 'position' => $organic_result->position,
+                                 'search_locale_id' => $this->search_locale_id,
+                                 'parent_id' => $result->id
+                             ]);
+                            $child_result->resultable()->associate($child_webpage);
+                            $child_result->save();
+                        }
+                    }
+                 }
             }
         } else {
             throw new \Exception("Didn't get organic results to parse.");

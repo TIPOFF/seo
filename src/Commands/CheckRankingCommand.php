@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tipoff\Seo\Commands;
 
 use Illuminate\Console\Command;
-use Tipoff\Seo\Services\Ranking\CheckAllKeywordRankings;
+use Tipoff\Seo\Actions\Keywords\CheckAllKeywordRankings;
 
 class CheckRankingCommand extends Command
 {

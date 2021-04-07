@@ -58,15 +58,17 @@ class Webpage extends BaseModel
     {
         $host = parse_url($url, PHP_URL_HOST);
         $arr = explode(".", $host);
+
         return end($arr);
     }
 
     public static function isHttps(string $url): bool
     {
         $url = parse_url($url);
-        if($url['scheme'] == 'https'){
-           return true;
+        if ($url['scheme'] == 'https') {
+            return true;
         }
+
         return false;
     }
 }

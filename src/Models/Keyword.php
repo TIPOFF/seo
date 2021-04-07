@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Models;
 
-use Tipoff\Seo\Enum\KeywordType;
 use Tipoff\Seo\Actions\Keywords\CheckRanking;
+use Tipoff\Seo\Enum\KeywordType;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;

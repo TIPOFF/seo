@@ -38,23 +38,25 @@ class PullSearchLocales extends Command
 
         foreach ($supported_locations as $supported_location) {
             // United States will be the default Search Locale and then get all 210 of the DMA Regions in the US
-            if ($supported_location->name == 'United States' || $supported_location->target_type == 'DMA Region') {
-                $search_locale = SearchLocale::where('google_id', $supported_location->google_id)->first();
+            if ($supported_location['name'] == 'United States' || $supported_location['target_type'] == 'DMA Region') {
+                $search_locale = SearchLocale::where('google_id', $supported_location['google_id'])->first();
 
                 if ($search_locale === null) {
                     $search_locale = new SearchLocale([
-                        'serp_id' => $supported_location->id,
-                        'google_id' => $supported_location->google_id,
-                        'google_parent_id' => $supported_location->google_parent_id,
-                        'name' => $supported_location->name,
-                        'canonical_name' => $supported_location->canonical_name,
-                        'country_code' => $supported_location->country_code,
-                        'target_type' => $supported_location->target_type,
-                        'reach' => $supported_location->reach,
-                        'latitude' => $supported_location->gps[0],
-                        'longitude' => $supported_location->gps[1],
+                        'serp_id' => $supported_location['id'],
+                        'google_id' => $supported_location['google_id'],
+                        'google_parent_id' => $supported_location['google_parent_id'],
+                        'name' => $supported_location['name'],
+                        'canonical_name' => $supported_location['canonical_name'],
+                        'country_code' => $supported_location['country_code'],
+                        'target_type' => $supported_location['target_type'],
+                        'reach' => $supported_location['reach'],
                         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     ]);
+                    if (isset($supported_location['gps']) && count($supported_location['gps']) == 2) {
+                            $search_locale->latitude = $supported_location['gps'][0];
+                            $search_locale->longitude = $supported_location['gps'][1];
+                    }
                     $search_locale->save();
                 }
             }

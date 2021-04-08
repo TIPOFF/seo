@@ -39,4 +39,9 @@ class Keyword extends BaseModel
     {
         return $this->type == KeywordType::LOCAL;
     }
+    
+    public function parent()
+    {
+        return $this->belongsTo(app('keyword'), 'parent_id');
+    }
 }

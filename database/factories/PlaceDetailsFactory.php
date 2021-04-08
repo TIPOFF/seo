@@ -14,14 +14,14 @@ class PlaceDetailsFactory extends Factory
     public function definition()
     {
         return [
+            'place_id'              => randomOrCreate(app('place')),
             'name'                  => $this->faker->name,
+            'domestic_address_id'   => randomOrCreate(app('domestic_address')),
+            'phone_id'              => randomOrCreate(app('phone')),
+            'webpage_id'            => randomOrCreate(app('webpage')),
             'opened_at'             => $this->faker->date,
             'latitude'              => $this->faker->latitude,
             'longitude'             => $this->faker->longitude,
-            'webpage_id'            => randomOrCreate(app('webpage')),
-            'place_id'              => randomOrCreate(app('place')),
-            'domestic_address_id'   => randomOrCreate(app('domestic_address')),
-            'creator_id'            => randomOrCreate(app('user')),
         ];
     }
 }

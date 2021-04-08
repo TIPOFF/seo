@@ -25,6 +25,8 @@ class Webpage extends BaseResource
     
     public static $group = 'SEO';
 
+    public static $displayInNavigation = false; //don't show resource in navigation
+
     public function fieldsForIndex(NovaRequest $request)
     {
         return array_filter([
@@ -50,10 +52,8 @@ class Webpage extends BaseResource
     {
         return array_merge(
             parent::dataFields(),
-            [
-                $this->creatorDataFields(),
-                $this->updaterDataFields(),
-            ]
+            $this->creatorDataFields(),
+            $this->updaterDataFields(),
         );
     }
 }

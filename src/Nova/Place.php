@@ -22,8 +22,10 @@ class Place extends BaseResource
     public static $search = [
         'id',
     ];
-    
+
     public static $group = 'SEO';
+
+    public static $displayInNavigation = false; //don't show resource in navigation
 
     public function fieldsForIndex(NovaRequest $request)
     {
@@ -50,10 +52,8 @@ class Place extends BaseResource
     {
         return array_merge(
             parent::dataFields(),
-            [
-                $this->creatorDataFields(),
-                $this->updaterDataFields(),
-            ]
+            $this->creatorDataFields(),
+            $this->updaterDataFields(),
         );
     }
 }

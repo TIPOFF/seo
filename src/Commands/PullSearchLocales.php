@@ -54,8 +54,8 @@ class PullSearchLocales extends Command
                         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     ]);
                     if (isset($supported_location['gps']) && count($supported_location['gps']) == 2) {
-                            $search_locale->latitude = $supported_location['gps'][0];
-                            $search_locale->longitude = $supported_location['gps'][1];
+                        $search_locale->latitude = $supported_location['gps'][0];
+                        $search_locale->longitude = $supported_location['gps'][1];
                     }
                     $search_locale->save();
                 }

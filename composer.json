@@ -17,11 +17,11 @@
     "require": {
         "php": "^7.3|^8.0",
         "drewroberts/media": "^3.4.1",
-        "tipoff/addresses": "^2.7.4",
+        "tipoff/addresses": "^2.7.7",
         "tipoff/authorization": "^2.7.1",
         "tipoff/laravel-google-api": "^1.3.3",
         "tipoff/laravel-serpapi": "^1.0.5",
-        "tipoff/support": "^1.8.8"
+        "tipoff/support": "^1.8.10"
     },
     "require-dev": {
         "tipoff/test-support": "^1.4.2"

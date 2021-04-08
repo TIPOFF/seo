@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tipoff\Reviews\Commands;
+namespace Tipoff\Seo\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;

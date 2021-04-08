@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo;
 
+use Tipoff\Seo\Commands\PullSearchLocales;
 use Tipoff\Seo\Models\BusinessCategory;
 use Tipoff\Seo\Models\Company;
 use Tipoff\Seo\Models\Domain;
@@ -51,6 +52,9 @@ class SeoServiceProvider extends TipoffServiceProvider
                 \Tipoff\Seo\Nova\SearchVolume::class,
                 \Tipoff\Seo\Nova\Webpage::class,
                 \Tipoff\Seo\Nova\BusinessCategory::class,
+            ])
+            ->hasCommands([
+                PullSearchLocales::class,
             ])
             ->name('seo')
             ->hasConfigFile();

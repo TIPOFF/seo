@@ -11,6 +11,7 @@ use Tipoff\Seo\Jobs\GetLocalResults;
 use Tipoff\Seo\Jobs\GetOrganicResults;
 use Tipoff\Seo\Jobs\GetVideoResults;
 use Tipoff\Seo\Models\Ranking;
+use Tipoff\Support\Contracts\Seo\KeywordInterface;
 
 class CheckRanking
 {

@@ -14,14 +14,14 @@ class CreateSearchLocalesTable extends Migration
             $table->id();
             $table->string('serp_id')->index();
             $table->unsignedInteger('google_id'); // @todo rename so _id fields reserved for our database relationships
-            $table->unsignedInteger('google_parent_id'); // @todo rename so _id fields reserved for our database relationships
+            $table->unsignedInteger('google_parent_id')->nullable(); // @todo rename so _id fields reserved for our database relationships
             $table->string('name')->unique();
             $table->string('canonical_name');
             $table->string('country_code');
             $table->string('target_type');
             $table->unsignedInteger('reach');
-            $table->decimal('latitude', 10, 8);
-            $table->decimal('longitude', 11, 8);
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable(); // Probably not ever used here, but just in case it is a requested run
             $table->foreignIdFor(app('user'), 'updater_id')->nullable(); // There may later be a few fields that are updatable, but most will be locked to not be editable

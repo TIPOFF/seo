@@ -88,3 +88,7 @@ All notable changes to `seo` will be documented in this file.
 ## 2.5.2 - 2021-04-04
 
 - bump addresses package
+
+## 2.6.0 - 2021-04-09
+
+- bump support dependencies

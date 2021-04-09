@@ -18,8 +18,8 @@ class CreatePlaceDetailsTable extends Migration
             $table->foreignIdFor(app('phone'))->nullable();
             $table->foreignIdFor(app('webpage'))->nullable();
             $table->date('opened_at')->nullable();
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
+            $table->float('latitude', 10, 6)->nullable();
+            $table->float('longitude', 10, 6)->nullable();
 
             $table->foreignIdFor(app('user'), 'creator_id')->nullable(); // User that requested the place data to be updated
             $table->timestamp('created_at');

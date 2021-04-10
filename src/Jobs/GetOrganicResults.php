@@ -44,19 +44,19 @@ class GetOrganicResults
                         'name' => $url_array['name'],
                         'tld' => $url_array['tld'],
                         'https' => $url_array['https'],
-                        'subdomain' => $url_array['subdomain']
+                        'subdomain' => $url_array['subdomain'],
                      ],
-                     ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
-                 );
+                    ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                );
 
                 $webpage = Webpage::firstOrCreate(
                     [
                         'domain_id' => $domain->id,
                         'path' => Webpage::getUrlPath($organic_result->link),
-                        'subdomain' => $url_array['subdomain']
+                        'subdomain' => $url_array['subdomain'],
                     ],
                     ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
-                 );
+                );
 
                 $result = new Result([
                      'ranking_id' => $this->ranking_id,
@@ -78,13 +78,13 @@ class GetOrganicResults
                         foreach ($sitelinks as $sitelink) {
                             $child_url_array = parseUrl($sitelink->link);
                             $child_webpage = Webpage::firstOrCreate(
-                                 [
+                                [
                                      'domain_id' => $domain->id,
                                      'path' => Webpage::getUrlPath($sitelink->link),
-                                     'subdomain' => $child_url_array['subdomain']
+                                     'subdomain' => $child_url_array['subdomain'],
                                  ],
-                                 ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
-                             );
+                                ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                            );
 
                             $child_result = new Result([
                                  'ranking_id' => $this->ranking_id,

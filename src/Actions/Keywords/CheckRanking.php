@@ -10,8 +10,8 @@ use Tipoff\LaravelSerpapi\Helpers\SerpApiSearch;
 use Tipoff\Seo\Jobs\GetLocalResults;
 use Tipoff\Seo\Jobs\GetOrganicResults;
 use Tipoff\Seo\Jobs\GetVideoResults;
-use Tipoff\Seo\Models\Ranking;
 use Tipoff\Seo\Models\Keyword;
+use Tipoff\Seo\Models\Ranking;
 
 class CheckRanking
 {

@@ -10,7 +10,7 @@ class CheckAllKeywordRankings
 {
     public function __invoke(): void
     {
-        $keywords = Keyword::active(); // gets only currently active keywords
+        $keywords = Keyword::active()->get(); // gets only currently active keywords
 
         foreach ($keywords as $keyword) {
             $keyword->getRanking();

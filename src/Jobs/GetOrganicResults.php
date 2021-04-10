@@ -20,18 +20,16 @@ class GetOrganicResults
 
     private $response_data;
     private $ranking_id;
-    private $search_locale_id;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($responseData, $rankingId, $searchLocaleId)
+    public function __construct($responseData, $rankingId)
     {
         $this->response_data = $responseData;
         $this->ranking_id = $rankingId;
-        $this->search_locale_id = $searchLocaleId;
     }
 
     public function handle()
@@ -39,31 +37,33 @@ class GetOrganicResults
         if (isset($this->response_data->organic_results)) {
             foreach ($this->response_data->organic_results as $organic_result) {
                 $url = $organic_result->link;
-                $subdomain = Webpage::getSubDomains($url);
+                $url_array = parseUrl($url);
 
-                $domain = Domain::firstOrCreate([
-                     'name' => Webpage::getDomain($url),
-                     'tld' => Webpage::getTLD($url),
-                     'https' => Webpage::isHttps($url),
-                     'sub_domain' => $subdomain,
-                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                 ]);
+                $domain = Domain::firstOrCreate(
+                    [
+                        'name' => $url_array['name'],
+                        'tld' => $url_array['tld'],
+                        'https' => $url_array['https'],
+                        'subdomain' => $url_array['subdomain']
+                     ],
+                     ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                 );
 
-                $webpage = Webpage::firstOrCreate([
-                     'domain' => $domain->id,
-                     'path' => Webpage::getUrlPath($organic_result->link),
-                     'sub_domain' => $subdomain,
-                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                 ]);
+                $webpage = Webpage::firstOrCreate(
+                    [
+                        'domain_id' => $domain->id,
+                        'path' => Webpage::getUrlPath($organic_result->link),
+                        'subdomain' => $url_array['subdomain']
+                    ],
+                    ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                 );
 
                 $result = new Result([
                      'ranking_id' => $this->ranking_id,
                      'type' => 'Organic',
                      'position' => $organic_result->position,
-                     'search_locale_id' => $this->search_locale_id,
                  ]);
-                $result->resultable()->associate($webpage);
-                $result->save();
+                $result->resultable()->associate($webpage)->save();
 
                 if (isset($organic_result->sitelinks)) {
                     $sitelinks = null;
@@ -76,18 +76,20 @@ class GetOrganicResults
 
                     if ($sitelinks != null) {
                         foreach ($sitelinks as $sitelink) {
-                            $child_webpage = Webpage::firstOrCreate([
-                                 'domain' => $domain->id,
-                                 'path' => Webpage::getUrlPath($sitelink->link),
-                                 'sub_domain' => Webpage::getSubDomains($sitelink->link),
-                                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                             ]);
+                            $child_url_array = parseUrl($sitelink->link);
+                            $child_webpage = Webpage::firstOrCreate(
+                                 [
+                                     'domain_id' => $domain->id,
+                                     'path' => Webpage::getUrlPath($sitelink->link),
+                                     'subdomain' => $child_url_array['subdomain']
+                                 ],
+                                 ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                             );
 
                             $child_result = new Result([
                                  'ranking_id' => $this->ranking_id,
                                  'type' => 'Organic',
                                  'position' => $organic_result->position,
-                                 'search_locale_id' => $this->search_locale_id,
                                  'parent_id' => $result->id,
                              ]);
                             $child_result->resultable()->associate($child_webpage);

@@ -30,45 +30,10 @@ class Webpage extends BaseModel
         return $this->hasMany(app('place'));
     }
 
-    public static function getDomain(string $url): ?string
-    {
-        $parsedUrl = parse_url($url);
-        $host = explode('.', $parsedUrl['host']);
-
-        return $host[count($host) - 2];
-    }
-
-    public static function getSubDomains(string $url): ?string
-    {
-        $parsedUrl = parse_url($url);
-        $host = explode('.', $parsedUrl['host']);
-        $subdomains = array_slice($host, 0, count($host) - 2);
-
-        return implode(".", $subdomains);
-    }
-
     public static function getUrlPath(string $url): ?string
     {
         $path = parse_url($url, PHP_URL_PATH);
 
         return $path;
-    }
-
-    public static function getTLD(string $url): ?string
-    {
-        $host = parse_url($url, PHP_URL_HOST);
-        $arr = explode(".", $host);
-
-        return end($arr);
-    }
-
-    public static function isHttps(string $url): bool
-    {
-        $url = parse_url($url);
-        if ($url['scheme'] == 'https') {
-            return true;
-        }
-
-        return false;
     }
 }

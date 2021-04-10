@@ -68,7 +68,7 @@ class Keyword extends BaseModel
 
     public function searchLocales()
     {
-        return $this->belongsToMany(app('search_locales'))->withTimestamps();
+        return $this->belongsToMany(app('search_locale'))->withTimestamps();
     }
 
     public function parent()

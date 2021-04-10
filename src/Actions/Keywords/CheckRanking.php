@@ -11,11 +11,11 @@ use Tipoff\Seo\Jobs\GetLocalResults;
 use Tipoff\Seo\Jobs\GetOrganicResults;
 use Tipoff\Seo\Jobs\GetVideoResults;
 use Tipoff\Seo\Models\Ranking;
-use Tipoff\Support\Contracts\Seo\KeywordInterface;
+use Tipoff\Seo\Models\Keyword;
 
 class CheckRanking
 {
-    public function __invoke(KeywordInterface $keyword): void
+    public function __invoke(Keyword $keyword): void
     {
         $serp_api = app()->make(SerpApiSearch::class);
         $serp_api->set_serp_api_key(config('seo.serp_api_key'));
@@ -43,7 +43,7 @@ class CheckRanking
             $ranking->save();
 
             Bus::chain([
-                new GetOrganicResults($response_data, $ranking->id, $search_locale->id),
+                new GetOrganicResults($response_data, $ranking->id),
                 new GetLocalResults($response_data, $ranking->id, $search_locale->id, $keyword->phrase),
                 new GetVideoResults($response_data, $ranking->id, $search_locale->id),
             ])->dispatch();

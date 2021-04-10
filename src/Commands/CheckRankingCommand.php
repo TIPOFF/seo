@@ -28,6 +28,6 @@ class CheckRankingCommand extends Command
      */
     public function handle()
     {
-        app(CheckAllKeywordRankings::class);
+        (new CheckAllKeywordRankings())();
     }
 }

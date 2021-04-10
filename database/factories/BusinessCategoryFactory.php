@@ -15,7 +15,7 @@ class BusinessCategoryFactory extends Factory
 
     public function definition()
     {
-        $name = $this->faker->jobTitle;
+        $name = $this->faker->unique()->jobTitle;
         return [
             'name' => $name,
             'slug' => Str::slug($name),

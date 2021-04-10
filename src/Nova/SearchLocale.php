@@ -43,8 +43,8 @@ class SearchLocale extends BaseResource
             Text::make('Country Code')->required()->sortable(),
             Text::make('Target Type')->required()->sortable(),
             Number::make('Reach')->required(),
-            Text::make('Latitude')->required(),
-            Text::make('Longitude')->required(),
+            Number::make('Latitude')->step(0.000001)->nullable(),
+            Number::make('Longitude')->step(0.000001)->nullable(),
 
             nova('keyword') ? BelongsToMany::make('Keyword', 'keyword', nova('keyword'))->sortable() : null,
 

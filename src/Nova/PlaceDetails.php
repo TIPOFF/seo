@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
@@ -46,8 +47,8 @@ class PlaceDetails extends BaseResource
             Text::make('Zip')->rules('max:5')->nullable(),
             Text::make('Phone')->rules('max:25')->nullable(),
             Text::make('Maps url')->nullable(),
-            Text::make('Latitude')->nullable(),
-            Text::make('Longitude')->nullable(),
+            Number::make('Latitude')->step(0.000001)->nullable(),
+            Number::make('Longitude')->step(0.000001)->nullable(),
 
             nova('place') ? BelongsTo::make('Place', 'place', nova('place'))->sortable() : null,
             nova('webpage') ? BelongsTo::make('Webpage', 'webpage', nova('webpage'))->nullable() : null,

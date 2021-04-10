@@ -92,3 +92,7 @@ All notable changes to `seo` will be documented in this file.
 ## 2.6.0 - 2021-04-09
 
 - bump support dependencies
+
+## 2.6.1 - 2021-04-09
+
+- use float for latitude & longitude

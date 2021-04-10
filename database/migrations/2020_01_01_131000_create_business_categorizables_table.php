@@ -10,8 +10,7 @@ class CreateBusinessCategorizablesTable extends Migration
     {
         Schema::create('business_categorizables', function (Blueprint $table) {
             $table->foreignIdFor(app('business_category'));
-            $table->morphs('categorizable');
-
+            $table->morphs('categorizable', 'categorizable_key');
             $table->unique(['business_category_id', 'categorizable_id', 'categorizable_type'], 'categorizable_unique');
         });
     }

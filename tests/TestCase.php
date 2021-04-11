@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tipoff\Seo\Tests;
 
 use Laravel\Nova\NovaCoreServiceProvider;
+use Livewire\LivewireServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 use Tipoff\Addresses\AddressesServiceProvider;
 use Tipoff\Authorization\AuthorizationServiceProvider;
@@ -21,8 +22,9 @@ class TestCase extends BaseTestCase
             NovaCoreServiceProvider::class,
             NovaPackageServiceProvider::class,
             SupportServiceProvider::class,
-            AuthorizationServiceProvider::class,
             PermissionServiceProvider::class,
+            AuthorizationServiceProvider::class,
+            LivewireServiceProvider::class,
             AddressesServiceProvider::class,
             SeoServiceProvider::class,
         ];

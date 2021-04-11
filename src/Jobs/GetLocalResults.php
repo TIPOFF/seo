@@ -22,8 +22,8 @@ use Tipoff\Seo\Models\PlaceHours;
 use Tipoff\Seo\Models\Result;
 use Tipoff\Seo\Models\Webpage;
 
-class GetLocalResults {
-
+class GetLocalResults
+{
     use InteractsWithQueue;
     use Queueable;
     use Dispatchable;
@@ -37,18 +37,20 @@ class GetLocalResults {
      *
      * @return void
      */
-    public function __construct($responseData, $rankingId, $keyword) {
+    public function __construct($responseData, $rankingId, $keyword)
+    {
         $this->keyword = $keyword;
         $this->response_data = $responseData;
         $this->ranking_id = $rankingId;
     }
 
-    protected function getSelectDayHours($day_hours) {
+    protected function getSelectDayHours($day_hours)
+    {
         if ($day_hours == 'Closed') {
-            return array('open' => 'Closed', 'close' => 'Closed');
+            return ['open' => 'Closed', 'close' => 'Closed'];
         }
         if ($day_hours == 'Open 24 hours') {
-            return array('open' => '24 hours', 'close' => null);
+            return ['open' => '24 hours', 'close' => null];
         }
         $day_hours = str_replace("–", "-", $day_hours); // replace emdash with endash
         $day_times_arr = explode("-", $day_hours);
@@ -57,11 +59,13 @@ class GetLocalResults {
         if ($day_open != 'Closed' && strpos($day_open, 'AM') == false && strpos($day_open, 'PM') == false) {
             $day_open .= substr($day_close, -2); // get either AM or PM from close time
         }
-        return array('open' => $day_open, 'close' => $day_close);
+
+        return ['open' => $day_open, 'close' => $day_close];
     }
 
-    protected function getBusinessHours($week_hours) {
-        $hours_result = array();
+    protected function getBusinessHours($week_hours)
+    {
+        $hours_result = [];
         foreach ($week_hours as $key => $day_obj) {
             $day_arr = get_object_vars($day_obj);
             foreach ($day_arr as $day => $time) {
@@ -72,10 +76,12 @@ class GetLocalResults {
                 $hours_result[$close_index] = $value['close'];
             }
         }
+
         return $hours_result;
     }
 
-    public function handle() {
+    public function handle()
+    {
         if (isset($this->response_data->local_results) && isset($this->response_data->local_results->places)) {
             foreach ($this->response_data->local_results->places as $local_result) {
                 $place = Place::where('place_location', $local_result->place_id)->first();
@@ -93,7 +99,7 @@ class GetLocalResults {
                         "q" => $local_result->title,
                         "lsig" => $local_result->lsig,
                         "ll" => "@$latitude,$longitude,2z",
-                        "type" => "search"
+                        "type" => "search",
                     ];
 
                     $place_data_result = $serp_api->search('json', $query);
@@ -126,7 +132,7 @@ class GetLocalResults {
                                 list($street1, $city, $statezip) = explode(", ", $searched_place->address);
                             }
                             // e.g. $address = 'NW Suite N2, 200 Peachtree St, Atlanta, GA 30303';
-                            else if (substr_count($searched_place->address, ",") == 3) {
+                            elseif (substr_count($searched_place->address, ",") == 3) {
                                 list($street1, $street2, $city, $statezip) = explode(", ", $searched_place->address);
                             }
 
@@ -143,20 +149,22 @@ class GetLocalResults {
                         $url_array = parseUrl($url);
 
                         $domain = Domain::firstOrCreate(
-                                        [
+                            [
                                     'name' => $url_array['name'],
                                     'tld' => $url_array['tld'],
                                     'https' => $url_array['https'],
                                     'subdomain' => $url_array['subdomain'],
-                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                        ],
+                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
 
                         $webpage = Webpage::firstOrCreate(
-                                        [
+                            [
                                     'domain_id' => $domain->id,
                                     'path' => Webpage::getUrlPath($url),
                                     'subdomain' => $url_array['subdomain'],
-                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                        ],
+                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
                     }
 
@@ -164,10 +172,11 @@ class GetLocalResults {
                         $country_id = Country::fromAbbreviation('USA')->getId();
                         $country_calling_code = CountryCallingcode::where('country_id', $country_id)->first();
                         $phone = Phone::firstOrCreate(
-                                        [
+                            [
                                     'country_callingcode_id' => $country_calling_code->id,
-                                    'full_number' => $searched_place->phone
-                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                    'full_number' => $searched_place->phone,
+                                        ],
+                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
                     }
 
@@ -207,12 +216,11 @@ class GetLocalResults {
                 $result = new Result([
                     'ranking_id' => $this->ranking_id,
                     'type' => 'Local',
-                    'position' => $local_result->position
+                    'position' => $local_result->position,
                 ]);
                 $result->resultable()->associate($place);
                 $result->save();
             }
         }
     }
-
 }

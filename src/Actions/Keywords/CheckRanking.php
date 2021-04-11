@@ -28,7 +28,8 @@ class CheckRanking
                 "q" => $keyword->phrase,
                 "hl" => "en",
                 "gl" => "us",
-                "ludocid" => $search_locale->google_id,
+                "location" => $search_locale->serp_id,
+                //"ludocid" => $search_locale->google_id,
             ];
             $response_data = $serp_api->search('json', $query);
 
@@ -44,7 +45,7 @@ class CheckRanking
 
             Bus::chain([
                 new GetOrganicResults($response_data, $ranking->id),
-                new GetLocalResults($response_data, $ranking->id, $search_locale->id, $keyword->phrase),
+                new GetLocalResults($response_data, $ranking->id, $keyword->phrase),
                 new GetVideoResults($response_data, $ranking->id, $search_locale->id),
             ])->dispatch();
         }

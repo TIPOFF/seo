@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Tests;
 
+use DrewRoberts\Media\MediaServiceProvider;
 use Laravel\Nova\NovaCoreServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
@@ -26,6 +27,7 @@ class TestCase extends BaseTestCase
             AuthorizationServiceProvider::class,
             LivewireServiceProvider::class,
             AddressesServiceProvider::class,
+            MediaServiceProvider::class,
             SeoServiceProvider::class,
         ];
     }

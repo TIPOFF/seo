@@ -19,6 +19,7 @@ class KeywordFactory extends Factory
         return [
             'phrase'        => $this->faker->name,
             'type'          => $random_type[0],
+            'is_active'     => random_int(0, 1),
             'creator_id'    => randomOrCreate(app('user')),
             'updater_id'    => randomOrCreate(app('user')),
         ];

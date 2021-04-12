@@ -64,7 +64,7 @@ class GetLocalResults implements ShouldQueue {
 
     protected function getBusinessHours($week_hours) {
         $hours_result = [];
-        foreach ($week_hours as $key => $day_obj) {
+        foreach ($week_hours as $day_obj) {
             $day_arr = get_object_vars($day_obj);
             foreach ($day_arr as $day => $time) {
                 $open_index = $day . '_open';
@@ -115,7 +115,7 @@ class GetLocalResults implements ShouldQueue {
                 if ($place == null && isset($local_result->gps_coordinates)) {
                     $latitude = $local_result->gps_coordinates->latitude;
                     $longitude = $local_result->gps_coordinates->longitude;
-                    $domestic_address_id = $domain = $place_hours = $webpage = null;
+                    $domestic_address_id = $place_hours = $webpage = null;
                     $country = 'United States';
 
                     $place_data_result = $this->getGoogleMapsPlace($local_result->title, $latitude, $longitude);
@@ -159,6 +159,7 @@ class GetLocalResults implements ShouldQueue {
                                 }
                                 if ($country == 'United States') {
                                     list($state, $zip) = explode(" ", $statezip);
+                                    unset($state);
                                     $domestic_address = DomesticAddress::createDomesticAddress($street1, $street2, $city, $zip);
                                     $domestic_address_id = $domestic_address->id;
                                 }

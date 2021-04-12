@@ -23,8 +23,8 @@ use Tipoff\Seo\Models\PlaceHours;
 use Tipoff\Seo\Models\Result;
 use Tipoff\Seo\Models\Webpage;
 
-class GetLocalResults implements ShouldQueue {
-
+class GetLocalResults implements ShouldQueue
+{
     use InteractsWithQueue;
     use Queueable;
     use Dispatchable;
@@ -38,13 +38,15 @@ class GetLocalResults implements ShouldQueue {
      *
      * @return void
      */
-    public function __construct($responseData, $rankingId, $keyword) {
+    public function __construct($responseData, $rankingId, $keyword)
+    {
         $this->keyword = $keyword;
         $this->response_data = $responseData;
         $this->ranking_id = $rankingId;
     }
 
-    protected function getSelectDayHours($day_hours) {
+    protected function getSelectDayHours($day_hours)
+    {
         if ($day_hours == 'Closed') {
             return ['open' => 'Closed', 'close' => 'Closed'];
         }
@@ -62,7 +64,8 @@ class GetLocalResults implements ShouldQueue {
         return ['open' => $day_open, 'close' => $day_close];
     }
 
-    protected function getBusinessHours($week_hours) {
+    protected function getBusinessHours($week_hours)
+    {
         $hours_result = [];
         foreach ($week_hours as $day_obj) {
             $day_arr = get_object_vars($day_obj);
@@ -78,7 +81,8 @@ class GetLocalResults implements ShouldQueue {
         return $hours_result;
     }
 
-    protected function getGoogleMapsPlace($title, $latitude, $longitude) {
+    protected function getGoogleMapsPlace($title, $latitude, $longitude)
+    {
         // query to get place address and hours from Google Maps API
         $serp_api = app()->make(SerpApiSearch::class);
         $serp_api->set_serp_api_key(config('seo.serp_api_key'));
@@ -92,7 +96,7 @@ class GetLocalResults implements ShouldQueue {
             "type" => "search",
         ];
         $place_data_result = $serp_api->search('json', $query);
-        if (!isset($place_data_result) || empty($place_data_result)) {
+        if (! isset($place_data_result) || empty($place_data_result)) {
             // try zoom level 4
             $query = [
                 "engine" => "google_maps",
@@ -104,10 +108,12 @@ class GetLocalResults implements ShouldQueue {
             ];
             $place_data_result = $serp_api->search('json', $query);
         }
+
         return $place_data_result;
     }
 
-    public function handle() {
+    public function handle()
+    {
         if (isset($this->response_data->local_results) && isset($this->response_data->local_results->places)) {
             foreach ($this->response_data->local_results->places as $local_result) {
                 $place = Place::where('place_location', $local_result->place_id)->first();
@@ -144,6 +150,7 @@ class GetLocalResults implements ShouldQueue {
                         }
                         if (isset($searched_place->address)) {
                             $street1 = $street2 = null;
+
                             try {
                                 // e.g. $address = '555 Test Drive, Testville, CA 98773';
                                 if (substr_count($searched_place->address, ",") == 2) {
@@ -176,20 +183,22 @@ class GetLocalResults implements ShouldQueue {
                         $url_array = parseUrl($url);
 
                         $domain = Domain::firstOrCreate(
-                                        [
+                            [
                                     'name' => $url_array['name'],
                                     'tld' => $url_array['tld'],
                                     'https' => $url_array['https'],
                                     'subdomain' => $url_array['subdomain'],
-                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                        ],
+                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
 
                         $webpage = Webpage::firstOrCreate(
-                                        [
+                            [
                                     'domain_id' => $domain->id,
                                     'path' => Webpage::getUrlPath($url),
                                     'subdomain' => $url_array['subdomain'],
-                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                        ],
+                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
                     }
 
@@ -197,10 +206,11 @@ class GetLocalResults implements ShouldQueue {
                         $country_id = Country::fromAbbreviation('USA')->getId();
                         $country_calling_code = CountryCallingcode::where('country_id', $country_id)->first();
                         $phone = Phone::firstOrCreate(
-                                        [
+                            [
                                     'country_callingcode_id' => $country_calling_code->id,
                                     'full_number' => $searched_place->phone,
-                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                        ],
+                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
                     }
 
@@ -249,5 +259,4 @@ class GetLocalResults implements ShouldQueue {
             throw new \Exception("Didn't get local results to parse.");
         }
     }
-
 }

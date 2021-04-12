@@ -45,7 +45,7 @@ class CheckRanking
 
             Bus::chain([
                 new GetOrganicResults($response_data, $ranking->id),
-                new GetLocalResults($response_data, $ranking->id, $keyword->phrase),
+                new GetLocalResults($response_data, $ranking->id, $keyword->phrase), // only support domestic results at the moment
                 new GetVideoResults($response_data, $ranking->id, $search_locale->id),
             ])->dispatch();
         }

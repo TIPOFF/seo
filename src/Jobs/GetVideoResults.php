@@ -6,13 +6,14 @@ namespace Tipoff\Seo\Jobs;
 
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Tipoff\Seo\Models\Domain;
 use Tipoff\Seo\Models\Result;
 use Tipoff\Seo\Models\Webpage;
 
-class GetVideoResults
+class GetVideoResults implements ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;
@@ -38,31 +39,35 @@ class GetVideoResults
     {
         if (isset($this->response_data->inline_videos)) {
             foreach ($this->response_data->inline_videos as $key => $inline_video) {
-                $subdomain = Webpage::getSubDomains($inline_video->link);
+                $key++; // key starts from zero but position needs to start from one
+                $url = $inline_video->link;
+                $url_array = parseUrl($url);
 
-                $domain = Domain::firstOrCreate([
-                     'name' => Webpage::getDomain($inline_video->link),
-                     'tld' => Webpage::getTLD($inline_video->link),
-                     'https' => Webpage::isHttps($inline_video->link),
-                     'sub_domain' => $subdomain,
-                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                 ]);
-
-                $webpage = Webpage::firstOrCreate([
-                     'domain' => $domain->id,
-                     'path' => Webpage::getUrlPath($inline_video->link),
-                     'sub_domain' => $subdomain,
-                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                 ]);
+                $domain = Domain::firstOrCreate(
+                    [
+                        'name' => $url_array['name'],
+                        'tld' => $url_array['tld'],
+                        'https' => $url_array['https'],
+                        'subdomain' => $url_array['subdomain'],
+                     ],
+                    ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                );
+                
+                $webpage = Webpage::firstOrCreate(
+                    [
+                        'domain_id' => $domain->id,
+                        'path' => Webpage::getUrlPath($inline_video->link),
+                        'subdomain' => $url_array['subdomain'],
+                    ],
+                    ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                );
 
                 $result = new Result([
                      'ranking_id' => $this->ranking_id,
                      'type' => 'Inline Video',
-                     'position' => $key++,
-                     'search_locale_id' => $this->search_locale_id,
+                     'position' => $key,
                  ]);
-                $result->resultable()->associate($webpage);
-                $result->save();
+                $result->resultable()->associate($webpage)->save();
             }
         } else {
             throw new \Exception("Didn't get inline video results to parse.");

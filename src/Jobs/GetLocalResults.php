@@ -6,6 +6,7 @@ namespace Tipoff\Seo\Jobs;
 
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Str;
@@ -22,8 +23,8 @@ use Tipoff\Seo\Models\PlaceHours;
 use Tipoff\Seo\Models\Result;
 use Tipoff\Seo\Models\Webpage;
 
-class GetLocalResults
-{
+class GetLocalResults implements ShouldQueue {
+
     use InteractsWithQueue;
     use Queueable;
     use Dispatchable;
@@ -37,15 +38,13 @@ class GetLocalResults
      *
      * @return void
      */
-    public function __construct($responseData, $rankingId, $keyword)
-    {
+    public function __construct($responseData, $rankingId, $keyword) {
         $this->keyword = $keyword;
         $this->response_data = $responseData;
         $this->ranking_id = $rankingId;
     }
 
-    protected function getSelectDayHours($day_hours)
-    {
+    protected function getSelectDayHours($day_hours) {
         if ($day_hours == 'Closed') {
             return ['open' => 'Closed', 'close' => 'Closed'];
         }
@@ -63,8 +62,7 @@ class GetLocalResults
         return ['open' => $day_open, 'close' => $day_close];
     }
 
-    protected function getBusinessHours($week_hours)
-    {
+    protected function getBusinessHours($week_hours) {
         $hours_result = [];
         foreach ($week_hours as $key => $day_obj) {
             $day_arr = get_object_vars($day_obj);
@@ -80,8 +78,36 @@ class GetLocalResults
         return $hours_result;
     }
 
-    public function handle()
-    {
+    protected function getGoogleMapsPlace($title, $latitude, $longitude) {
+        // query to get place address and hours from Google Maps API
+        $serp_api = app()->make(SerpApiSearch::class);
+        $serp_api->set_serp_api_key(config('seo.serp_api_key'));
+        $query = [
+            "engine" => "google_maps",
+            "hl" => "en",
+            "gl" => "us",
+            "q" => $title,
+            //"lsig" => $local_result->lsig,
+            "ll" => "@$latitude,$longitude,10z", // 10z represents zoom level 10 which is default for google maps
+            "type" => "search",
+        ];
+        $place_data_result = $serp_api->search('json', $query);
+        if (!isset($place_data_result) || empty($place_data_result)) {
+            // try zoom level 4
+            $query = [
+                "engine" => "google_maps",
+                "hl" => "en",
+                "gl" => "us",
+                "q" => $title,
+                "ll" => "@$latitude,$longitude,4z",
+                "type" => "search",
+            ];
+            $place_data_result = $serp_api->search('json', $query);
+        }
+        return $place_data_result;
+    }
+
+    public function handle() {
         if (isset($this->response_data->local_results) && isset($this->response_data->local_results->places)) {
             foreach ($this->response_data->local_results->places as $local_result) {
                 $place = Place::where('place_location', $local_result->place_id)->first();
@@ -90,23 +116,14 @@ class GetLocalResults
                     $latitude = $local_result->gps_coordinates->latitude;
                     $longitude = $local_result->gps_coordinates->longitude;
                     $domestic_address_id = $domain = $place_hours = $webpage = null;
+                    $country = 'United States';
 
-                    // query to get place address and hours from Google Maps API
-                    $serp_api = app()->make(SerpApiSearch::class);
-                    $serp_api->set_serp_api_key(config('seo.serp_api_key'));
-                    $query = [
-                        "engine" => "google_maps",
-                        "q" => $local_result->title,
-                        "lsig" => $local_result->lsig,
-                        "ll" => "@$latitude,$longitude,2z",
-                        "type" => "search",
-                    ];
+                    $place_data_result = $this->getGoogleMapsPlace($local_result->title, $latitude, $longitude);
 
-                    $place_data_result = $serp_api->search('json', $query);
                     // check if api found place details
                     if (isset($place_data_result->place_results)) {
                         $searched_place = $place_data_result->place_results;
-                        if (is_array($searched_place->hours)) {
+                        if (isset($searched_place->hours) && is_array($searched_place->hours)) {
                             $searched_place_hours = $this->getBusinessHours($searched_place->hours);
                             $place_hours = new PlaceHours([
                                 'monday_open' => isset($searched_place_hours['monday_open']) ? $searched_place_hours['monday_open'] : null,
@@ -127,18 +144,27 @@ class GetLocalResults
                         }
                         if (isset($searched_place->address)) {
                             $street1 = $street2 = null;
-                            // e.g. $address = '555 Test Drive, Testville, CA 98773';
-                            if (substr_count($searched_place->address, ",") == 2) {
-                                list($street1, $city, $statezip) = explode(", ", $searched_place->address);
+                            try {
+                                // e.g. $address = '555 Test Drive, Testville, CA 98773';
+                                if (substr_count($searched_place->address, ",") == 2) {
+                                    list($street1, $city, $statezip) = explode(", ", $searched_place->address);
+                                }
+                                // e.g. $address = 'NW Suite N2, 200 Peachtree St, Atlanta, GA 30303';
+                                elseif (substr_count($searched_place->address, ",") == 3) {
+                                    list($street1, $street2, $city, $statezip) = explode(", ", $searched_place->address);
+                                }
+                                // e.g. $address = '1030 Randolph Street, Detroit, MI 48226, United States';
+                                elseif (substr_count($searched_place->address, ",") == 5) {
+                                    list($street1, $street2, $city, $statezip, $country) = explode(", ", $searched_place->address);
+                                }
+                                if ($country == 'United States') {
+                                    list($state, $zip) = explode(" ", $statezip);
+                                    $domestic_address = DomesticAddress::createDomesticAddress($street1, $street2, $city, $zip);
+                                    $domestic_address_id = $domestic_address->id;
+                                }
+                            } catch (\Exception $e) {
+                                //echo $searched_place->address . "\n";
                             }
-                            // e.g. $address = 'NW Suite N2, 200 Peachtree St, Atlanta, GA 30303';
-                            elseif (substr_count($searched_place->address, ",") == 3) {
-                                list($street1, $street2, $city, $statezip) = explode(", ", $searched_place->address);
-                            }
-
-                            list($state, $zip) = explode(" ", $statezip);
-                            $domestic_address = DomesticAddress::createDomesticAddress($street1, $street2, $city, $zip);
-                            $domestic_address_id = $domestic_address->id;
                         }
                     } else {
                         //echo "Address/Hours not found for place: $place->title\n";
@@ -149,34 +175,31 @@ class GetLocalResults
                         $url_array = parseUrl($url);
 
                         $domain = Domain::firstOrCreate(
-                            [
+                                        [
                                     'name' => $url_array['name'],
                                     'tld' => $url_array['tld'],
                                     'https' => $url_array['https'],
                                     'subdomain' => $url_array['subdomain'],
-                                        ],
-                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
 
                         $webpage = Webpage::firstOrCreate(
-                            [
+                                        [
                                     'domain_id' => $domain->id,
                                     'path' => Webpage::getUrlPath($url),
                                     'subdomain' => $url_array['subdomain'],
-                                        ],
-                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
                     }
 
-                    if (isset($searched_place->phone)) {
+                    if (isset($searched_place->phone) && $country == 'United States') {
                         $country_id = Country::fromAbbreviation('USA')->getId();
                         $country_calling_code = CountryCallingcode::where('country_id', $country_id)->first();
                         $phone = Phone::firstOrCreate(
-                            [
+                                        [
                                     'country_callingcode_id' => $country_calling_code->id,
                                     'full_number' => $searched_place->phone,
-                                        ],
-                            ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                                        ], ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                         );
                     }
 
@@ -221,6 +244,9 @@ class GetLocalResults
                 $result->resultable()->associate($place);
                 $result->save();
             }
+        } else {
+            throw new \Exception("Didn't get local results to parse.");
         }
     }
+
 }

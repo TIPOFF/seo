@@ -6,13 +6,14 @@ namespace Tipoff\Seo\Jobs;
 
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Tipoff\Seo\Models\Domain;
 use Tipoff\Seo\Models\Result;
 use Tipoff\Seo\Models\Webpage;
 
-class GetOrganicResults
+class GetOrganicResults implements ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;

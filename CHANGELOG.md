@@ -108,3 +108,7 @@ All notable changes to `seo` will be documented in this file.
 ## 2.7.0 - 2021-04-12
 
 - pull search ranking results
+
+## 2.7.1 - 2021-04-13
+
+- update keyword factory

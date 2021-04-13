@@ -14,6 +14,8 @@ class CreateKeywordSearchLocaleTable extends Migration
             $table->id();
             $table->foreignIdFor(app('keyword'))->index();
             $table->foreignIdFor(app('search_locale'))->index();
+            $table->foreignIdFor(app('user'), 'creator_id');
+            $table->foreignIdFor(app('user'), 'updater_id');
             $table->timestamps();
         });
     }

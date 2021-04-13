@@ -30,7 +30,7 @@ class KeywordResourceTest extends TestCase
 
         Keyword::factory()->count(4)->create([
             'tracking_requested_at' => now()->subYear(),
-            'tracking_stopped_at' => now()->addYear()
+            'tracking_stopped_at' => now()->addYear(),
         ]);
 
         $response = $this->getJson(self::NOVA_ROUTE)

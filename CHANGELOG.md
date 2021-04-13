@@ -104,3 +104,7 @@ All notable changes to `seo` will be documented in this file.
 ## 2.6.3 - 2021-04-12
 
 - update fields to fix index limit
+
+## 2.7.0 - 2021-04-12
+
+- pull search ranking results

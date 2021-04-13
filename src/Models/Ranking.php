@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Models;
 
+use Tipoff\Seo\Actions\Keywords\CheckAllKeywordRankings;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -14,6 +15,11 @@ class Ranking extends BaseModel
     use HasPackageFactory;
     use HasCreator;
     use HasUpdater;
+
+    public static function checkAllKeywords() : void
+    {
+        app(CheckAllKeywordRankings::class);
+    }
 
     public function results()
     {

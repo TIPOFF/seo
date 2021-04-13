@@ -15,11 +15,13 @@ class Result extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    public $timestamps = false;
+
     public function ranking()
     {
         return $this->belongsTo(app('ranking'));
     }
-    
+
     public function parent()
     {
         return $this->belongsTo(app('result'), 'parent_id');

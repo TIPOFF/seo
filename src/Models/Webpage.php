@@ -19,14 +19,21 @@ class Webpage extends BaseModel
     {
         return $this->belongsTo(app('domain'));
     }
-    
+
     public function results()
     {
         return $this->morphMany(app('result'), 'resultable');
     }
-    
+
     public function places()
     {
         return $this->hasMany(app('place'));
+    }
+
+    public static function getUrlPath(string $url): ?string
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+
+        return $path;
     }
 }

@@ -1,9 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tipoff\Seo\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Tipoff\Seo\Actions\Keywords\CheckRanking;
 use Tipoff\Seo\Enum\KeywordType;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
@@ -23,6 +25,10 @@ class Keyword extends BaseModel
         static::saving(function ($keyword) {
             $keyword->phrase = strtolower($keyword->phrase);
         });
+        static::addGlobalScope('active', function (Builder $builder) {
+            $builder->whereDate('keywords.tracking_requested_at', '<=', date('Y-m-d')) &&
+                    ($builder->whereDate('keywords.tracking_stopped_at', '>=', date('Y-m-d')) || $builder->whereNull('keywords.tracking_stopped_at'));
+        });
     }
 
     public function isBranded(): bool
@@ -39,7 +45,17 @@ class Keyword extends BaseModel
     {
         return $this->type == KeywordType::LOCAL;
     }
-    
+
+    public function getRanking(): void
+    {
+        app(CheckRanking::class)($this);
+    }
+
+    public function searchLocales()
+    {
+        return $this->belongsToMany(app('search_locale'))->withTimestamps();
+    }
+
     public function parent()
     {
         return $this->belongsTo(app('keyword'), 'parent_id');

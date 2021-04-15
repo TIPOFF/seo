@@ -112,3 +112,7 @@ All notable changes to `seo` will be documented in this file.
 ## 2.7.1 - 2021-04-13
 
 - update keyword factory
+
+## 2.7.2 - 2021-04-15
+
+- update keyword nova resource

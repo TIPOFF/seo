@@ -61,7 +61,7 @@ class Keyword extends BaseResource
 
             nova('keyword') ? BelongsTo::make('Parent', 'parent', nova('keyword'))->nullable() : null,
 
-            nova('search_locale') ? BelongsToMany::make('Search Locale', 'search_locale', nova('search_locale')) : null,
+            nova('search_locale') ? BelongsToMany::make('Search Locale', 'searchLocales', nova('search_locale')) : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

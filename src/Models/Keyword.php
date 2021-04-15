@@ -18,6 +18,11 @@ class Keyword extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    protected $casts = [
+        'tracking_requested_at' => 'datetime',
+        'tracking_stopped_at' => 'datetime'
+    ];
+
     protected static function boot()
     {
         parent::boot();

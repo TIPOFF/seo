@@ -53,6 +53,7 @@ class SeoServiceProvider extends TipoffServiceProvider
                 \Tipoff\Seo\Nova\SearchVolume::class,
                 \Tipoff\Seo\Nova\Webpage::class,
                 \Tipoff\Seo\Nova\BusinessCategory::class,
+                \Tipoff\Seo\Nova\SearchLocale::class,
             ])
             ->hasCommands([
                 CheckRankingCommand::class,

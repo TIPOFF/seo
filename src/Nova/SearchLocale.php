@@ -21,7 +21,7 @@ class SearchLocale extends BaseResource
 
     public static $search = [
         'id',
-        'name'
+        'name',
     ];
 
     public static $group = 'SEO';
@@ -30,7 +30,7 @@ class SearchLocale extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
-            Text::make('Name')->sortable()
+            Text::make('Name')->sortable(),
         ]);
     }
 

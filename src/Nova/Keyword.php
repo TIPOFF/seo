@@ -24,7 +24,7 @@ class Keyword extends BaseResource
 
     public static $search = [
         'id',
-        'phrase'
+        'phrase',
     ];
 
     public static $group = 'SEO';
@@ -33,7 +33,7 @@ class Keyword extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
-            Text::make('Phrase')->sortable()
+            Text::make('Phrase')->sortable(),
         ]);
     }
 

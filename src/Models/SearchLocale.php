@@ -17,7 +17,7 @@ class SearchLocale extends BaseModel
 
     public function keywords()
     {
-        return $this->belongsToMany(app('keywords'))->withTimestamps();
+        return $this->belongsToMany(app('keyword'))->withTimestamps();
     }
 
     public function rankings()

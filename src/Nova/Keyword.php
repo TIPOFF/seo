@@ -24,6 +24,7 @@ class Keyword extends BaseResource
 
     public static $search = [
         'id',
+        'phrase'
     ];
 
     public static $group = 'SEO';
@@ -32,6 +33,7 @@ class Keyword extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Phrase')->sortable()
         ]);
     }
 
@@ -41,13 +43,14 @@ class Keyword extends BaseResource
             Text::make('Phrase')
                 ->rules([
                     'required',
-                    'unique:keywords,phrase',
                     function ($attribute, $value, $fail) {
                         if (strtolower($value) !== $value) {
                             return $fail('The '.$attribute.' field must be lowercase.');
                         }
                     },
                 ])
+                ->creationRules('unique:keywords,phrase')
+                ->updateRules('unique:keywords,phrase,{{resourceId}}')
                 ->sortable(),
             Select::make('Type')->options([
                 KeywordType::BRANDED => 'Branded',

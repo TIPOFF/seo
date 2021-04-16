@@ -32,7 +32,8 @@ class Keyword extends BaseModel
         });
         static::addGlobalScope('active', function (Builder $builder) {
             $builder->whereDate('keywords.tracking_requested_at', '<=', date('Y-m-d')) &&
-                    ($builder->whereDate('keywords.tracking_stopped_at', '>=', date('Y-m-d')) || $builder->whereNull('keywords.tracking_stopped_at'));
+                    ($builder->whereDate('keywords.tracking_stopped_at', '>=', date('Y-m-d'))
+                            ->orWhereNull('keywords.tracking_stopped_at'));
         });
     }
 

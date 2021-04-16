@@ -17,10 +17,11 @@ class SearchLocale extends BaseResource
 {
     public static $model = \Tipoff\Seo\Models\SearchLocale::class;
 
-    public static $title = 'serp_id';
+    public static $title = 'name';
 
     public static $search = [
         'id',
+        'name'
     ];
 
     public static $group = 'SEO';
@@ -29,6 +30,7 @@ class SearchLocale extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Name')->sortable()
         ]);
     }
 
@@ -46,7 +48,7 @@ class SearchLocale extends BaseResource
             Number::make('Latitude')->step(0.000001)->nullable(),
             Number::make('Longitude')->step(0.000001)->nullable(),
 
-            nova('keyword') ? BelongsToMany::make('Keyword', 'keyword', nova('keyword'))->sortable() : null,
+            nova('keyword') ? BelongsToMany::make('Keyword', 'keywords', nova('keyword'))->sortable() : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

@@ -21,7 +21,7 @@ class Domain extends BaseResource
 
     public static $search = [
         'id',
-        'name'
+        'name',
     ];
 
     public static $group = 'SEO';

@@ -32,7 +32,7 @@ class Ranking extends BaseResource
             Text::make('Engine')->sortable(),
             Date::make('Date')->sortable(),
             BelongsTo::make('Keyword'),
-            BelongsTo::make('Search Locale', 'searchLocale')
+            BelongsTo::make('Search Locale', 'searchLocale'),
         ]);
     }
 

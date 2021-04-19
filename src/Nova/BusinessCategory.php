@@ -19,22 +19,30 @@ class BusinessCategory extends BaseResource
 
     public static $search = [
         'id',
+        'name',
     ];
-    
+
     public static $group = 'SEO';
 
     public function fieldsForIndex(NovaRequest $request)
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Name')->sortable(),
         ]);
     }
 
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Name')->required(),
-            Text::make('Slug')->required(),
+            Text::make('Name')
+                ->required()
+                ->creationRules('unique:business_categories,name')
+                ->updateRules('unique:business_categories,name,{{resourceId}}'),
+            Text::make('Slug')
+                ->required()
+                ->creationRules('unique:business_categories,slug')
+                ->updateRules('unique:business_categories,slug,{{resourceId}}'),
 
             new Panel('Data Fields', $this->dataFields()),
         ]);
@@ -44,7 +52,7 @@ class BusinessCategory extends BaseResource
     {
         return array_merge(
             parent::dataFields(),
-            $this->creatorDataFields(),
+            $this->creatorDataFields()
         );
     }
 }

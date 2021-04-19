@@ -21,22 +21,31 @@ class Domain extends BaseResource
 
     public static $search = [
         'id',
+        'name'
     ];
-    
+
     public static $group = 'SEO';
 
     public function fieldsForIndex(NovaRequest $request)
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Name')->sortable(),
+            Text::make('Tld')->sortable(),
         ]);
     }
 
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Name')->required(),
-            Text::make('Tld')->required(),
+            Text::make('Name')
+                ->required()
+                ->creationRules("unique:domains,name,NULL,id,tld,$request->tld")
+                ->updateRules("unique:domains,name,{{resourceId}},id,tld,$request->tld"),
+            Text::make('Tld')
+                ->required()
+                ->creationRules("unique:domains,tld,NULL,id,name,$request->name")
+                ->updateRules("unique:domains,tld,{{resourceId}},id,name,$request->name"),
             Boolean::make('Https')->required()->default(true),
             Text::make('Subdomain')->nullable(),
 
@@ -51,7 +60,7 @@ class Domain extends BaseResource
         return array_merge(
             parent::dataFields(),
             $this->creatorDataFields(),
-            $this->updaterDataFields(),
+            $this->updaterDataFields()
         );
     }
 }

@@ -66,4 +66,9 @@ class Keyword extends BaseModel
     {
         return $this->belongsTo(app('keyword'), 'parent_id');
     }
+
+    public function rankings()
+    {
+        return $this->hasMany(app('ranking'));
+    }
 }

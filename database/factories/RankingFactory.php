@@ -21,7 +21,7 @@ class RankingFactory extends Factory
             'provider'          => $this->faker->name,
             'keyword_id'        => Keyword::factory()->create()->id,
             'search_locale_id'  => SearchLocale::factory()->create()->id,
-            'date'              => $this->faker->date('Y-m-D'),
+            'date'              => $this->faker->date,
             'creator_id'        => randomOrCreate(app('user')),
             'updater_id'        => randomOrCreate(app('user')),
         ];

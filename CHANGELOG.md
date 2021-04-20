@@ -120,3 +120,7 @@ All notable changes to `seo` will be documented in this file.
 ## 2.7.3 - 2021-04-16
 
 - more keyword updates
+
+## 2.7.4 - 2021-04-20
+
+- update nova resources

@@ -16,9 +16,18 @@ class Ranking extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    protected $casts = [
+        'date' => 'date',
+    ];
+
     public static function checkAllKeywords() : void
     {
         app(CheckAllKeywordRankings::class);
+    }
+
+    public function keyword()
+    {
+        return $this->belongsTo(app('keyword'));
     }
 
     public function results()

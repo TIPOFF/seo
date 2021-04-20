@@ -22,13 +22,17 @@ class Ranking extends BaseResource
     public static $search = [
         'id',
     ];
-    
+
     public static $group = 'SEO';
 
     public function fieldsForIndex(NovaRequest $request)
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Engine')->sortable(),
+            Date::make('Date')->sortable(),
+            BelongsTo::make('Keyword'),
+            BelongsTo::make('Search Locale', 'searchLocale'),
         ]);
     }
 
@@ -40,6 +44,7 @@ class Ranking extends BaseResource
             Date::make('Date')->required()->sortable(),
 
             nova('keyword') ? BelongsTo::make('Keyword', 'keyword', nova('keyword'))->sortable() : null,
+            nova('search_locale') ? BelongsTo::make('Search Locale', 'searchLocale', nova('search_locale'))->sortable() : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ]);
@@ -50,7 +55,7 @@ class Ranking extends BaseResource
         return array_merge(
             parent::dataFields(),
             $this->creatorDataFields(),
-            $this->updaterDataFields(),
+            $this->updaterDataFields()
         );
     }
 }

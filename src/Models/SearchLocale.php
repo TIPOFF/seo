@@ -15,6 +15,15 @@ class SearchLocale extends BaseModel
     use HasCreator;
     use HasUpdater;
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (SearchLocale $searchLocale) {
+            $searchLocale->keywords()->detach();
+        });
+    }
+
     public function keywords()
     {
         return $this->belongsToMany(app('keyword'))->withTimestamps();

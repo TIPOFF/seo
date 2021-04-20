@@ -19,14 +19,16 @@ class Company extends BaseResource
 
     public static $search = [
         'id',
+        'name',
     ];
-    
+
     public static $group = 'SEO';
 
     public function fieldsForIndex(NovaRequest $request)
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Name')->sortable(),
         ]);
     }
 
@@ -34,7 +36,10 @@ class Company extends BaseResource
     {
         return array_filter([
             Text::make('Name')->required(),
-            Text::make('Slug')->required()->creationRules('unique:companies,slug')->sortable(),
+            Text::make('Slug')
+                ->required()
+                ->creationRules('unique:companies,slug')->sortable()
+                ->updateRules('unique:companies,slug,{{resourceId}}'),
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

@@ -17,7 +17,7 @@ class Ranking extends BaseModel
     use HasUpdater;
 
     protected $casts = [
-        'date' => 'datetime',
+        'date' => 'date',
     ];
 
     public static function checkAllKeywords() : void

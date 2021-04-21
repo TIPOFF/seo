@@ -19,4 +19,19 @@ class Domain extends BaseModel
     {
         return $this->belongsTo(app('company'));
     }
+
+    public function getFormattedTitleAttribute(): string
+    {
+        $result = "";
+        if ($this->https) {
+            $result .= 'https://';
+        } else {
+            $result .= 'http://';
+        }
+        if (isset($this->subdomain) && !empty($this->subdomain)) {
+            $result .= $this->subdomain . '.';
+        }
+        $result .= $this->name . '.' . $this->tld;
+        return $result;
+    }
 }

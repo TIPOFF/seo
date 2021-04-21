@@ -18,10 +18,10 @@
         "php": "^7.3|^8.0",
         "drewroberts/media": "^3.5.0",
         "tipoff/addresses": "^2.8.8",
-        "tipoff/authorization": "^2.8.5",
+        "tipoff/authorization": "^2.8.6",
         "tipoff/laravel-google-api": "^2.0.0",
         "tipoff/laravel-serpapi": "^2.0.0",
-        "tipoff/support": "^2.1.3"
+        "tipoff/support": "^2.1.4"
     },
     "require-dev": {
         "tipoff/test-support": "^2.0.0"

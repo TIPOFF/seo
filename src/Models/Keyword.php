@@ -20,7 +20,7 @@ class Keyword extends BaseModel
 
     protected $casts = [
         'tracking_requested_at' => 'datetime',
-        'tracking_stopped_at'   => 'datetime',
+        'tracking_stopped_at' => 'datetime',
     ];
 
     protected static function boot()

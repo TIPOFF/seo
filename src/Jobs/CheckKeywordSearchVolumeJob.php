@@ -49,21 +49,21 @@ class CheckKeywordSearchVolumeJob implements ShouldQueue
         /** @var Keyword $keyword */
         $keyword = Keyword::where('phrase', Arr::get($this->payload, 'query'))->first();
 
-        if (!$keyword) {
+        if (! $keyword) {
             return;
         }
 
         $keyword->searchVolume()->updateOrCreate(
             [
                 'keyword_id' => $keyword->id,
-                'engine'     => $this->engine,
-                'provider'   => $this->provider,
+                'engine' => $this->engine,
+                'provider' => $this->provider,
             ],
             [
-                'range'       => $this->range,
+                'range' => $this->range,
                 'range_value' => $this->rangeValue,
-                'queries'     => Arr::get($this->payload, 'impressions'),
-                'clicks'      => Arr::get($this->payload, 'clicks')
+                'queries' => Arr::get($this->payload, 'impressions'),
+                'clicks' => Arr::get($this->payload, 'clicks'),
             ]
         );
     }

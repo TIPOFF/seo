@@ -58,9 +58,9 @@ class CheckSearchVolumeCommand extends Command
                 'all',
                 'auto'
             )
-            ->map(fn(array $payload) => $this->createCheckSearchVolumeJob($payload))
+            ->map(fn (array $payload) => $this->createCheckSearchVolumeJob($payload))
             ->chunk(1000)
-            ->each(fn(Collection $jobs) => $batch->add($jobs));
+            ->each(fn (Collection $jobs) => $batch->add($jobs));
     }
 
     /**

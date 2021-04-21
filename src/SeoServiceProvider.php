@@ -59,7 +59,7 @@ class SeoServiceProvider extends TipoffServiceProvider
             ->hasCommands([
                 CheckRankingCommand::class,
                 PullSearchLocales::class,
-                CheckSearchVolumeCommand::class
+                CheckSearchVolumeCommand::class,
             ])
             ->name('seo')
             ->hasConfigFile();

@@ -21,7 +21,7 @@ class Webpage extends BaseResource
 
     public static $search = [
         'id',
-        'path'
+        'path',
     ];
 
     public static $group = 'SEO';
@@ -32,7 +32,7 @@ class Webpage extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
-            Text::make('Domain Name', 'formatted_title')
+            Text::make('Domain Name', 'formatted_title'),
         ]);
     }
 

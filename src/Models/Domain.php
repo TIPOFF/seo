@@ -28,10 +28,11 @@ class Domain extends BaseModel
         } else {
             $result .= 'http://';
         }
-        if (isset($this->subdomain) && !empty($this->subdomain)) {
+        if (isset($this->subdomain) && ! empty($this->subdomain)) {
             $result .= $this->subdomain . '.';
         }
         $result .= $this->name . '.' . $this->tld;
+
         return $result;
     }
 }

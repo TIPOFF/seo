@@ -30,7 +30,7 @@ class Domain extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
-            Text::make('Domain Name', 'formatted_title')
+            Text::make('Domain Name', 'formatted_title'),
         ]);
     }
 

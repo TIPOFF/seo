@@ -33,7 +33,7 @@ class Webpage extends BaseModel
     public function getFormattedTitleAttribute(): string
     {
         $result = "";
-        if (!isset($this->domain) || empty($this->domain)) {
+        if (! isset($this->domain) || empty($this->domain)) {
             return $this->path;
         }
         if ($this->domain->https) {
@@ -41,10 +41,11 @@ class Webpage extends BaseModel
         } else {
             $result .= 'http://';
         }
-        if (isset($this->subdomain) && !empty($this->subdomain)) {
+        if (isset($this->subdomain) && ! empty($this->subdomain)) {
             $result .= $this->subdomain . '.';
         }
         $result .= $this->domain->name . '.' . $this->domain->tld . $this->path;
+
         return $result;
     }
 

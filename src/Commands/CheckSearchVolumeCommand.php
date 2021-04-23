@@ -60,7 +60,10 @@ class CheckSearchVolumeCommand extends Command
             )
             ->map(fn (array $payload) => $this->createCheckSearchVolumeJob($payload))
             ->chunk(1000)
-            ->each(fn (Collection $jobs) => $batch->add($jobs));
+            ->each(function (Collection $jobs) use ($batch) {
+                // Non-arrow function keeps psalm happy for $batch usage
+                $batch->add($jobs);
+            });
     }
 
     /**

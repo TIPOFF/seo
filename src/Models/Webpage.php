@@ -30,6 +30,25 @@ class Webpage extends BaseModel
         return $this->hasMany(app('place'));
     }
 
+    public function getFormattedTitleAttribute(): string
+    {
+        $result = "";
+        if (! isset($this->domain) || empty($this->domain)) {
+            return $this->path;
+        }
+        if ($this->domain->https) {
+            $result .= 'https://';
+        } else {
+            $result .= 'http://';
+        }
+        if (isset($this->subdomain) && ! empty($this->subdomain)) {
+            $result .= $this->subdomain . '.';
+        }
+        $result .= $this->domain->name . '.' . $this->domain->tld . $this->path;
+
+        return $result;
+    }
+
     public static function getUrlPath(string $url): ?string
     {
         $path = parse_url($url, PHP_URL_PATH);

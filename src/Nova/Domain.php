@@ -31,6 +31,8 @@ class Domain extends BaseResource
         return array_filter([
             ID::make()->sortable(),
             Text::make('Domain Name', 'formatted_title'),
+            Text::make('Name')->sortable(),
+            Text::make('TLD')->sortable(),
         ]);
     }
 
@@ -43,10 +45,11 @@ class Domain extends BaseResource
                 ->required()
                 ->creationRules("unique:domains,name,NULL,id,tld,$request->tld")
                 ->updateRules("unique:domains,name,{{resourceId}},id,tld,$request->tld"),
-            Text::make('Tld')
+            Text::make('TLD')
                 ->required()
                 ->creationRules("unique:domains,tld,NULL,id,name,$request->name")
-                ->updateRules("unique:domains,tld,{{resourceId}},id,name,$request->name"),
+                ->updateRules("unique:domains,tld,{{resourceId}},id,name,$request->name")
+                ->help('Top-level domain'),
             Boolean::make('Https')->required()->default(true),
             Text::make('Subdomain')->nullable(),
 

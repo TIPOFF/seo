@@ -8,8 +8,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 use SchulzeFelix\SearchConsole\Period;
-use SchulzeFelix\SearchConsole\SearchConsoleFacade as SearchConsole;
 use Tipoff\GoogleApi\Facades\GoogleOauth;
+use Tipoff\GoogleApi\GoogleServices;
 use Tipoff\Seo\Jobs\CheckKeywordSearchVolumeJob;
 
 class CheckSearchVolumeCommand extends Command
@@ -36,6 +36,9 @@ class CheckSearchVolumeCommand extends Command
         // Get access token from Google Oauth package.
         $accessToken = GoogleOauth::accessToken('google-console');
 
+        /** @var GoogleServices $googleServices */
+        $googleServices = app(GoogleServices::class)->setAccessToken($accessToken);
+
         $batch = Bus::batch([])
             ->name('check-keyword-search-volume-' . date('Y-m-d'))
             ->allowFailures()
@@ -46,7 +49,7 @@ class CheckSearchVolumeCommand extends Command
          * Using SearchConsole Facade directly here,
          * we might need to use registry pattern when we have more provider like Ahrefs or Semrush, etc.
          */
-        SearchConsole::setAccessToken($accessToken->getAccessToken())
+        $googleServices->searchConsole()
             ->setQuotaUser('uniqueQuotaUserString')
             ->searchAnalyticsQuery(
                 $this->argument('url'),

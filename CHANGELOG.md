@@ -124,3 +124,9 @@ All notable changes to `seo` will be documented in this file.
 ## 2.7.4 - 2021-04-20
 
 - update nova resources
+
+## 2.7.5 - 2021-04-23
+
+- search volume tracking
+- formatted domain title
+- formatted webpage title

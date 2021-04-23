@@ -30,6 +30,7 @@ class Domain extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Domain Name', 'formatted_title'),
             Text::make('Name')->sortable(),
             Text::make('TLD')->sortable(),
         ]);
@@ -38,6 +39,8 @@ class Domain extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
+            Text::make('Domain Name', 'formatted_title')
+                ->onlyOnIndex(),
             Text::make('Name')
                 ->required()
                 ->creationRules("unique:domains,name,NULL,id,tld,$request->tld")

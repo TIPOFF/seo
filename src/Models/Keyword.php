@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Tipoff\Seo\Models;
 
@@ -32,8 +32,8 @@ class Keyword extends BaseModel
         });
         static::addGlobalScope('active', function (Builder $builder) {
             $builder->whereDate('keywords.tracking_requested_at', '<=', date('Y-m-d')) &&
-                    ($builder->whereDate('keywords.tracking_stopped_at', '>=', date('Y-m-d'))
-                            ->orWhereNull('keywords.tracking_stopped_at'));
+            ($builder->whereDate('keywords.tracking_stopped_at', '>=', date('Y-m-d'))
+                ->orWhereNull('keywords.tracking_stopped_at'));
         });
     }
 
@@ -70,5 +70,10 @@ class Keyword extends BaseModel
     public function rankings()
     {
         return $this->hasMany(app('ranking'));
+    }
+
+    public function searchVolume()
+    {
+        return $this->hasOne(SearchVolume::class);
     }
 }

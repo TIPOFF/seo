@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tipoff\Seo;
 
 use Tipoff\Seo\Commands\CheckRankingCommand;
+use Tipoff\Seo\Commands\CheckSearchVolumeCommand;
 use Tipoff\Seo\Commands\PullSearchLocales;
 use Tipoff\Seo\Models\BusinessCategory;
 use Tipoff\Seo\Models\Company;
@@ -58,6 +59,7 @@ class SeoServiceProvider extends TipoffServiceProvider
             ->hasCommands([
                 CheckRankingCommand::class,
                 PullSearchLocales::class,
+                CheckSearchVolumeCommand::class,
             ])
             ->name('seo')
             ->hasConfigFile();

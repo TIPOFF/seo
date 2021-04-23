@@ -15,8 +15,9 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4|^8.0",
         "drewroberts/media": "^3.5.0",
+        "schulzefelix/laravel-search-console": "^1.7",
         "tipoff/addresses": "^2.8.10",
         "tipoff/authorization": "^2.8.6",
         "tipoff/laravel-google-api": "^2.1.0",

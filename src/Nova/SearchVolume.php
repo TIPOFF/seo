@@ -22,7 +22,7 @@ class SearchVolume extends BaseResource
 
     public static $search = [
         'id',
-        'engine'
+        'engine',
     ];
 
     public static $group = 'SEO';
@@ -44,7 +44,7 @@ class SearchVolume extends BaseResource
             Select::make('Range')->options([
                 'day' => 'Day',
                 'month' => 'Month',
-                'week' => 'Week'
+                'week' => 'Week',
             ])->required(),
             Text::make('Range Value')->required()->sortable(),
             Number::make('Queries')->required(),

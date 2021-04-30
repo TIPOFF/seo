@@ -25,7 +25,7 @@ class CheckRankingCommandTest extends TestCase
         Bus::fake([
             GetOrganicResults::class,
             GetLocalResults::class,
-            GetVideoResults::class
+            GetVideoResults::class,
         ]);
 
         $serpApiSearch = $this->partialMock(
@@ -47,7 +47,7 @@ class CheckRankingCommandTest extends TestCase
         $keyword->searchLocales()
                 ->attach($searchLocale->id, [
                     'creator_id' => $searchLocale->creator_id,
-                    'updater_id' => $searchLocale->updater_id
+                    'updater_id' => $searchLocale->updater_id,
                 ]);
 
         $this->artisan('pull:check_rankings')
@@ -58,7 +58,7 @@ class CheckRankingCommandTest extends TestCase
         Bus::assertChained([
             GetOrganicResults::class,
             GetLocalResults::class,
-            GetVideoResults::class
+            GetVideoResults::class,
         ]);
     }
 }

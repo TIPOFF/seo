@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Tests\Unit\Commands;
 
-use Mockery\MockInterface;
-use Illuminate\Support\Str;
-use Tipoff\Seo\Tests\TestCase;
 use Illuminate\Bus\PendingBatch;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
-use Tipoff\GoogleApi\GoogleServices;
-use Tipoff\GoogleApi\Facades\GoogleOauth;
-use Tipoff\Seo\Jobs\CheckKeywordSearchVolumeJob;
+use Illuminate\Support\Str;
+use Mockery\MockInterface;
 use Tipoff\GoogleApi\DataTransferObjects\AccessToken;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tipoff\GoogleApi\Facades\GoogleOauth;
+use Tipoff\GoogleApi\GoogleServices;
+use Tipoff\Seo\Jobs\CheckKeywordSearchVolumeJob;
+use Tipoff\Seo\Tests\TestCase;
 
 class CheckSearchVolumeCommandTest extends TestCase
 {
@@ -43,7 +43,7 @@ class CheckSearchVolumeCommandTest extends TestCase
 
         GoogleOauth::shouldReceive('accessToken')->once()->andReturn(new AccessToken($this->fakeToken));
 
-        $this->partialMock(GoogleServices::class, function(MockInterface $mock) {
+        $this->partialMock(GoogleServices::class, function (MockInterface $mock) {
             $mock->shouldReceive('setAccessToken')
                     ->once()
                     ->withAnyArgs()
@@ -78,7 +78,7 @@ class CheckSearchVolumeCommandTest extends TestCase
                 'searchType' => 'web',
                 'dataState' => 'all',
                 'aggregationType' => 'auto',
-            ]
+            ],
         ]);
 
         return $dataRows;

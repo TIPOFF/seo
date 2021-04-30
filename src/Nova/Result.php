@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Tipoff\Seo\Enum\ResultType;
@@ -22,7 +23,7 @@ class Result extends BaseResource
     public static $title = 'position';
 
     public static $search = [
-        'id',
+        'id'
     ];
 
     public static $group = 'SEO';
@@ -33,6 +34,9 @@ class Result extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Type')->sortable(),
+            Text::make('Position')->sortable(),
+            MorphTo::make('Resultable')->sortable(),
         ]);
     }
 

@@ -6,6 +6,7 @@ namespace Tipoff\Seo\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -46,6 +47,7 @@ class Ranking extends BaseResource
             nova('keyword') ? BelongsTo::make('Keyword', 'keyword', nova('keyword'))->sortable() : null,
             nova('search_locale') ? BelongsTo::make('Search Locale', 'searchLocale', nova('search_locale'))->sortable() : null,
 
+            nova('result') ? HasMany::make('Results', 'results', nova('result')) : null,
             new Panel('Data Fields', $this->dataFields()),
         ]);
     }

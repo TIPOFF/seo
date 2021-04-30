@@ -41,11 +41,12 @@ class GetVideoResults implements ShouldQueue
             foreach ($this->response_data->inline_videos as $key => $inline_video) {
                 $key++; // key starts from zero but position needs to start from one
                 $url = $inline_video->link;
+
                 try {
                     $url_array = parseUrl($url);
-                }
-                catch (\Exception $e) {
+                } catch (\Exception $e) {
                     echo $e->getMessage()."\n";
+
                     continue;
                 }
 

@@ -38,11 +38,12 @@ class GetOrganicResults implements ShouldQueue
         if (isset($this->response_data->organic_results)) {
             foreach ($this->response_data->organic_results as $organic_result) {
                 $url = $organic_result->link;
+
                 try {
                     $url_array = parseUrl($url);
-                }
-                catch (\Exception $e) {
+                } catch (\Exception $e) {
                     echo $e->getMessage()."\n";
+
                     continue;
                 }
 

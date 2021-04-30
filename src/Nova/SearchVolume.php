@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
@@ -21,14 +22,17 @@ class SearchVolume extends BaseResource
 
     public static $search = [
         'id',
+        'engine',
     ];
-    
+
     public static $group = 'SEO';
 
     public function fieldsForIndex(NovaRequest $request)
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Engine')->sortable(),
+            Text::make('Range Value')->sortable(),
         ]);
     }
 
@@ -37,7 +41,12 @@ class SearchVolume extends BaseResource
         return array_filter([
             Text::make('Engine')->required()->sortable(),
             Text::make('Provider')->required()->sortable(),
-            Text::make('Month')->required()->sortable(),
+            Select::make('Range')->options([
+                'day' => 'Day',
+                'month' => 'Month',
+                'week' => 'Week',
+            ])->required(),
+            Text::make('Range Value')->required()->sortable(),
             Number::make('Queries')->required(),
             Number::make('Clicks')->nullable(),
 

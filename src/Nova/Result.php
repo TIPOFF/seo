@@ -23,7 +23,7 @@ class Result extends BaseResource
     public static $title = 'position';
 
     public static $search = [
-        'id'
+        'id',
     ];
 
     public static $group = 'SEO';

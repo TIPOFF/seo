@@ -41,7 +41,13 @@ class GetVideoResults implements ShouldQueue
             foreach ($this->response_data->inline_videos as $key => $inline_video) {
                 $key++; // key starts from zero but position needs to start from one
                 $url = $inline_video->link;
-                $url_array = parseUrl($url);
+                try {
+                    $url_array = parseUrl($url);
+                }
+                catch (\Exception $e) {
+                    echo $e->getMessage()."\n";
+                    continue;
+                }
 
                 $domain = Domain::firstOrCreate(
                     [
@@ -52,7 +58,7 @@ class GetVideoResults implements ShouldQueue
                      ],
                     ['created_at' => Carbon::now()->format('Y-m-d H:i:s')]
                 );
-                
+
                 $webpage = Webpage::firstOrCreate(
                     [
                         'domain_id' => $domain->id,

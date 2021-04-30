@@ -180,8 +180,13 @@ class GetLocalResults implements ShouldQueue
 
                     if (isset($searched_place->website)) {
                         $url = $searched_place->website;
-                        $url_array = parseUrl($url);
-
+                        try {
+                            $url_array = parseUrl($url);
+                        }
+                        catch (\Exception $e) {
+                            echo $e->getMessage()."\n";
+                            continue;
+                        }
                         $domain = Domain::firstOrCreate(
                             [
                                     'name' => $url_array['name'],

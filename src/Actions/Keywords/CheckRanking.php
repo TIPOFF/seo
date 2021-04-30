@@ -43,11 +43,16 @@ class CheckRanking
             ]);
             $ranking->save();
 
-            Bus::chain([
-                new GetOrganicResults($response_data, $ranking->id),
-                new GetLocalResults($response_data, $ranking->id, $keyword->phrase), // only support domestic results at the moment
-                new GetVideoResults($response_data, $ranking->id, $search_locale->id),
-            ])->dispatch();
+            try {
+                Bus::chain([
+                    new GetOrganicResults($response_data, $ranking->id),
+                    new GetLocalResults($response_data, $ranking->id, $keyword->phrase), // only support domestic results at the moment
+                    new GetVideoResults($response_data, $ranking->id, $search_locale->id),
+
+                ])->dispatch();
+            } catch (\Exception $e) {
+                echo $e->getMessage()."\n";
+            }
         }
     }
 }

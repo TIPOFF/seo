@@ -230,15 +230,15 @@ class GetLocalResults implements ShouldQueue
                     */
 
                     $company = Company::firstOrCreate(
-                            [
+                        [
                                 'name' => $local_result->title,
-                                'slug' => Str::slug($local_result->title)
+                                'slug' => Str::slug($local_result->title),
                             ],
-                            [
+                        [
                                 'domestic_address_id' => $domestic_address_id,
-                                'phone_id' => (isset($phone->id)) ? $phone->id : null
+                                'phone_id' => (isset($phone->id)) ? $phone->id : null,
                             ]
-                        );
+                    );
 
                     $place = new Place([
                         'place_location' => $local_result->place_id,

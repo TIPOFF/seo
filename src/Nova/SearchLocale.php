@@ -38,13 +38,13 @@ class SearchLocale extends BaseResource
     {
         return array_filter([
             Text::make('Serp ID')->required(),
-            Number::make('Google ID')->required(),
-            Number::make('Google Parent ID')->required(),
+            Number::make('Google ID')->required()->rules('max:10'),
+            Number::make('Google Parent ID')->required()->rules('max:10'),
             Text::make('Name')->required()->sortable(),
             Text::make('Canonical Name')->required()->sortable(),
             Text::make('Country Code')->required()->sortable(),
             Text::make('Target Type')->required()->sortable(),
-            Number::make('Reach')->required(),
+            Number::make('Reach')->required()->rules('max:10'),
             Number::make('Latitude')->step(0.000001)->nullable(),
             Number::make('Longitude')->step(0.000001)->nullable(),
 

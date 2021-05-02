@@ -21,18 +21,18 @@ class Result extends BaseResource
     public static $model = \Tipoff\Seo\Models\Result::class;
 
     public static $with = [
-        'resultable'
+        'resultable',
     ];
 
     public static $title = 'position';
 
     public static $search = [
-        'id', 'type'
+        'id', 'type',
     ];
 
     public static $defaultSort = [
         'type' => 'asc',
-        'position' => 'asc'
+        'position' => 'asc',
     ];
 
     public static $group = 'SEO';
@@ -46,7 +46,6 @@ class Result extends BaseResource
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-
     public static function indexQuery(NovaRequest $request, $query)
     {
         if (static::$defaultSort && empty($request->get('orderBy'))) {

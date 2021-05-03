@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tipoff\Seo\Tests\Unit\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Seo\Actions\Keywords\CheckRanking;
-use Tipoff\Seo\Models\SearchVolume;
-use Tipoff\Seo\Models\SearchLocale;
 use Tipoff\Seo\Enum\KeywordType;
 use Tipoff\Seo\Models\Keyword;
 use Tipoff\Seo\Models\Ranking;
+use Tipoff\Seo\Models\SearchLocale;
+use Tipoff\Seo\Models\SearchVolume;
 use Tipoff\Seo\Tests\TestCase;
 
 class KeywordModelTest extends TestCase
@@ -88,7 +88,6 @@ class KeywordModelTest extends TestCase
 
         $this->assertEquals($volume->id, $keyword->searchVolume->id);
     }
-
 
     /** @test */
     public function get_search_locales()

@@ -10,6 +10,7 @@ use Livewire\LivewireServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 use Tipoff\Addresses\AddressesServiceProvider;
 use Tipoff\Authorization\AuthorizationServiceProvider;
+use Tipoff\GoogleApi\GoogleApiServiceProvider;
 use Tipoff\Seo\SeoServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
@@ -29,6 +30,7 @@ class TestCase extends BaseTestCase
             AddressesServiceProvider::class,
             MediaServiceProvider::class,
             SeoServiceProvider::class,
+            GoogleApiServiceProvider::class,
         ];
     }
 }

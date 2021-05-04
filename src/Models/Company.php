@@ -30,6 +30,9 @@ class Company extends BaseModel
         return $this->hasMany(app('place'));
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function locations()
     {
         return $this->hasMany(app('location'));

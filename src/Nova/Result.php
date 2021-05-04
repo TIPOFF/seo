@@ -20,15 +20,43 @@ class Result extends BaseResource
 {
     public static $model = \Tipoff\Seo\Models\Result::class;
 
+    public static $with = [
+        'resultable',
+    ];
+
     public static $title = 'position';
 
     public static $search = [
-        'id',
+        'id', 'type',
+    ];
+
+    public static $defaultSort = [
+        'type' => 'asc',
+        'position' => 'asc',
     ];
 
     public static $group = 'SEO';
 
     public static $displayInNavigation = false; //don't show resource in navigation
+
+    /**
+     * Build an "index" query for the given resource to sort on multiple columns.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (static::$defaultSort && empty($request->get('orderBy'))) {
+            $query->getQuery()->orders = [];
+            foreach (static::$defaultSort as $field => $order) {
+                $query->orderBy($field, $order);
+            }
+        }
+
+        return $query;
+    }
 
     public function fieldsForIndex(NovaRequest $request)
     {
@@ -36,7 +64,14 @@ class Result extends BaseResource
             ID::make()->sortable(),
             Text::make('Type')->sortable(),
             Text::make('Position')->sortable(),
-            MorphTo::make('Resultable')->sortable(),
+            MorphTo::make('Resultable'),
+            Text::make('Domain', 'resultable.id', function () {
+                if (isset($this->resultable->domain)) {
+                    return $this->resultable->domain->formatted_title;
+                } else {
+                    return null;
+                }
+            }),
         ]);
     }
 
@@ -50,13 +85,20 @@ class Result extends BaseResource
                 ResultType::INLINE_VIDEO_LISTINGS => 'Inline Video Listings',
                 ResultType::ADS => 'Product',
             ])->required(),
-            Number::make('Position')->required()->min(0)->max(255)->sortable(),
+            Number::make('Position')->required()->min(0)->max(255),
 
             nova('ranking') ? BelongsTo::make('Ranking', 'ranking', nova('ranking'))->sortable() : null,
             MorphTo::make('Resultable')->types([
                 nova('place'),
                 nova('webpage'),
             ]),
+            Text::make('Domain', 'resultable.id', function () {
+                if (isset($this->resultable->domain)) {
+                    return $this->resultable->domain->formatted_title;
+                } else {
+                    return null;
+                }
+            })->onlyOnDetail(),
 
 
             new Panel('Data Fields', $this->dataFields()),

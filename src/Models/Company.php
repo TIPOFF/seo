@@ -30,14 +30,22 @@ class Company extends BaseModel
         return $this->hasMany(app('place'));
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function locations()
     {
         return $this->hasMany(app('location'));
     }
-    
+
     public function domestic_address()
     {
         return $this->belongsTo(app('domestic_address'));
+    }
+
+    public function phone()
+    {
+        return $this->belongsTo(app('phone'));
     }
 
     // @todo use new addresable trait

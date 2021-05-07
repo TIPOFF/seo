@@ -42,15 +42,15 @@ class Domain extends BaseResource
             Text::make('Domain Name', 'formatted_title')
                 ->onlyOnIndex(),
             Text::make('Name')
-                ->required()
+                ->rules('required')
                 ->creationRules("unique:domains,name,NULL,id,tld,$request->tld")
                 ->updateRules("unique:domains,name,{{resourceId}},id,tld,$request->tld"),
             Text::make('TLD')
-                ->required()
+                ->rules('required')
                 ->creationRules("unique:domains,tld,NULL,id,name,$request->name")
                 ->updateRules("unique:domains,tld,{{resourceId}},id,name,$request->name")
                 ->help('Top-level domain'),
-            Boolean::make('Https')->required()->default(true),
+            Boolean::make('Https')->default(true),
             Text::make('Subdomain')->nullable(),
 
             nova('company') ? BelongsTo::make('Company', 'company', nova('company'))->nullable() : null,

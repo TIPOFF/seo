@@ -39,15 +39,15 @@ class SearchVolume extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Engine')->required()->sortable(),
-            Text::make('Provider')->required()->sortable(),
+            Text::make('Engine')->rules('required', 'max:64')->sortable(),
+            Text::make('Provider')->rules('required', 'max:64')->sortable(),
             Select::make('Range')->options([
                 'day' => 'Day',
                 'month' => 'Month',
                 'week' => 'Week',
-            ])->required(),
-            Text::make('Range Value')->required()->sortable(),
-            Number::make('Queries')->required(),
+            ])->rules('required'),
+            Text::make('Range Value')->rules('required', 'max:32')->sortable(),
+            Number::make('Queries')->rules('required'),
             Number::make('Clicks')->nullable(),
 
             nova('keyword') ? BelongsTo::make('Keyword', 'keyword', nova('keyword'))->sortable() : null,

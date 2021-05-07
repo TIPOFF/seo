@@ -39,9 +39,10 @@ class Company extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Name')->required(),
+            Text::make('Name')
+                ->rules('required'),
             Text::make('Slug')
-                ->required()
+                ->rules('required')
                 ->creationRules('unique:companies,slug')->sortable()
                 ->updateRules('unique:companies,slug,{{resourceId}}'),
 

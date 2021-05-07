@@ -40,9 +40,9 @@ class Ranking extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Engine')->required()->sortable(),
-            Text::make('Provider')->required()->sortable(),
-            Date::make('Date')->required()->sortable(),
+            Text::make('Engine')->rules('required')->sortable(),
+            Text::make('Provider')->rules('required')->sortable(),
+            Date::make('Date')->rules('required')->sortable(),
 
             nova('keyword') ? BelongsTo::make('Keyword', 'keyword', nova('keyword'))->sortable() : null,
             nova('search_locale') ? BelongsTo::make('Search Locale', 'searchLocale', nova('search_locale'))->sortable() : null,

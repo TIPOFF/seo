@@ -20,7 +20,7 @@ class Place extends BaseResource
     public static $title = 'name';
 
     public static $search = [
-        'id',
+        'id', 'name'
     ];
 
     public static $group = 'SEO';
@@ -31,13 +31,16 @@ class Place extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Name')->sortable()
         ]);
     }
 
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Place location')->required()->creationRules('unique:places,place_location'),
+            Text::make('Place location')
+                ->rules('required')
+                ->creationRules('unique:places,place_location'),
             Text::make('Name')->nullable(),
 
             nova('webpage') ? BelongsTo::make('Webpage', 'webpage', nova('webpage'))->nullable() : null,

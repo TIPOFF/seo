@@ -21,7 +21,7 @@ class PlaceDetails extends BaseResource
     public static $title = 'name';
 
     public static $search = [
-        'id', 'name'
+        'id', 'name',
     ];
 
     public static $group = 'SEO';
@@ -32,7 +32,7 @@ class PlaceDetails extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
-            Text::make('Name')->sortable()
+            Text::make('Name')->sortable(),
         ]);
     }
 

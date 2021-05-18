@@ -21,7 +21,7 @@ class PlaceDetails extends BaseResource
     public static $title = 'name';
 
     public static $search = [
-        'id',
+        'id', 'name',
     ];
 
     public static $group = 'SEO';
@@ -32,26 +32,22 @@ class PlaceDetails extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Name')->sortable(),
         ]);
     }
 
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Name')->required(),
+            nova('place') ? BelongsTo::make('Place', 'place', nova('place'))->searchable() : null,
+            Text::make('Name')->rules('required'),
+            nova('domestic_address') ? BelongsTo::make('Domestic Address', 'domestic_address', nova('domestic_address'))->searchable()->nullable() : null,
+            nova('phone') ? BelongsTo::make('Phone', 'phone', nova('phone'))->searchable()->nullable() : null,
+            nova('webpage') ? BelongsTo::make('Webpage', 'webpage', nova('webpage'))->searchable()->nullable() : null,
+
             Date::make('Opened at')->nullable(),
-            Text::make('Address')->nullable(),
-            Text::make('Address2')->nullable(),
-            Text::make('City')->nullable(),
-            Text::make('State')->nullable(),
-            Text::make('Zip')->rules('max:5')->nullable(),
-            Text::make('Phone')->rules('max:25')->nullable(),
-            Text::make('Maps url')->nullable(),
             Number::make('Latitude')->step(0.000001)->nullable(),
             Number::make('Longitude')->step(0.000001)->nullable(),
-
-            nova('place') ? BelongsTo::make('Place', 'place', nova('place'))->sortable() : null,
-            nova('webpage') ? BelongsTo::make('Webpage', 'webpage', nova('webpage'))->nullable() : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ]);

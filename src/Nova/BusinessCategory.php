@@ -36,11 +36,11 @@ class BusinessCategory extends BaseResource
     {
         return array_filter([
             Text::make('Name')
-                ->required()
+                ->rules('required')
                 ->creationRules('unique:business_categories,name')
                 ->updateRules('unique:business_categories,name,{{resourceId}}'),
             Text::make('Slug')
-                ->required()
+                ->rules('required')
                 ->creationRules('unique:business_categories,slug')
                 ->updateRules('unique:business_categories,slug,{{resourceId}}'),
 

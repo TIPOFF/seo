@@ -35,6 +35,22 @@ class PlaceDetails extends BaseModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function domestic_address()
+    {
+        return $this->belongsTo(app('domestic_address'));
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function phone()
+    {
+        return $this->belongsTo(app('phone'));
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function place()
     {
         return $this->belongsTo(app('place'));

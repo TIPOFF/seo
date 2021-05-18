@@ -41,7 +41,7 @@ class Webpage extends BaseResource
         return array_filter([
             Text::make('Domain Name', 'formatted_title')
                 ->onlyOnIndex(),
-            Text::make('Path')->required(),
+            Text::make('Path')->rules('required'),
             Text::make('Subdomain')->nullable(),
 
             nova('domain') ? BelongsTo::make('Domain', 'domain', nova('domain'))->nullable() : null,

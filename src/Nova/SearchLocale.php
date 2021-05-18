@@ -37,14 +37,14 @@ class SearchLocale extends BaseResource
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Serp ID')->required(),
-            Number::make('Google ID')->required()->rules('max:10'),
-            Number::make('Google Parent ID')->required()->rules('max:10'),
-            Text::make('Name')->required()->sortable(),
-            Text::make('Canonical Name')->required()->sortable(),
-            Text::make('Country Code')->required()->sortable(),
-            Text::make('Target Type')->required()->sortable(),
-            Number::make('Reach')->required()->rules('max:10'),
+            Text::make('Serp ID')->rules('required'),
+            Number::make('Google ID')->rules('required', 'max:10'),
+            Number::make('Google Parent ID')->rules('required', 'max:10'),
+            Text::make('Name')->rules('required')->sortable(),
+            Text::make('Canonical Name')->rules('required')->sortable(),
+            Text::make('Country Code')->rules('required')->sortable(),
+            Text::make('Target Type')->rules('required')->sortable(),
+            Number::make('Reach')->rules('required', 'max:10'),
             Number::make('Latitude')->step(0.000001)->nullable(),
             Number::make('Longitude')->step(0.000001)->nullable(),
 

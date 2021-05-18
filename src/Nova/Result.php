@@ -84,8 +84,9 @@ class Result extends BaseResource
                 ResultType::FEATURED_SNIPPET => 'Featured Snippet',
                 ResultType::INLINE_VIDEO_LISTINGS => 'Inline Video Listings',
                 ResultType::ADS => 'Product',
-            ])->required(),
-            Number::make('Position')->required()->min(0)->max(255),
+            ])->rules('required'),
+            Number::make('Position')
+                ->rules('required', 'max:3')->sortable(),
 
             nova('ranking') ? BelongsTo::make('Ranking', 'ranking', nova('ranking'))->sortable() : null,
             MorphTo::make('Resultable')->types([
